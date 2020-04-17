@@ -2,14 +2,14 @@ package Clases;
 
 import java.awt.EventQueue;
 
-import Graficos.VentanaPrincipal;
+import Graficos.ventanaPrincipal;
 
 public class Main {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
+					ventanaPrincipal frame = new ventanaPrincipal();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
