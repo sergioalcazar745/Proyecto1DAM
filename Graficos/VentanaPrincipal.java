@@ -7,11 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class panelPrincipal extends JFrame {
+public class VentanaPrincipal extends JFrame {
 
 	private JPanel contentPane;
 
-	public panelPrincipal() {
+	public VentanaPrincipal() {
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
