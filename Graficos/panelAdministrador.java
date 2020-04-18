@@ -20,6 +20,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JTree;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class panelAdministrador extends JPanel {
 	private JTextField textField;
@@ -37,7 +38,7 @@ public class panelAdministrador extends JPanel {
 		
 		JLabel lblNewLabel_1 = new JLabel("Proveedor:");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(402, 44, 88, 16);
+		lblNewLabel_1.setBounds(602, 44, 88, 16);
 		add(lblNewLabel_1);
 		
 		JComboBox comboBox = new JComboBox();
@@ -46,47 +47,53 @@ public class panelAdministrador extends JPanel {
 		add(comboBox);
 		
 		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(355, 70, 211, 29);
+		comboBox_2.setBounds(538, 70, 211, 29);
 		add(comboBox_2);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cantidad:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(103, 145, 75, 16);
+		lblNewLabel_2.setBounds(107, 183, 75, 16);
 		add(lblNewLabel_2);
 		
 		JSpinner spinner = new JSpinner();
-		spinner.setBounds(48, 174, 220, 29);
+		spinner.setEnabled(true);
+		spinner.setBounds(48, 212, 220, 29);
 		add(spinner);
 		
 		JLabel lblNewLabel_3 = new JLabel("Precio final:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_3.setBounds(401, 145, 99, 16);
+		lblNewLabel_3.setBounds(602, 183, 99, 16);
 		add(lblNewLabel_3);
 		
 		textField = new JTextField();
-		textField.setBounds(355, 174, 211, 47);
+		textField.setEditable(false);
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		textField.setBounds(538, 212, 211, 47);
 		add(textField);
 		textField.setColumns(10);
 		
 		JButton btnComprar = new JButton("COMPRAR");
-		btnComprar.setBounds(142, 242, 117, 40);
+		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/compra.png")));
+		btnComprar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnComprar.setBounds(211, 322, 154, 40);
 		add(btnComprar);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setBounds(316, 242, 117, 40);
+		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setBounds(431, 322, 133, 40);
 		add(btnCancelar);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(35, 304, 557, 2);
+		separator.setBounds(44, 413, 778, 2);
 		add(separator);
 		
 		JLabel lblNewLabel_4 = new JLabel("Dinero disponible:");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_4.setBounds(54, 335, 142, 16);
+		lblNewLabel_4.setBounds(51, 460, 142, 16);
 		add(lblNewLabel_4);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(208, 333, 358, 22);
+		textField_1.setBounds(222, 455, 567, 29);
 		add(textField_1);
 		textField_1.setColumns(10);
 
