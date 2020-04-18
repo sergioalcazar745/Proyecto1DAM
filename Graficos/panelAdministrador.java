@@ -26,6 +26,7 @@ public class panelAdministrador extends JPanel {
 	private JTextField textField_1;
 
 	public panelAdministrador() {
+		setBounds(232, 11, 853, 544);
 		setBackground(new Color(211, 211, 211));
 		setLayout(null);
 		

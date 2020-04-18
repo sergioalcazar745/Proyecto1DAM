@@ -1,6 +1,7 @@
 package Graficos;
 
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.CardLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -12,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -27,6 +29,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.awt.ScrollPane;
+
 import javax.swing.SwingConstants;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +42,7 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JButton btnHome;
 	private JPanel panel_Productos;
+	JPanel panelAdministrador=new panelAdministrador();
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
@@ -46,6 +51,7 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 	private String Administrador = "admin";
 	
 	private panelAdministrador pad = new panelAdministrador();
+	private JPanel panel;
 
 	
 	public ventanaPrincipal(){
@@ -62,7 +68,8 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
+		panel.setName("panelMenu");
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBackground(new Color(30, 144, 255));
 		panel.setBounds(0, 0, 222, 615);
@@ -121,12 +128,12 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		panel.add(btnSetting);
 		
 		JButton btnSignOut = new JButton("SIGN OUT");
+		btnSignOut.setBackground(Color.RED);
 		btnSignOut.setForeground(new Color(255, 255, 255));
 		btnSignOut.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSignOut.setBounds(51, 566, 125, 25);
-		btnSignOut.setBorderPainted(false);
-		btnSignOut.setOpaque(false);
 		btnSignOut.setContentAreaFilled(false);
+		btnSignOut.setOpaque(true);
 		panel.add(btnSignOut);
 		
 		btnSalir = new JButton("SALIR");
@@ -497,27 +504,41 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		gbc_label_23.gridy = 6;
 		panel_9.add(label_23, gbc_label_23);
 		
-		panel_Productos.add(pad, Administrador);
+
 	}
 	protected JButton getBtnHome() {
 		return btnHome;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object boton = e.getSource();
-		
-		CardLayout c1 = (CardLayout) (panel_Productos.getLayout());
-		if(boton.equals(btnSalir)) {
-			System.exit(WIDTH);
-		}else if(boton.equals(btnHome)) {
-			c1.show(panel_Productos, Administrador);
-			System.out.println("hola");
+		 Object evento=e.getSource();
+		if(evento.equals(btnHome)) {
+			desactivarPaneles();
+			contentPane.add(panelAdministrador);
+			panelAdministrador.setBounds(232, 11, 853, 544);
 		}
+
+
+
 	}
 	protected JButton getBtnSalir() {
 		return btnSalir;
 	}
 	protected JPanel getPanel_Productos() {
 		return panel_Productos;
+	}
+	
+	public void desactivarPaneles() {
+		Component[] components = contentPane.getComponents();
+		for (int i = 0; i < components.length; i++) {
+			if(components[i] instanceof JPanel && components[i].getName()==null) {
+				components[i].setVisible(false);
+			}else if(components[i] instanceof JScrollPane) {
+				components[i].setVisible(false);
+			}
+		}
+	}
+	public JPanel getPanel() {
+		return panel;
 	}
 }
