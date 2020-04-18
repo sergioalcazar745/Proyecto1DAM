@@ -1,7 +1,6 @@
 package Clases;
 
 import java.awt.EventQueue;
-
 import Graficos.ventanaPrincipal;
 
 public class Main {

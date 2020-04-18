@@ -1,8 +1,8 @@
 package Graficos;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
@@ -24,32 +23,32 @@ import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
-import net.miginfocom.swing.MigLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ventanaPrincipal extends JFrame {
+public class ventanaPrincipal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-
-	/**
-	 * Create the frame.
-	 */
+	private JButton btnHome;
+	private JPanel panel_Productos;
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
-	private JButton btnHome;
+	private JButton btnSalir;
 	
-	public ventanaPrincipal() {
+	private String Administrador = "admin";
+	
+	private panelAdministrador pad = new panelAdministrador();
+
+	
+	public ventanaPrincipal(){
 		setResizable(false);
 		setUndecorated(false);
 		setSize(1095,640);
@@ -57,23 +56,27 @@ public class ventanaPrincipal extends JFrame {
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(211, 211, 211));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 191, 255));
-		panel.setBounds(0, 0, 222, 626);
+		panel.setForeground(new Color(255, 255, 255));
+		panel.setBackground(new Color(30, 144, 255));
+		panel.setBounds(0, 0, 222, 615);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
 		JSeparator separator = new JSeparator();
+		separator.setBackground(Color.LIGHT_GRAY);
 		separator.setBounds(12, 149, 198, 2);
 		panel.add(separator);
 		
 		btnHome = new JButton("HOME");
+		btnHome.addActionListener(this);
+		btnHome.setForeground(new Color(255, 255, 255));
 		btnHome.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnHome.setBounds(12, 164, 198, 25);
 		btnHome.setBorderPainted(false);
@@ -82,6 +85,7 @@ public class ventanaPrincipal extends JFrame {
 		panel.add(btnHome);
 		
 		JButton btnProfits = new JButton("PROFITS");
+		btnProfits.setForeground(new Color(255, 255, 255));
 		btnProfits.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnProfits.setBounds(12, 202, 198, 25);
 		btnProfits.setBorderPainted(false);
@@ -90,16 +94,16 @@ public class ventanaPrincipal extends JFrame {
 		panel.add(btnProfits);
 		
 		JButton btnOrders = new JButton("ORDERS");
+		btnOrders.setForeground(new Color(255, 255, 255));
 		btnOrders.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnOrders.setBounds(12, 240, 198, 25);
 		btnOrders.setBorderPainted(false);
 		btnOrders.setOpaque(false);
 		btnOrders.setContentAreaFilled(false);
 		panel.add(btnOrders);
-		
 
-		
 		JButton btnCustomers = new JButton("CUSTOMERS");
+		btnCustomers.setForeground(new Color(255, 255, 255));
 		btnCustomers.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnCustomers.setBounds(12, 278, 198, 25);
 		btnCustomers.setBorderPainted(false);
@@ -108,6 +112,7 @@ public class ventanaPrincipal extends JFrame {
 		panel.add(btnCustomers);
 		
 		JButton btnSetting = new JButton("SETTING");
+		btnSetting.setForeground(new Color(255, 255, 255));
 		btnSetting.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSetting.setBounds(12, 316, 198, 25);
 		btnSetting.setBorderPainted(false);
@@ -116,28 +121,26 @@ public class ventanaPrincipal extends JFrame {
 		panel.add(btnSetting);
 		
 		JButton btnSignOut = new JButton("SIGN OUT");
+		btnSignOut.setForeground(new Color(255, 255, 255));
 		btnSignOut.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnSignOut.setBounds(57, 467, 125, 25);
+		btnSignOut.setBounds(51, 566, 125, 25);
 		btnSignOut.setBorderPainted(false);
 		btnSignOut.setOpaque(false);
 		btnSignOut.setContentAreaFilled(false);
 		panel.add(btnSignOut);
 		
-		JLabel lblNewLabel = new JLabel("");
-		//lblNewLabel.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/Imagenes/logo.PNG")));
-		lblNewLabel.setBounds(24, 13, 198, 126);
-		panel.add(lblNewLabel);
-		
-		JButton btnSalir = new JButton("SALIR");
+		btnSalir = new JButton("SALIR");
+		btnSalir.addActionListener(this);
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnSalir.setBounds(972, 579, 113, 25);
+		btnSalir.setBounds(972, 568, 113, 36);
 		btnSalir.setBorderPainted(false);
 		btnSalir.setOpaque(false);
 		btnSalir.setContentAreaFilled(false);
 		contentPane.add(btnSalir);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(232, 566, 625, 9);
+		separator_1.setBackground(Color.LIGHT_GRAY);
+		separator_1.setBounds(234, 568, 843, 12);
 		contentPane.add(separator_1);
 		
 		JScrollPane scrollPane_ventanaPrincipal = new JScrollPane();
@@ -145,12 +148,14 @@ public class ventanaPrincipal extends JFrame {
 		scrollPane_ventanaPrincipal.setBounds(232, 11, 853, 544);
 		contentPane.add(scrollPane_ventanaPrincipal);
 		scrollPane_ventanaPrincipal.getVerticalScrollBar().setUnitIncrement(20);
-		JPanel panel_Productos = new JPanel();
+		panel_Productos = new JPanel();
+		panel_Productos.setBackground(new Color(211, 211, 211));
 		scrollPane_ventanaPrincipal.setViewportView(panel_Productos);
 		panel_Productos.setPreferredSize(new Dimension(400, 900));
 		panel_Productos.setLayout(new GridLayout(3, 3, 50, 100));
 		scrollPane_ventanaPrincipal.setBorder(BorderFactory.createEmptyBorder());
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0, 0};
@@ -189,6 +194,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_1.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -226,6 +232,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_2.add(label_2, gbc_label_2);
 		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_3);
 		GridBagLayout gbl_panel_3 = new GridBagLayout();
 		gbl_panel_3.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -263,6 +270,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_3.add(label_5, gbc_label_5);
 		
 		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_4);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -300,6 +308,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_4.add(label_8, gbc_label_8);
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_5);
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
 		gbl_panel_5.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -337,6 +346,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_5.add(label_11, gbc_label_11);
 		
 		JPanel panel_6 = new JPanel();
+		panel_6.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_6);
 		GridBagLayout gbl_panel_6 = new GridBagLayout();
 		gbl_panel_6.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -374,6 +384,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_6.add(label_14, gbc_label_14);
 		
 		JPanel panel_7 = new JPanel();
+		panel_7.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_7);
 		GridBagLayout gbl_panel_7 = new GridBagLayout();
 		gbl_panel_7.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -411,6 +422,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_7.add(label_17, gbc_label_17);
 		
 		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_8);
 		GridBagLayout gbl_panel_8 = new GridBagLayout();
 		gbl_panel_8.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -448,6 +460,7 @@ public class ventanaPrincipal extends JFrame {
 		panel_8.add(label_20, gbc_label_20);
 		
 		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(new Color(211, 211, 211));
 		panel_Productos.add(panel_9);
 		GridBagLayout gbl_panel_9 = new GridBagLayout();
 		gbl_panel_9.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -483,8 +496,28 @@ public class ventanaPrincipal extends JFrame {
 		gbc_label_23.gridx = 5;
 		gbc_label_23.gridy = 6;
 		panel_9.add(label_23, gbc_label_23);
+		
+		panel_Productos.add(pad, Administrador);
 	}
 	protected JButton getBtnHome() {
 		return btnHome;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object boton = e.getSource();
+		
+		CardLayout c1 = (CardLayout) (panel_Productos.getLayout());
+		if(boton.equals(btnSalir)) {
+			System.exit(WIDTH);
+		}else if(boton.equals(btnHome)) {
+			c1.show(panel_Productos, Administrador);
+			System.out.println("hola");
+		}
+	}
+	protected JButton getBtnSalir() {
+		return btnSalir;
+	}
+	protected JPanel getPanel_Productos() {
+		return panel_Productos;
 	}
 }
