@@ -54,6 +54,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnSalir;
 	private JButton btnOrders;
 	
+	
 	public VentanaPrincipal(){
 		setResizable(false);
 		setUndecorated(false);
@@ -67,6 +68,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		
+		contentPane.add(panelInicioSesion);
+		contentPane.add(panelCuenta);
+		contentPane.add(panelAdministrador);
+		panelInicioSesion.setVisible(false);
+		panelCuenta.setVisible(false);
+		panelAdministrador.setVisible(false);
 		
 		panel = new JPanel();
 		panel.setName("panelMenu");
@@ -358,16 +367,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			 System.exit(WIDTH);
 		 }else if(evento.equals(btnHome)) {
 			desactivarPaneles();
-			contentPane.add(panelAdministrador);
+			panelAdministrador.setVisible(true);
 			contentPane.revalidate();
 		}else if(evento.equals(btnProfits)) {
 			desactivarPaneles();
-			contentPane.add(panelCuenta);
+			panelCuenta.setVisible(true);
 		}else if(evento.equals(btnOrders)) {
 			desactivarPaneles();
-			contentPane.add(panelInicioSesion);
+			panelInicioSesion.setVisible(true);
 		}
 	}
+
 	
 	protected JButton getBtnSalir() {
 		return btnSalir;
