@@ -73,7 +73,7 @@ public class panelAdministrador extends JPanel {
 		textField.setColumns(10);
 		
 		JButton btnComprar = new JButton("COMPRAR");
-		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/shopping_bag.png")));
+		//btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/shopping_bag.png")));
 		btnComprar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnComprar.setBounds(183, 322, 154, 40);
 		btnComprar.setBorderPainted(false);

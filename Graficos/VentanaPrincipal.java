@@ -37,7 +37,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class VentanaPrincipal extends JFrame implements ActionListener{
+public class ventanaPrincipal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JPanel panel_Productos;
@@ -52,7 +52,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
 	
-	public VentanaPrincipal(){
+	public ventanaPrincipal(){
 		setResizable(false);
 		setUndecorated(false);
 		setSize(1095,640);
@@ -171,7 +171,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_1.setLayout(gbl_panel_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/imagenes/999738_big (1).jpg")));
+		lblNewLabel_1.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/imagenes/999738_big (1).jpg")));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_1.gridheight = 5;
@@ -517,6 +517,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		 }else if(evento.equals(btnHome)) {
 			desactivarPaneles();
 			contentPane.add(panelAdministrador);
+			contentPane.revalidate();
 		}else if(evento.equals(btnProfits)) {
 			desactivarPaneles();
 			contentPane.add(panelCuenta);
