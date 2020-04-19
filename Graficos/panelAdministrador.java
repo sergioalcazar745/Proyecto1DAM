@@ -98,7 +98,7 @@ public class panelAdministrador extends JPanel {
 		textField_1.setColumns(10);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/equis.png")));
+		//btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/equis.png")));
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCancelar.setBounds(449, 322, 170, 40);
 		btnCancelar.setBorderPainted(false);
