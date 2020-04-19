@@ -37,7 +37,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ventanaPrincipal extends JFrame implements ActionListener{
+public class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JPanel panel_Productos;
@@ -47,12 +47,14 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 	
 	private JPanel panelAdministrador = new panelAdministrador();
 	private JPanel panelCuenta = new panelCuenta();
+	private JPanel panelInicioSesion = new panelInicioSesion();
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
+	private JButton btnOrders;
 	
-	public ventanaPrincipal(){
+	public VentanaPrincipal(){
 		setResizable(false);
 		setUndecorated(false);
 		setSize(1095,640);
@@ -99,7 +101,8 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		btnProfits.setContentAreaFilled(false);
 		panel.add(btnProfits);
 		
-		JButton btnOrders = new JButton("ORDERS");
+		btnOrders = new JButton("ORDERS");
+		btnOrders.addActionListener(this);
 		btnOrders.setForeground(new Color(255, 255, 255));
 		btnOrders.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnOrders.setBounds(12, 240, 198, 25);
@@ -167,7 +170,7 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(33, 1, 181, 271);
-		lblNewLabel_1.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/borrar/molde.jpg")));
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/molde.jpg")));		
 		panel_1.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("PUTOS AMOS 2020");
@@ -187,7 +190,7 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		panel_Productos.add(panel_2);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(ventanaPrincipal.class.getResource("/borrar/molde.jpg")));
+		label.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/molde.jpg")));
 		label.setBounds(33, 1, 181, 271);
 		panel_2.add(label);
 		
@@ -360,6 +363,9 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 		}else if(evento.equals(btnProfits)) {
 			desactivarPaneles();
 			contentPane.add(panelCuenta);
+		}else if(evento.equals(btnOrders)) {
+			desactivarPaneles();
+			contentPane.add(panelInicioSesion);
 		}
 	}
 	
@@ -385,5 +391,8 @@ public class ventanaPrincipal extends JFrame implements ActionListener{
 	}
 	protected JButton getBtnProfits() {
 		return btnProfits;
+	}
+	protected JButton getBtnOrders() {
+		return btnOrders;
 	}
 }
