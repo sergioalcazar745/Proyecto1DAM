@@ -73,15 +73,13 @@ public class panelAdministrador extends JPanel {
 		textField.setColumns(10);
 		
 		JButton btnComprar = new JButton("COMPRAR");
-		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/compra.png")));
+		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/shopping_bag.png")));
 		btnComprar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnComprar.setBounds(211, 322, 154, 40);
+		btnComprar.setBounds(183, 322, 154, 40);
+		btnComprar.setBorderPainted(false);
+		btnComprar.setOpaque(false);
+		btnComprar.setContentAreaFilled(false);
 		add(btnComprar);
-		
-		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnCancelar.setBounds(431, 322, 133, 40);
-		add(btnCancelar);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(44, 413, 778, 2);
@@ -93,9 +91,23 @@ public class panelAdministrador extends JPanel {
 		add(lblNewLabel_4);
 		
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textField_1.setEnabled(false);
 		textField_1.setBounds(222, 455, 567, 29);
 		add(textField_1);
 		textField_1.setColumns(10);
-
+		
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/equis.png")));
+		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
+		btnCancelar.setBounds(449, 322, 170, 40);
+		btnCancelar.setBorderPainted(false);
+		btnCancelar.setOpaque(false);
+		btnCancelar.setContentAreaFilled(false);
+		add(btnCancelar);
+		
+		btnComprar.setBorderPainted(false);
+		btnComprar.setOpaque(false);
+		btnComprar.setContentAreaFilled(false);
 	}
 }

@@ -40,19 +40,17 @@ import java.awt.event.MouseEvent;
 public class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
-	private JButton btnHome;
 	private JPanel panel_Productos;
-	JPanel panelAdministrador=new panelAdministrador();
+	private JPanel panel;
+	private JButton btnProfits;
+	private JButton btnHome;
+	
+	private JPanel panelAdministrador = new panelAdministrador();
+	private JPanel panelCuenta = new panelCuenta();
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
-	
-	private String Administrador = "admin";
-	
-	private panelAdministrador pad = new panelAdministrador();
-	private JPanel panel;
-
 	
 	public VentanaPrincipal(){
 		setResizable(false);
@@ -91,7 +89,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnHome.setContentAreaFilled(false);
 		panel.add(btnHome);
 		
-		JButton btnProfits = new JButton("PROFITS");
+		btnProfits = new JButton("PROFITS");
+		btnProfits.addActionListener(this);
 		btnProfits.setForeground(new Color(255, 255, 255));
 		btnProfits.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnProfits.setBounds(12, 202, 198, 25);
@@ -512,15 +511,18 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 Object evento=e.getSource();
-		if(evento.equals(btnHome)) {
+		
+		 if(evento.equals(btnSalir)) {
+			 System.exit(WIDTH);
+		 }else if(evento.equals(btnHome)) {
 			desactivarPaneles();
 			contentPane.add(panelAdministrador);
-			panelAdministrador.setBounds(232, 11, 853, 544);
+		}else if(evento.equals(btnProfits)) {
+			desactivarPaneles();
+			contentPane.add(panelCuenta);
 		}
-
-
-
 	}
+	
 	protected JButton getBtnSalir() {
 		return btnSalir;
 	}
@@ -540,5 +542,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	}
 	public JPanel getPanel() {
 		return panel;
+	}
+	protected JButton getBtnProfits() {
+		return btnProfits;
 	}
 }
