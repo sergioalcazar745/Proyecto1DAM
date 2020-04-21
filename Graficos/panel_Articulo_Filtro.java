@@ -24,6 +24,7 @@ public class panel_Articulo_Filtro extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(211, 211, 211));
 		panel.setBounds(0, 0, 853, 544);
 		add(panel);
 		panel.setLayout(null);
