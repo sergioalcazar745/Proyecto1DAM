@@ -63,7 +63,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	
 	public VentanaPrincipal() throws Exception{
-		//creacion tipo de fuente
+		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
 	    FileInputStream in = new FileInputStream(f);
 	    Font dynamicFont = Font.createFont(Font.TRUETYPE_FONT, in);
