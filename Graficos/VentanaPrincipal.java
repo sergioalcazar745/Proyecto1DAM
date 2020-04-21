@@ -308,7 +308,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel = new JPanel();
 		panel.setName("panelMenu");
 		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(new Color(36,41,46));
 		panel.setBounds(0, 0, 222, 615);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -321,7 +321,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 		btnHome = new JButton("HOME");
 		btnHome.addActionListener(this);
-		btnHome.setForeground(color_menu);
+		btnHome.setForeground(Color.WHITE);
 		btnHome.setFont(dynamicFont32Pt);
 		btnHome.setBounds(12, 164, 198, 25);
 		btnHome.setBorderPainted(false);
@@ -332,7 +332,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		btnProfits = new JButton("PROFITS");
 		btnProfits.addActionListener(this);
-		btnProfits.setForeground(color_menu);
+		btnProfits.setForeground(Color.WHITE);
 		btnProfits.setFont(dynamicFont32Pt);
 		btnProfits.setBounds(12, 202, 198, 25);
 		btnProfits.setBorderPainted(false);
@@ -343,7 +343,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		btnOrders = new JButton("ORDERS");
 		btnOrders.addActionListener(this);
-		btnOrders.setForeground(color_menu);
+		btnOrders.setForeground(Color.WHITE);
 		btnOrders.setFont(dynamicFont32Pt);
 		btnOrders.setBounds(12, 240, 198, 25);
 		btnOrders.setBorderPainted(false);
@@ -353,7 +353,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel.add(btnOrders);
 
 		JButton btnCustomers = new JButton("CUSTOMERS");
-		btnCustomers.setForeground(color_menu);
+		btnCustomers.setForeground(Color.WHITE);
 		btnCustomers.setFont(dynamicFont32Pt);
 		btnCustomers.setBounds(12, 278, 198, 25);
 		btnCustomers.setBorderPainted(false);
@@ -363,7 +363,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel.add(btnCustomers);
 		
 		JButton btnSetting = new JButton("SETTING");
-		btnSetting.setForeground(color_menu);
+		btnSetting.setForeground(Color.WHITE);
 		btnSetting.setFont(dynamicFont32Pt);
 		btnSetting.setBounds(12, 316, 198, 25);
 		btnSetting.setBorderPainted(false);
