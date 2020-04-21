@@ -31,7 +31,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private JButton btnEditTelefono;
 	private JButton btnEditCorreo;
 	private JButton btnEditContraseña;
-
+//
 	public panelCuenta() {
 		setBackground(new Color(211, 211, 211));
 		setBounds(232, 11, 853, 544);
