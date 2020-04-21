@@ -80,12 +80,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(211, 211, 211));
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel_Articulos = new JPanel();
+		panel_Articulos.setBackground(Color.WHITE);
 		panel_Articulos.setBounds(232, 11, 853, 542);
 		contentPane.add(panel_Articulos);
 		panel_Articulos.setLayout(null);
@@ -99,7 +100,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setPreferredSize(new Dimension(400, 1460));
-		panel_2.setBackground(new Color(211, 211, 211));
+		panel_2.setBackground(Color.WHITE);
 		scrollPane_Articulos.setViewportView(panel_2);
 		scrollPane_Articulos.getVerticalScrollBar().setUnitIncrement(20);
 		panel_2.setLayout(new GridLayout(3, 3, 50, 50));
@@ -292,10 +293,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		textField.setBounds(195, 11, 453, 28);
 		panel_Articulos.add(textField);
 		textField.setColumns(10);
+		panelInicioSesion.setBackground(Color.WHITE);
 		
 		
 		contentPane.add(panelInicioSesion);
+		panelCuenta.setBackground(Color.WHITE);
 		contentPane.add(panelCuenta);
+		panelAdministrador.setBackground(Color.WHITE);
 		contentPane.add(panelAdministrador);
 		panelInicioSesion.setVisible(false);
 		panelCuenta.setVisible(false);
