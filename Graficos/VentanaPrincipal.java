@@ -8,6 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.Connection;
+
+import Base_de_datos.conexion;
+
 import javax.swing.JSplitPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -41,6 +46,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
@@ -61,6 +67,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnOrders;
 	private JTextField textField;
 	
+	private conexion cn = new conexion();
+	private Connection con;
 	
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
@@ -89,10 +97,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_Articulos.setBackground(Color.WHITE);
 		panel_Articulos.setBounds(232, 11, 853, 542);
 		contentPane.add(panel_Articulos);
-		panel_Articulos.setLayout(null);
-		
-		
-		
+		panel_Articulos.setLayout(null);	
 		
 		JScrollPane scrollPane_Articulos = new JScrollPane();
 		scrollPane_Articulos.setBounds(0, 50, 853, 492);
@@ -395,6 +400,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		separator_1.setBounds(234, 568, 843, 12);
 		contentPane.add(separator_1);
 		
+		
+		
+		JButton btnNewButton = new JButton("Borrar");
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        });
 
 	}
 	protected JButton getBtnHome() {
@@ -410,6 +423,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			desactivarPaneles();
 			panelAdministrador.setVisible(true);
 			contentPane.revalidate();
+			
+			 cn= new conexion();
+             try {
+                 con=cn.getConexion();
+                 System.out.println("Conexion realizada");
+             } catch (SQLException e1) {
+                 e1.printStackTrace();
+             }
+             
 		}else if(evento.equals(btnProfits)) {
 			desactivarPaneles();
 			panelCuenta.setVisible(true);

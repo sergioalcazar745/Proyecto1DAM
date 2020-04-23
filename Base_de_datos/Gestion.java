@@ -33,10 +33,7 @@ public class Gestion {
 		}
 		return insertado;
 	}
-
-
-
-
+	
 	public boolean buscarAlumno(String usuario) throws  SQLException {
 		boolean insertado=false;
 		String sql="select usuario from eclipse where usuario='"+usuario+"'";
