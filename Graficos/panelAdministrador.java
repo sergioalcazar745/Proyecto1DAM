@@ -136,5 +136,11 @@ public class panelAdministrador extends JPanel {
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
 		add(btnNewButton);
+		
+		String hola = "sergio", hola1="sergio";
+		
+		if(hola.equals(hola1))
+			System.out.println("Correcto");
+		
 	}
 }

@@ -8,6 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.Connection;
+
+import Base_de_datos.Conexion;
+import Base_de_datos.GestionBD;
+
 import javax.swing.JSplitPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
@@ -41,6 +47,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JComboBox;
 
@@ -60,10 +67,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnSalir;
 	private JButton btnOrders;
 	private JTextField textField;
+	private JButton btnSetting;
+	
+	private Conexion cx = new Conexion();
+	private Connection con;
+	private GestionBD gdb;
 	
 	
 	public VentanaPrincipal() throws Exception{
-		//creacion tipo de fuentee
+		//creacion tipo de fuente
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
 	    FileInputStream in = new FileInputStream(f);
 	    Font dynamicFont = Font.createFont(Font.TRUETYPE_FONT, in);
@@ -89,10 +101,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_Articulos.setBounds(232, 11, 853, 542);
 		contentPane.add(panel_Articulos);
 		panel_Articulos.setLayout(null);
-		
-		
-		
-		
+				
 		JScrollPane scrollPane_Articulos = new JScrollPane();
 		scrollPane_Articulos.setBounds(0, 50, 853, 492);
 		panel_Articulos.add(scrollPane_Articulos);
@@ -358,7 +367,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnCustomers.setFocusPainted(false);
 		panel.add(btnCustomers);
 		
-		JButton btnSetting = new JButton("SETTING");
+		btnSetting = new JButton("SETTING");
+		btnSetting.addActionListener(this);
 		btnSetting.setForeground(color_menu);
 		btnSetting.setFont(dynamicFont32Pt);
 		btnSetting.setBounds(12, 316, 198, 25);
@@ -412,6 +422,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(evento.equals(btnOrders)) {
 			desactivarPaneles();
 			panelInicioSesion.setVisible(true);
+		}else if(evento.equals(btnSetting)) {
+			try {
+				con = (Connection) cx.getConexion();
+				System.out.println("Conexion establecida");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -439,5 +456,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	}
 	protected JButton getBtnOrders() {
 		return btnOrders;
+	}
+	protected JButton getBtnSetting() {
+		return btnSetting;
 	}
 }
