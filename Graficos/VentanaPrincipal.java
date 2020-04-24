@@ -69,6 +69,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	private conexion cn = new conexion();
 	private Connection con;
+	private JTextField textField;
 	
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
@@ -97,20 +98,30 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_1.setBounds(232, 11, 853, 544);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(232, 11, 853, 544);
 		contentPane.add(panel_2);
-		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 48, 853, 544);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(0, 0, 853, 544);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
+		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
 		panel_articulos panel_articulos_ = new panel_articulos();
 		scrollPane.setViewportView(panel_articulos_);
 		panel_articulos_.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(207, 11, 123, 26);
+		panel_2.add(comboBox);
+		
+		textField = new JTextField();
+		textField.setBounds(329, 11, 300, 26);
+		panel_2.add(textField);
+		textField.setColumns(10);
 		
 
 

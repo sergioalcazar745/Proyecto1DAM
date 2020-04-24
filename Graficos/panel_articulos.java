@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 
 public class panel_articulos extends JPanel {
 
@@ -15,9 +16,10 @@ public class panel_articulos extends JPanel {
 	 * Create the panel.
 	 */
 	public panel_articulos() {
-		setLayout(new GridLayout(0, 1, 0, 0));
+		setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 839, 1421);
 		panel.setPreferredSize(new Dimension(825, 1300));
 		panel.setBackground(Color.WHITE);
 		add(panel);
@@ -58,7 +60,7 @@ public class panel_articulos extends JPanel {
 		JLabel label_4 = new JLabel("Bermuda efecto brillo");
 		label_4.setHorizontalAlignment(SwingConstants.CENTER);
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_4.setBounds(0, 283, 241, 20);
+		label_4.setBounds(0, 283, 246, 20);
 		panel_2.add(label_4);
 		
 		JLabel label_5 = new JLabel("Precio: 30000");
