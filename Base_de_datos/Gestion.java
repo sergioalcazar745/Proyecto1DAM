@@ -10,15 +10,49 @@ import com.mysql.jdbc.Statement;
 
 public class Gestion {
 	private Connection con;//objeto conexion
-	private conexion conn= new conexion();
+	private conexion cx= new conexion();
 	private Statement st;//realiza consulta
 	private ResultSet resultado; //recibe consulta
+	
+	public ResultSet comprobarCliente(String correo, String pass) throws SQLException {		
+		int confirmar = 0;
+		
+		con = cx.getConexion();
+		String sql = "SELECT * FROM persona WHERE correo='"+correo+"' and contraseña='"+pass+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);			
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public ResultSet buscarAlumno(String correo, String pass) throws SQLException {		
+		int confirmar = 0;
+		
+		con = cx.getConexion();
+		String sql = "SELECT * FROM persona WHERE correo='"+correo+"' and contraseña='"+pass+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);			
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
 	
 	public boolean insertarAlumno(String usuario, String contraseña) throws  SQLException {
 		boolean insertado=false;
 		String sql="insert into eclipse (usuario,contraseña) values ('"+usuario+"','"+contraseña+"')";
 		try {
-			con=conn.getConexion();
+			con=cx.getConexion();
 			st= (Statement) con.createStatement();
 			int confirmar=st.executeUpdate(sql);
 			if(confirmar ==1) {
@@ -38,7 +72,7 @@ public class Gestion {
 		boolean insertado=false;
 		String sql="select usuario from eclipse where usuario='"+usuario+"'";
 		try {
-			con=conn.getConexion();
+			con=cx.getConexion();
 			st= (Statement) con.createStatement();
 			ResultSet numero= st.executeQuery(sql);
 			if (!numero.next()) {
@@ -59,7 +93,7 @@ public class Gestion {
 		boolean insertado=false;
 		String sql="delete from eclipse where usuario='"+usuario+"'";
 		try {
-			con=conn.getConexion();
+			con=cx.getConexion();
 			st= (Statement) con.createStatement();
 			int confirmar=st.executeUpdate(sql);
 			if (confirmar==1) {

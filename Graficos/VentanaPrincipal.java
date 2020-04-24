@@ -54,7 +54,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JPanel panel;
-	private JButton btnProfits;
+	private JButton btnAccount;
 	private JButton btnHome;
 	
 	private JPanel panelAdministrador = new panelAdministrador();
@@ -70,6 +70,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private conexion cn = new conexion();
 	private Connection con;
 	private JTextField textField;
+	private JButton btnSignOut;
+	private JButton btnShop;
+	private panel_articulos panel_articulos;
+	private JScrollPane scrollPane;
 	
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
@@ -102,7 +106,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setBounds(232, 11, 853, 544);
 		contentPane.add(panel_2);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 48, 853, 544);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -110,9 +114,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
-		panel_articulos panel_articulos_ = new panel_articulos();
-		scrollPane.setViewportView(panel_articulos_);
-		panel_articulos_.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_articulos = new panel_articulos();
+		scrollPane.setViewportView(panel_articulos);
+		panel_articulos.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(207, 11, 123, 26);
@@ -123,16 +127,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.add(textField);
 		textField.setColumns(10);
 		
-
-
-		
-
-		
-
-		
-		
-		panelInicioSesion.setBackground(Color.WHITE);
-		
+		panelInicioSesion.setBackground(Color.WHITE);		
 		
 		contentPane.add(panelInicioSesion);
 		panelCuenta.setBackground(Color.WHITE);
@@ -168,16 +163,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnHome.setFocusPainted(false);
 		panel.add(btnHome);
 		
-		btnProfits = new JButton("PROFITS");
-		btnProfits.addActionListener(this);
-		btnProfits.setForeground(Color.WHITE);
-		btnProfits.setFont(dynamicFont32Pt);
-		btnProfits.setBounds(12, 202, 198, 25);
-		btnProfits.setBorderPainted(false);
-		btnProfits.setOpaque(false);
-		btnProfits.setContentAreaFilled(false);
-		btnProfits.setFocusPainted(false);
-		panel.add(btnProfits);
+		btnAccount = new JButton("ACCOUNT");
+		btnAccount.addActionListener(this);
+		btnAccount.setForeground(Color.WHITE);
+		btnAccount.setFont(dynamicFont32Pt);
+		btnAccount.setBounds(12, 278, 198, 25);
+		btnAccount.setBorderPainted(false);
+		btnAccount.setOpaque(false);
+		btnAccount.setContentAreaFilled(false);
+		btnAccount.setFocusPainted(false);
+		panel.add(btnAccount);
 		
 		btnOrders = new JButton("ORDERS");
 		btnOrders.addActionListener(this);
@@ -190,15 +185,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnOrders.setFocusPainted(false);
 		panel.add(btnOrders);
 
-		JButton btnCustomers = new JButton("CUSTOMERS");
-		btnCustomers.setForeground(Color.WHITE);
-		btnCustomers.setFont(dynamicFont32Pt);
-		btnCustomers.setBounds(12, 278, 198, 25);
-		btnCustomers.setBorderPainted(false);
-		btnCustomers.setOpaque(false);
-		btnCustomers.setContentAreaFilled(false);
-		btnCustomers.setFocusPainted(false);
-		panel.add(btnCustomers);
+		btnShop = new JButton("SHOPPING");
+		btnShop.addActionListener(this);
+		btnShop.setForeground(Color.WHITE);
+		btnShop.setFont(dynamicFont32Pt);
+		btnShop.setBounds(12, 202, 198, 25);
+		btnShop.setBorderPainted(false);
+		btnShop.setOpaque(false);
+		btnShop.setContentAreaFilled(false);
+		btnShop.setFocusPainted(false);
+		panel.add(btnShop);
 		
 		JButton btnSetting = new JButton("SETTING");
 		btnSetting.setForeground(Color.WHITE);
@@ -208,21 +204,24 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnSetting.setOpaque(false);
 		btnSetting.setContentAreaFilled(false);
 		btnSetting.setFocusPainted(false);
+		btnSetting.setVisible(false);
 		panel.add(btnSetting);
 		
-		JButton btnSignOut = new JButton("SIGN OUT");
+		btnSignOut = new JButton("SIGN OUT");
+		btnSignOut.addActionListener(this);
 		btnSignOut.setBackground(Color.RED);
 		btnSignOut.setForeground(new Color(255, 255, 255));
 		btnSignOut.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSignOut.setBounds(51, 566, 125, 25);
 		btnSignOut.setContentAreaFilled(false);
 		btnSignOut.setOpaque(true);
+		btnSignOut.setFocusPainted(false);
 		panel.add(btnSignOut);
 		
 		btnSalir = new JButton("SALIR");
 		btnSalir.addActionListener(this);
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnSalir.setBounds(972, 568, 113, 36);
+		btnSalir.setBounds(972, 554, 113, 50);
 		btnSalir.setBorderPainted(false);
 		btnSalir.setOpaque(false);
 		btnSalir.setContentAreaFilled(false);
@@ -231,12 +230,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		
 		JButton btnNewButton = new JButton("Borrar");
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-               
-            }
-        });
-
 	}
 	protected JButton getBtnHome() {
 		return btnHome;
@@ -245,35 +238,28 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		 Object evento=e.getSource();
 		
-		 if(evento.equals(btnSalir)) {
+		if(evento.equals(btnSalir)) {
 			 System.exit(WIDTH);
-		 }else if(evento.equals(btnHome)) {
+		}else if(evento.equals(btnHome)) {
+			desactivarPaneles();
+			scrollPane.setVisible(true);
+			panel_articulos.setVisible(true);
+		}else if(evento.equals(btnAccount)) {
+			desactivarPaneles();
+			panelCuenta.setVisible(true);
+		}else if(evento.equals(btnSignOut)) {
+			desactivarPaneles();
+			panelInicioSesion.setVisible(true);
+		}else if(evento.equals(btnShop)) {
 			desactivarPaneles();
 			panelAdministrador.setVisible(true);
 			contentPane.revalidate();
-			
-			 cn= new conexion();
-             try {
-                 con=cn.getConexion();
-                 System.out.println("Conexion realizada");
-             } catch (SQLException e1) {
-                 e1.printStackTrace();
-             }
-             
-		}else if(evento.equals(btnProfits)) {
-			desactivarPaneles();
-			panelCuenta.setVisible(true);
-		}else if(evento.equals(btnOrders)) {
-			desactivarPaneles();
-			panelInicioSesion.setVisible(true);
 		}
 	}
-
 	
 	protected JButton getBtnSalir() {
 		return btnSalir;
 	}
-
 	
 	public void desactivarPaneles() {
 		Component[] components = contentPane.getComponents();
@@ -289,9 +275,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		return panel;
 	}
 	protected JButton getBtnProfits() {
-		return btnProfits;
+		return btnAccount;
 	}
 	protected JButton getBtnOrders() {
 		return btnOrders;
+	}
+	protected JButton getBtnSignOut() {
+		return btnSignOut;
+	}
+	protected JButton getBtnShop() {
+		return btnShop;
+	}
+	protected panel_articulos getPanel_articulos_() {
+		return panel_articulos;
+	}
+	protected JScrollPane getScrollPane() {
+		return scrollPane;
 	}
 }

@@ -19,12 +19,12 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 
 public class panelCuenta extends JPanel implements ActionListener{
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_1;
-	private JTextField textField_4;
-	private JTextField textField_3;
-	private JPasswordField passwordField;
+	private JTextField tfNombre;
+	private JTextField tfApellidos;
+	private JTextField tfFecha_Nacimiento;
+	private JTextField tfTelefono;
+	private JTextField tfCorreo;
+	private JPasswordField tfContraseña;
 	private JButton btnEditNombre;
 	private JButton btnEditApellidos;
 	private JButton btnEditFechaNacimiento;
@@ -43,10 +43,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(305, 46, 379, 34);
-		add(textField);
-		textField.setColumns(10);
+		tfNombre = new JTextField();
+		tfNombre.setBounds(305, 46, 379, 34);
+		add(tfNombre);
+		tfNombre.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Apellidos:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -55,18 +55,19 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblNewLabel_1);
 		
 		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/save.png")));
 		btnGuardar.setFont(new Font("Arial", Font.BOLD, 16));
-		//btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/save.png")));
 		btnGuardar.setBounds(132, 446, 193, 45);
 		btnGuardar.setBorderPainted(false);
 		btnGuardar.setOpaque(false);
 		btnGuardar.setContentAreaFilled(false);
+		btnGuardar.setFocusPainted(false);
 		add(btnGuardar);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(305, 111, 379, 34);
-		add(textField_2);
+		tfApellidos = new JTextField();
+		tfApellidos.setColumns(10);
+		tfApellidos.setBounds(305, 111, 379, 34);
+		add(tfApellidos);
 		
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
 		lblFechaDeNacimiento.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -74,10 +75,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblFechaDeNacimiento.setBounds(12, 175, 197, 34);
 		add(lblFechaDeNacimiento);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(305, 176, 379, 34);
-		add(textField_1);
+		tfFecha_Nacimiento = new JTextField();
+		tfFecha_Nacimiento.setColumns(10);
+		tfFecha_Nacimiento.setBounds(305, 176, 379, 34);
+		add(tfFecha_Nacimiento);
 		
 		JLabel lblTelefono = new JLabel("Tel\u00E9fono:");
 		lblTelefono.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -85,10 +86,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblTelefono.setBounds(52, 239, 157, 34);
 		add(lblTelefono);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(305, 240, 379, 34);
-		add(textField_4);
+		tfTelefono = new JTextField();
+		tfTelefono.setColumns(10);
+		tfTelefono.setBounds(305, 240, 379, 34);
+		add(tfTelefono);
 		
 		JLabel lblCorreoElectronico = new JLabel("Correo electr\u00F3nico");
 		lblCorreoElectronico.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -96,10 +97,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblCorreoElectronico.setBounds(12, 302, 197, 34);
 		add(lblCorreoElectronico);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(305, 303, 379, 34);
-		add(textField_3);
+		tfCorreo = new JTextField();
+		tfCorreo.setColumns(10);
+		tfCorreo.setBounds(305, 303, 379, 34);
+		add(tfCorreo);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -114,6 +115,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setOpaque(false);
 		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setFocusPainted(false);
 		add(btnCancelar);
 		
 		btnEditNombre = new JButton("");
@@ -123,6 +125,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditNombre.setBorderPainted(false);
 		btnEditNombre.setOpaque(false);
 		btnEditNombre.setContentAreaFilled(false);
+		btnEditNombre.setFocusPainted(false);
 		add(btnEditNombre);
 		
 		btnEditApellidos = new JButton("");
@@ -132,6 +135,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditApellidos.setBorderPainted(false);
 		btnEditApellidos.setOpaque(false);
 		btnEditApellidos.setContentAreaFilled(false);
+		btnEditApellidos.setFocusPainted(false);
 		add(btnEditApellidos);
 		
 		btnEditFechaNacimiento = new JButton("");
@@ -141,6 +145,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditFechaNacimiento.setBorderPainted(false);
 		btnEditFechaNacimiento.setOpaque(false);
 		btnEditFechaNacimiento.setContentAreaFilled(false);
+		btnEditFechaNacimiento.setFocusPainted(false);
 		add(btnEditFechaNacimiento);
 		
 		btnEditTelefono = new JButton("");
@@ -150,6 +155,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditTelefono.setBorderPainted(false);
 		btnEditTelefono.setOpaque(false);
 		btnEditTelefono.setContentAreaFilled(false);
+		btnEditTelefono.setFocusPainted(false);
 		add(btnEditTelefono);
 		
 		btnEditCorreo = new JButton("");
@@ -159,6 +165,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditCorreo.setBorderPainted(false);
 		btnEditCorreo.setOpaque(false);
 		btnEditCorreo.setContentAreaFilled(false);
+		btnEditCorreo.setFocusPainted(false);
 		add(btnEditCorreo);
 		
 		btnEditContraseña = new JButton("");
@@ -168,11 +175,12 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditContraseña.setBorderPainted(false);
 		btnEditContraseña.setOpaque(false);
 		btnEditContraseña.setContentAreaFilled(false);
+		btnEditContraseña.setFocusPainted(false);
 		add(btnEditContraseña);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(305, 370, 379, 33);
-		add(passwordField);		
+		tfContraseña = new JPasswordField();
+		tfContraseña.setBounds(305, 370, 379, 33);
+		add(tfContraseña);		
 	}
 
 	@Override
@@ -190,7 +198,21 @@ public class panelCuenta extends JPanel implements ActionListener{
 		}else if(boton.equals(btnEditCorreo)) {
 			JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
 		}else if(boton.equals(btnEditContraseña)) {
-			JOptionPane.showInputDialog("Introduzca la nueva contraseña: ");
+			JPasswordField pf = new JPasswordField();
+			
+			int uno = JOptionPane.showConfirmDialog(null, pf, "Introduce la contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			String contraseña1 = new String (pf.getText());
+			
+			pf.setText("");
+			
+			int dos = JOptionPane.showConfirmDialog(null, pf, "Introduce la contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			String contraseña2 = new String (pf.getText());
+			
+			if(contraseña1.equals(contraseña2)) {
+				tfContraseña.setText(contraseña2);
+			}else {
+				JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
+			}			
 		}
 	}
 	protected JButton getBtnEditNombre() {
@@ -210,5 +232,23 @@ public class panelCuenta extends JPanel implements ActionListener{
 	}
 	protected JButton getBtnContraseña() {
 		return btnEditContraseña;
+	}
+	protected JTextField getTfNombre() {
+		return tfNombre;
+	}
+	protected JTextField getTfApellidos() {
+		return tfApellidos;
+	}
+	protected JTextField getTfFecha_Nacimiento() {
+		return tfFecha_Nacimiento;
+	}
+	protected JTextField getTfTelefono() {
+		return tfTelefono;
+	}
+	protected JTextField getTfCorreo() {
+		return tfCorreo;
+	}
+	protected JPasswordField getTfContraseña() {
+		return tfContraseña;
 	}
 }

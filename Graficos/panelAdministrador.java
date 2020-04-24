@@ -104,11 +104,13 @@ public class panelAdministrador extends JPanel {
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setOpaque(false);
 		btnCancelar.setContentAreaFilled(false);
+		btnCancelar.setFocusPainted(false);
 		add(btnCancelar);
 		
 		btnComprar.setBorderPainted(false);
 		btnComprar.setOpaque(false);
 		btnComprar.setContentAreaFilled(false);
+		btnComprar.setFocusPainted(false);
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(32, 167, 211, 29);
