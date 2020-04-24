@@ -93,6 +93,26 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(232, 11, 853, 544);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(232, 11, 853, 544);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(0, 0, 853, 544);
+		panel_2.add(scrollPane);
+		
+		panel_articulos panel_articulos_ = new panel_articulos();
+		scrollPane.setViewportView(panel_articulos_);
+		panel_articulos_.setLayout(new GridLayout(1, 0, 0, 0));
+		
+
+
+		
 
 		
 
