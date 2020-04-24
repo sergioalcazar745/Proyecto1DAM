@@ -104,6 +104,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(0, 0, 853, 544);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder());
+		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
 		panel_2.add(scrollPane);
 		
 		panel_articulos panel_articulos_ = new panel_articulos();
@@ -214,11 +216,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnSalir.setOpaque(false);
 		btnSalir.setContentAreaFilled(false);
 		contentPane.add(btnSalir);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBackground(Color.LIGHT_GRAY);
-		separator_1.setBounds(234, 568, 843, 12);
-		contentPane.add(separator_1);
 		
 		
 		

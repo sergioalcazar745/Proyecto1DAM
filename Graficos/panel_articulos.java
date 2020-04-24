@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class panel_articulos extends JPanel {
 
@@ -24,17 +25,18 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBackground(new Color(211, 211, 211));
+		panel_1.setBackground(Color.WHITE);
 		panel.add(panel_1);
 		
 		JLabel label = new JLabel("");
-		label.setBounds(33, 1, 181, 271);
+		label.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BERMUDA DENIM MOM FIT.jpg")));
+		label.setBounds(35, 1, 175, 271);
 		panel_1.add(label);
 		
 		JLabel label_1 = new JLabel("Bermuda denim mom fit");
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_1.setBounds(0, 283, 241, 20);
+		label_1.setBounds(0, 283, 246, 20);
 		panel_1.add(label_1);
 		
 		JLabel label_2 = new JLabel("Precio: 30000");
@@ -45,11 +47,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setLayout(null);
-		panel_2.setBackground(new Color(211, 211, 211));
+		panel_2.setBackground(Color.WHITE);
 		panel.add(panel_2);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setBounds(33, 1, 181, 271);
+		label_3.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BERMUDA EFECTO BRILLO.jpg")));
+		label_3.setBounds(35, 1, 175, 271);
 		panel_2.add(label_3);
 		
 		JLabel label_4 = new JLabel("Bermuda efecto brillo");
@@ -66,11 +69,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
-		panel_3.setBackground(new Color(211, 211, 211));
+		panel_3.setBackground(Color.WHITE);
 		panel.add(panel_3);
 		
 		JLabel label_6 = new JLabel("");
-		label_6.setBounds(33, 1, 181, 271);
+		label_6.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BODY ENCAJE.jpg")));
+		label_6.setBounds(35, 1, 175, 271);
 		panel_3.add(label_6);
 		
 		JLabel label_7 = new JLabel("Body encaje");
@@ -87,11 +91,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setLayout(null);
-		panel_4.setBackground(new Color(211, 211, 211));
+		panel_4.setBackground(Color.WHITE);
 		panel.add(panel_4);
 		
 		JLabel label_9 = new JLabel("");
-		label_9.setBounds(33, 1, 181, 271);
+		label_9.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA ESTAMPADA SMILEY.jpg")));
+		label_9.setBounds(35, 1, 175, 271);
 		panel_4.add(label_9);
 		
 		JLabel label_10 = new JLabel("Camiseta estampada smiley");
@@ -108,11 +113,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setLayout(null);
-		panel_5.setBackground(new Color(211, 211, 211));
+		panel_5.setBackground(Color.WHITE);
 		panel.add(panel_5);
 		
 		JLabel label_12 = new JLabel("");
-		label_12.setBounds(33, 1, 181, 271);
+		label_12.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA MARILYN MONROE TM.jpg")));
+		label_12.setBounds(35, 1, 175, 271);
 		panel_5.add(label_12);
 		
 		JLabel label_13 = new JLabel("Camiseta marilyn");
@@ -129,11 +135,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setLayout(null);
-		panel_6.setBackground(new Color(211, 211, 211));
+		panel_6.setBackground(Color.WHITE);
 		panel.add(panel_6);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setBounds(33, 1, 181, 271);
+		label_15.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA VOLANTES.jpg")));
+		label_15.setBounds(35, 1, 175, 271);
 		panel_6.add(label_15);
 		
 		JLabel label_16 = new JLabel("Camiseta Volantes");
@@ -150,11 +157,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_7 = new JPanel();
 		panel_7.setLayout(null);
-		panel_7.setBackground(new Color(211, 211, 211));
+		panel_7.setBackground(Color.WHITE);
 		panel.add(panel_7);
 		
 		JLabel label_18 = new JLabel("");
-		label_18.setBounds(33, 1, 181, 271);
+		label_18.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAZADORA DENIM CROPPED.jpg")));
+		label_18.setBounds(35, 1, 175, 271);
 		panel_7.add(label_18);
 		
 		JLabel label_19 = new JLabel("Cazadora denim cropped");
@@ -171,11 +179,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_8 = new JPanel();
 		panel_8.setLayout(null);
-		panel_8.setBackground(new Color(211, 211, 211));
+		panel_8.setBackground(Color.WHITE);
 		panel.add(panel_8);
 		
 		JLabel label_21 = new JLabel("");
-		label_21.setBounds(33, 1, 181, 271);
+		label_21.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/DEPORTIVO RETRO SUELA VOLUMEN.jpg")));
+		label_21.setBounds(35, 1, 175, 271);
 		panel_8.add(label_21);
 		
 		JLabel label_22 = new JLabel("Deportivo retro");
@@ -192,11 +201,12 @@ public class panel_articulos extends JPanel {
 		
 		JPanel panel_9 = new JPanel();
 		panel_9.setLayout(null);
-		panel_9.setBackground(new Color(211, 211, 211));
+		panel_9.setBackground(Color.WHITE);
 		panel.add(panel_9);
 		
 		JLabel label_24 = new JLabel("");
-		label_24.setBounds(33, 1, 181, 271);
+		label_24.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/DEPORTIVO VOLUMEN MULTIPIEZAS.jpg")));
+		label_24.setBounds(35, 1, 175, 271);
 		panel_9.add(label_24);
 		
 		JLabel label_25 = new JLabel("Deportivo volumen multipiezas");

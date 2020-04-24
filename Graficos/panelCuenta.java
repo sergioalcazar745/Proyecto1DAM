@@ -33,7 +33,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private JButton btnEditContraseña;
 //
 	public panelCuenta() {
-		setBackground(new Color(211, 211, 211));
+		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
 		

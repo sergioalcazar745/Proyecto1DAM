@@ -17,7 +17,7 @@ public class panelInicioSesion extends JPanel {
 	private JButton btnVolver;
 
 	public panelInicioSesion() {
-		setBackground(new Color(211, 211, 211));
+		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
 		

@@ -28,7 +28,7 @@ public class panelAdministrador extends JPanel {
 
 	public panelAdministrador() {
 		setBounds(232, 11, 853, 544);
-		setBackground(new Color(211, 211, 211));
+		setBackground(Color.WHITE);
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Articulo:");
