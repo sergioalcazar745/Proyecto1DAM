@@ -22,11 +22,11 @@ public class panel_articulos extends JPanel {
 	public panel_articulos() {
 		JPanel panel_Articulos = new JPanel();
 		panel_Articulos.setBackground(Color.WHITE);
-		panel_Articulos.setBounds(232, 11, 904, 1421);
+		panel_Articulos.setBounds(232, 11, 900, 1746);
 		panel_Articulos.setLayout(null);	
 		
 		JScrollPane scrollPane_Articulos = new JScrollPane();
-		scrollPane_Articulos.setBounds(0, 50, 903, 1588);
+		scrollPane_Articulos.setBounds(0, 50, 903, 1700);
 		panel_Articulos.add(scrollPane_Articulos);
 		
 		textField = new JTextField();
@@ -117,10 +117,11 @@ public class panel_articulos extends JPanel {
 		label_9.setBounds(33, 1, 181, 271);
 		panel_6.add(label_9);
 		
-		JLabel label_10 = new JLabel("PUTOS AMOS 2020");
-		label_10.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_10.setBounds(56, 283, 141, 20);
-		panel_6.add(label_10);
+		JLabel lblCamisetaEstampadaSmiley = new JLabel("Camiseta estampada smiley");
+		lblCamisetaEstampadaSmiley.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamisetaEstampadaSmiley.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCamisetaEstampadaSmiley.setBounds(10, 283, 247, 20);
+		panel_6.add(lblCamisetaEstampadaSmiley);
 		
 		JLabel label_11 = new JLabel("Precio: 30000");
 		label_11.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -138,10 +139,11 @@ public class panel_articulos extends JPanel {
 		label_12.setBounds(33, 1, 181, 271);
 		panel_7.add(label_12);
 		
-		JLabel label_13 = new JLabel("PUTOS AMOS 2020");
-		label_13.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_13.setBounds(56, 283, 141, 20);
-		panel_7.add(label_13);
+		JLabel lblCamisetaMarilynMonroe = new JLabel("Camiseta marilyn");
+		lblCamisetaMarilynMonroe.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamisetaMarilynMonroe.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCamisetaMarilynMonroe.setBounds(10, 283, 247, 20);
+		panel_7.add(lblCamisetaMarilynMonroe);
 		
 		JLabel label_14 = new JLabel("Precio: 30000");
 		label_14.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -159,10 +161,11 @@ public class panel_articulos extends JPanel {
 		label_15.setBounds(33, 1, 181, 271);
 		panel_8.add(label_15);
 		
-		JLabel label_16 = new JLabel("PUTOS AMOS 2020");
-		label_16.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_16.setBounds(56, 283, 141, 20);
-		panel_8.add(label_16);
+		JLabel lblCamisetaVolantes = new JLabel("Camiseta Volantes");
+		lblCamisetaVolantes.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamisetaVolantes.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCamisetaVolantes.setBounds(10, 283, 247, 20);
+		panel_8.add(lblCamisetaVolantes);
 		
 		JLabel label_17 = new JLabel("Precio: 30000");
 		label_17.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -180,10 +183,11 @@ public class panel_articulos extends JPanel {
 		label_18.setBounds(33, 1, 181, 271);
 		panel_9.add(label_18);
 		
-		JLabel label_19 = new JLabel("PUTOS AMOS 2020");
-		label_19.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_19.setBounds(56, 283, 141, 20);
-		panel_9.add(label_19);
+		JLabel lblCazadoraDenimCropped = new JLabel("Cazadora denim cropped");
+		lblCazadoraDenimCropped.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCazadoraDenimCropped.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCazadoraDenimCropped.setBounds(56, 283, 247, 20);
+		panel_9.add(lblCazadoraDenimCropped);
 		
 		JLabel label_20 = new JLabel("Precio: 30000");
 		label_20.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -201,10 +205,11 @@ public class panel_articulos extends JPanel {
 		label_21.setBounds(33, 1, 181, 271);
 		panel_10.add(label_21);
 		
-		JLabel label_22 = new JLabel("PUTOS AMOS 2020");
-		label_22.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_22.setBounds(56, 283, 141, 20);
-		panel_10.add(label_22);
+		JLabel lblDeportivoRetro = new JLabel("Deportivo retro");
+		lblDeportivoRetro.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDeportivoRetro.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDeportivoRetro.setBounds(56, 283, 247, 20);
+		panel_10.add(lblDeportivoRetro);
 		
 		JLabel label_23 = new JLabel("Precio: 30000");
 		label_23.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -222,10 +227,11 @@ public class panel_articulos extends JPanel {
 		label_24.setBounds(33, 1, 181, 271);
 		panel_11.add(label_24);
 		
-		JLabel label_25 = new JLabel("PUTOS AMOS 2020");
-		label_25.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_25.setBounds(56, 283, 141, 20);
-		panel_11.add(label_25);
+		JLabel lblDeportivoVolumenMultipiezas = new JLabel("Deportivo volumen multipiezas");
+		lblDeportivoVolumenMultipiezas.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDeportivoVolumenMultipiezas.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblDeportivoVolumenMultipiezas.setBounds(56, 283, 247, 20);
+		panel_11.add(lblDeportivoVolumenMultipiezas);
 		
 		JLabel label_26 = new JLabel("Precio: 30000");
 		label_26.setHorizontalAlignment(SwingConstants.RIGHT);
