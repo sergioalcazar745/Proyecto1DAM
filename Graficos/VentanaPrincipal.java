@@ -35,6 +35,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.awt.List;
 import java.awt.ScrollPane;
 
 import javax.swing.SwingConstants;
@@ -47,6 +48,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 
@@ -75,8 +78,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private panel_articulos panel_articulos;
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
-	
+	private JComboBox comboBox_Filtro = new JComboBox();
 	public VentanaPrincipal() throws Exception{
+		
+		
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
 	    FileInputStream in = new FileInputStream(f);
@@ -119,9 +124,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		scrollPane.setViewportView(panel_articulos);
 		panel_articulos.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(207, 11, 123, 26);
-		panel_2.add(comboBox);
+
+		comboBox_Filtro.setBounds(207, 11, 123, 26);
+		panel_2.add(comboBox_Filtro);
 		
 		textField = new JTextField();
 		textField.setBounds(329, 11, 300, 26);
@@ -293,4 +298,5 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JScrollPane getScrollPane() {
 		return scrollPane;
 	}
+
 }

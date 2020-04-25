@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.DefaultComboBoxModel;
@@ -25,8 +27,37 @@ import javax.swing.ImageIcon;
 public class panelAdministrador extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
-
+	JComboBox comboBox_Nombres = new JComboBox();
+	JComboBox comboBox_Categorias = new JComboBox();
+	//array con los nombres de los productos.
+	ArrayList<String> nombre_articulos=new ArrayList<String>();
 	public panelAdministrador() {
+		//agregacion de los nombres de los articulos.
+				nombre_articulos.add("Bermuda Denim Mom Fit");
+				nombre_articulos.add("Bermuda Efecto Brillo");
+				nombre_articulos.add("Body Encaje");
+				nombre_articulos.add("Camiseta Básica Regular Fit");
+				nombre_articulos.add("Camiseta Estampada Smiley");
+				nombre_articulos.add("Camiseta Marilyn Monroe TM");
+				nombre_articulos.add("Camiseta Volantes");
+				nombre_articulos.add("Cazadora Denim Cropped");
+				nombre_articulos.add("Deportivo Retro Suela Volumen");
+				nombre_articulos.add("Deportivo Volumen Multipiezas");
+				nombre_articulos.add("Falda Mini Estampada");
+				nombre_articulos.add("Camiseta texto combinado");
+				nombre_articulos.add("Pantalon Jogger Básico");
+				nombre_articulos.add("Pantalon Jogger Biker");
+				nombre_articulos.add("Pantalon Tobillero");
+				nombre_articulos.add("Polo Básico Color Block");
+				nombre_articulos.add("Polo Jacquard Mercerizado");
+				nombre_articulos.add("Sudadera Manga Engomada");
+				nombre_articulos.add("Sudadera Volantes Combinados");
+				nombre_articulos.add("Top Lazada");
+				//lo añadimos al comboBox
+				insertarNombres(nombre_articulos);
+				
+				
+				
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -41,10 +72,9 @@ public class panelAdministrador extends JPanel {
 		lblNewLabel_1.setBounds(665, 57, 88, 16);
 		add(lblNewLabel_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Camiseta", "Pantalon", "Chaqueta", "Sudadera", "Zapatillas"}));
-		comboBox.setBounds(32, 86, 211, 29);
-		add(comboBox);
+
+		comboBox_Nombres.setBounds(32, 86, 211, 29);
+		add(comboBox_Nombres);
 		
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(593, 86, 211, 29);
@@ -126,9 +156,9 @@ public class panelAdministrador extends JPanel {
 		lblNewLabel_5.setBounds(44, 138, 188, 16);
 		add(lblNewLabel_5);
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setBounds(315, 86, 211, 29);
-		add(comboBox_3);
+
+		comboBox_Categorias.setBounds(315, 86, 211, 29);
+		add(comboBox_Categorias);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/plus.png")));
@@ -138,5 +168,10 @@ public class panelAdministrador extends JPanel {
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
 		add(btnNewButton);
+	}
+	public void insertarNombres(ArrayList<String> nombre_articulos){
+		for(String n:nombre_articulos) {
+			comboBox_Nombres.addItem(n);
+		}
 	}
 }
