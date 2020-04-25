@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class panel_articulos extends JPanel implements MouseListener{
+	private JPanel panel_1;
 
 	/**
 	 * Create the panel.
@@ -31,7 +32,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		add(panel);
 		panel.setLayout(new GridLayout(3, 3, 50, 50));
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		panel_1.addMouseListener(this);
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.WHITE);
@@ -230,16 +231,13 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_26.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		label_26.setBounds(128, 314, 86, 17);
 		panel_9.add(label_26);
-
 	}
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
 		Object evento=e.getSource();
-		if(evento.equals("panel_1")) {
+		if(evento.equals(panel_1)) {
 			System.out.println("hola");
 		}
 	}
@@ -267,5 +265,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	protected JPanel getPanel_1() {
+		return panel_1;
+	}
 }

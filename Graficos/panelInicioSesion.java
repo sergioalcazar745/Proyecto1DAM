@@ -150,10 +150,9 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			
 		}else if (boton.equals(btnEntrar)) {
 			gt = new Gestion();
-			String pass = new String(tfContraseña.getPassword());
 			
 			try {				
-				resultado = gt.comprobarCliente(tfCorreo.getText(), pass);
+				resultado = gt.comprobarCliente(tfCorreo.getText());
 				while(resultado.next()) {
 					System.out.println(resultado.getString("correo"));
 					System.out.println(resultado.getString("contraseña"));
@@ -161,6 +160,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			
 		}
 	}
 }

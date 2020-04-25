@@ -14,11 +14,11 @@ public class Gestion {
 	private Statement st;//realiza consulta
 	private ResultSet resultado; //recibe consulta
 	
-	public ResultSet comprobarCliente(String correo, String pass) throws SQLException {		
+	public ResultSet comprobarCliente(String correo) throws SQLException {		
 		int confirmar = 0;
 		
 		con = cx.getConexion();
-		String sql = "SELECT * FROM persona WHERE correo='"+correo+"' and contraseña='"+pass+"'";
+		String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";
 		
 		try {
 			st=(Statement) con.createStatement();
