@@ -24,6 +24,7 @@ public class panelCategoria extends JDialog implements ActionListener{
 	private String [] Datos = new String [1];
 	private JTextField tfAñadir;
 	private JButton btnAñadir;
+	private JButton cancelButton;
 
 	public panelCategoria() {
 		setVisible(true);
@@ -66,7 +67,8 @@ public class panelCategoria extends JDialog implements ActionListener{
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(this);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -85,6 +87,11 @@ public class panelCategoria extends JDialog implements ActionListener{
 		if(evento.equals(btnAñadir)) {
 			Datos [0] = tfAñadir.getText();
 			modelo.addRow(Datos);
+		}else if(evento.equals(cancelButton)) {
+			 dispose();
 		}
+	}
+	public JButton getCancelButton() {
+		return cancelButton;
 	}
 }
