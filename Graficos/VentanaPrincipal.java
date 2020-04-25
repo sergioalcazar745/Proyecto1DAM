@@ -108,11 +108,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		scrollPane.setBorder(BorderFactory.createEmptyBorder());
 		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
 		panel_2.setLayout(null);
-		panel_2.add(scrollPane);
-		
-		panel_articulos panel_articulos_ = new panel_articulos();
-		scrollPane.setViewportView(panel_articulos_);
-		panel_articulos_.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(207, 11, 123, 26);
@@ -122,6 +117,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		textField.setBounds(329, 11, 300, 26);
 		panel_2.add(textField);
 		textField.setColumns(10);
+		panel_2.add(scrollPane);
+		
+		panel_articulos panel_articulos_ = new panel_articulos();
+		scrollPane.setViewportView(panel_articulos_);
+		panel_articulos_.setLayout(new GridLayout(1, 0, 0, 0));
 		
 
 
