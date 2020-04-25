@@ -40,6 +40,10 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private Gestion gt;
 	private ResultSet resultado;
 	private JTable table;
+	private JLabel lblImagenError;
+	private JLabel lblError;
+	private JLabel lblInicio;
+	private JLabel lblIncorrecto;
 
 	public panelInicioSesion() {
 		setBackground(Color.WHITE);
@@ -52,31 +56,31 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblImagenError = new JLabel("");
+		lblImagenError = new JLabel("");
 		lblImagenError.setVisible(false);
 		lblImagenError.setBounds(0, 0, 131, 115);
 		panel.add(lblImagenError);
 		lblImagenError.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/dialog_warning.png")));
 		
-		JLabel lblError = new JLabel("ERROR");
+		lblError = new JLabel("ERROR");
 		lblError.setVisible(false);
 		lblError.setForeground(new Color(255, 0, 0));
 		lblError.setFont(new Font("Arial", Font.BOLD, 16));
 		lblError.setBounds(101, 0, 90, 29);
 		panel.add(lblError);
 		
-		JLabel lblNewLabel_3 = new JLabel("Si todav\u00EDa no te has registrado pulsa en el boton de registrarse.");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_3.setBounds(0, 28, 853, 51);
-		panel.add(lblNewLabel_3);
+		lblInicio = new JLabel("Si todav\u00EDa no te has registrado pulsa en el boton de registrarse.");
+		lblInicio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInicio.setFont(new Font("Arial", Font.BOLD, 20));
+		lblInicio.setBounds(0, 28, 853, 51);
+		panel.add(lblInicio);
 		
-		JLabel lblElCorreoO = new JLabel("El correo o la contrase\u00F1a son incorrectos. Vuelva a intentarlo.");
-		lblElCorreoO.setVisible(false);
-		lblElCorreoO.setBounds(0, 28, 853, 51);
-		panel.add(lblElCorreoO);
-		lblElCorreoO.setHorizontalAlignment(SwingConstants.CENTER);
-		lblElCorreoO.setFont(new Font("Arial", Font.BOLD, 20));
+		lblIncorrecto = new JLabel("El correo o la contrase\u00F1a son incorrectos. Vuelva a intentarlo.");
+		lblIncorrecto.setVisible(false);
+		lblIncorrecto.setBounds(0, 28, 853, 51);
+		panel.add(lblIncorrecto);
+		lblIncorrecto.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIncorrecto.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		JLabel lblNewLabel = new JLabel("INICIO DE SESI\u00D3N");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -158,13 +162,35 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			try {				
 				resultado = gt.comprobarCliente(tfCorreo.getText());
 				while(resultado.next()) {
-										
-
+					
+					if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
+						JOptionPane.showMessageDialog(null, "Correcto");
+					}else {
+						lblInicio.setVisible(false);
+						lblImagenError.setVisible(true);
+						lblError.setVisible(true);
+						lblIncorrecto.setVisible(true);
+						
+						tfCorreo.setText("");
+						tfContraseña.setText("");
+					}
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 			
 		}
+	}
+	protected JLabel getLblImagenError() {
+		return lblImagenError;
+	}
+	public JLabel getLblError() {
+		return lblError;
+	}
+	protected JLabel getLblInicio() {
+		return lblInicio;
+	}
+	protected JLabel getLblIncorrecto() {
+		return lblIncorrecto;
 	}
 }
