@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
 
@@ -28,6 +29,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class panelInicioSesion extends JPanel implements ActionListener{
 	private JTextField tfCorreo;
@@ -36,6 +39,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private JButton btnRegistrarse;
 	private Gestion gt;
 	private ResultSet resultado;
+	private JTable table;
 
 	public panelInicioSesion() {
 		setBackground(Color.WHITE);
@@ -112,6 +116,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		add(btnEntrar);
 		
 		btnRegistrarse = new JButton("REGISTRARSE");
+		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
 		btnRegistrarse.addActionListener(this);
 		//btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
 		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
@@ -120,8 +125,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		btnRegistrarse.setOpaque(false);
 		btnRegistrarse.setContentAreaFilled(false);
 		btnRegistrarse.setFocusPainted(false);
-		add(btnRegistrarse);
-		
+		add(btnRegistrarse);		
 	}
 	protected JButton getBtnEntrar() {
 		return btnEntrar;
@@ -154,8 +158,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			try {				
 				resultado = gt.comprobarCliente(tfCorreo.getText());
 				while(resultado.next()) {
-					System.out.println(resultado.getString("correo"));
-					System.out.println(resultado.getString("contraseña"));
+										
+
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();

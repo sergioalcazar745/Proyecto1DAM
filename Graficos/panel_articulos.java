@@ -18,9 +18,17 @@ import java.awt.event.MouseListener;
 
 public class panel_articulos extends JPanel implements MouseListener{
 	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JPanel panel_8;
+	private JPanel panel_9;
 
 	/**
-	 * Create the panel.
+	 ** Create the panel.
 	 */
 	public panel_articulos() {
 		setLayout(null);
@@ -55,7 +63,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_2.setBounds(128, 314, 86, 17);
 		panel_1.add(label_2);
 		
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel_2.addMouseListener(this);
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
@@ -78,7 +86,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_5.setBounds(128, 314, 86, 17);
 		panel_2.add(label_5);
 		
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
+		panel_3.addMouseListener(this);
 		panel_3.setLayout(null);
 		panel_3.setBackground(Color.WHITE);
 		panel.add(panel_3);
@@ -100,7 +109,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_8.setBounds(128, 314, 86, 17);
 		panel_3.add(label_8);
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
+		panel_4.addMouseListener(this);
 		panel_4.setLayout(null);
 		panel_4.setBackground(Color.WHITE);
 		panel.add(panel_4);
@@ -122,7 +132,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_11.setBounds(128, 314, 86, 17);
 		panel_4.add(label_11);
 		
-		JPanel panel_5 = new JPanel();
+		panel_5 = new JPanel();
+		panel_5.addMouseListener(this);
 		panel_5.setLayout(null);
 		panel_5.setBackground(Color.WHITE);
 		panel.add(panel_5);
@@ -144,7 +155,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_14.setBounds(128, 314, 86, 17);
 		panel_5.add(label_14);
 		
-		JPanel panel_6 = new JPanel();
+		panel_6 = new JPanel();
+		panel_6.addMouseListener(this);
 		panel_6.setLayout(null);
 		panel_6.setBackground(Color.WHITE);
 		panel.add(panel_6);
@@ -166,7 +178,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_17.setBounds(128, 314, 86, 17);
 		panel_6.add(label_17);
 		
-		JPanel panel_7 = new JPanel();
+		panel_7 = new JPanel();
+		panel_7.addMouseListener(this);
 		panel_7.setLayout(null);
 		panel_7.setBackground(Color.WHITE);
 		panel.add(panel_7);
@@ -188,7 +201,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_20.setBounds(128, 314, 86, 17);
 		panel_7.add(label_20);
 		
-		JPanel panel_8 = new JPanel();
+		panel_8 = new JPanel();
+		panel_8.addMouseListener(this);
 		panel_8.setLayout(null);
 		panel_8.setBackground(Color.WHITE);
 		panel.add(panel_8);
@@ -210,7 +224,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 		label_23.setBounds(128, 314, 86, 17);
 		panel_8.add(label_23);
 		
-		JPanel panel_9 = new JPanel();
+		panel_9 = new JPanel();
+		panel_9.addMouseListener(this);
 		panel_9.setLayout(null);
 		panel_9.setBackground(Color.WHITE);
 		panel.add(panel_9);
@@ -237,8 +252,8 @@ public class panel_articulos extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		Object evento=e.getSource();
-		if(evento.equals(panel_1)) {
-			System.out.println("hola");
+		if(e.getComponent() instanceof JPanel) {
+			System.out.println("hola"+e.getComponent());
 		}
 	}
 
@@ -267,5 +282,29 @@ public class panel_articulos extends JPanel implements MouseListener{
 	}
 	protected JPanel getPanel_1() {
 		return panel_1;
+	}
+	public JPanel getPanel_2() {
+		return panel_2;
+	}
+	public JPanel getPanel_3() {
+		return panel_3;
+	}
+	public JPanel getPanel_4() {
+		return panel_4;
+	}
+	public JPanel getPanel_5() {
+		return panel_5;
+	}
+	public JPanel getPanel_6() {
+		return panel_6;
+	}
+	public JPanel getPanel_7() {
+		return panel_7;
+	}
+	public JPanel getPanel_8() {
+		return panel_8;
+	}
+	public JPanel getPanel_9() {
+		return panel_9;
 	}
 }
