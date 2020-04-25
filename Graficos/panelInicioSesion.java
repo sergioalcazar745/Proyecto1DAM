@@ -2,19 +2,40 @@ package Graficos;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.SwingConstants;
+
+import com.mysql.jdbc.Connection;
+
+import Base_de_datos.Gestion;
+import Base_de_datos.conexion;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
-public class panelInicioSesion extends JPanel {
-	private JTextField textField;
-	private JPasswordField passwordField;
+public class panelInicioSesion extends JPanel implements ActionListener{
+	private JTextField tfCorreo;
+	private JPasswordField tfContraseña;
 	private JButton btnEntrar;
-	private JButton btnVolver;
+	private JButton btnRegistrarse;
+	private Gestion gt;
+	private ResultSet resultado;
 
 	public panelInicioSesion() {
 		setBackground(Color.WHITE);
@@ -22,13 +43,14 @@ public class panelInicioSesion extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(245, 245, 245));
 		panel.setBounds(0, 0, 853, 115);
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblImagenError = new JLabel("New label");
+		JLabel lblImagenError = new JLabel("");
 		lblImagenError.setVisible(false);
-		lblImagenError.setBounds(0, 0, 131, 122);
+		lblImagenError.setBounds(0, 0, 131, 115);
 		panel.add(lblImagenError);
 		lblImagenError.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/dialog_warning.png")));
 		
@@ -39,17 +61,11 @@ public class panelInicioSesion extends JPanel {
 		lblError.setBounds(101, 0, 90, 29);
 		panel.add(lblError);
 		
-		JLabel lblNewLabel_3 = new JLabel("Si todav\u00EDa no te has registrado pulsa");
+		JLabel lblNewLabel_3 = new JLabel("Si todav\u00EDa no te has registrado pulsa en el boton de registrarse.");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(0, 28, 853, 51);
 		panel.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("aqu\u00ED.");
-		lblNewLabel_4.setForeground(new Color(0, 191, 255));
-		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(608, 28, 65, 51);
-		panel.add(lblNewLabel_4);
 		
 		JLabel lblElCorreoO = new JLabel("El correo o la contrase\u00F1a son incorrectos. Vuelva a intentarlo.");
 		lblElCorreoO.setVisible(false);
@@ -74,38 +90,77 @@ public class panelInicioSesion extends JPanel {
 		lblContrasea.setBounds(148, 317, 98, 28);
 		add(lblContrasea);
 		
-		textField = new JTextField();
-		textField.setBounds(299, 218, 326, 28);
-		add(textField);
-		textField.setColumns(10);
+		tfCorreo = new JTextField();
+		tfCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		tfCorreo.setBounds(299, 218, 326, 28);
+		add(tfCorreo);
+		tfCorreo.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(299, 318, 326, 28);
-		add(passwordField);
+		tfContraseña = new JPasswordField();
+		tfContraseña.setBounds(299, 318, 326, 28);
+		add(tfContraseña);
 		
 		btnEntrar = new JButton("ENTRAR");
+		btnEntrar.addActionListener(this);
 		btnEntrar.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/door.png")));
 		btnEntrar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnEntrar.setBounds(211, 405, 151, 52);
 		btnEntrar.setBorderPainted(false);
 		btnEntrar.setOpaque(false);
 		btnEntrar.setContentAreaFilled(false);
+		btnEntrar.setFocusPainted(false);
 		add(btnEntrar);
 		
-		btnVolver = new JButton("VOLVER");
-		btnVolver.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/return.png")));
-		btnVolver.setFont(new Font("Arial", Font.BOLD, 16));
-		btnVolver.setBounds(493, 405, 151, 52);
-		btnVolver.setBorderPainted(false);
-		btnVolver.setOpaque(false);
-		btnVolver.setContentAreaFilled(false);
-		add(btnVolver);
+		btnRegistrarse = new JButton("REGISTRARSE");
+		btnRegistrarse.addActionListener(this);
+		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
+		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
+		btnRegistrarse.setBounds(493, 405, 183, 52);
+		btnRegistrarse.setBorderPainted(false);
+		btnRegistrarse.setOpaque(false);
+		btnRegistrarse.setContentAreaFilled(false);
+		btnRegistrarse.setFocusPainted(false);
+		add(btnRegistrarse);
 		
 	}
 	protected JButton getBtnEntrar() {
 		return btnEntrar;
 	}
 	protected JButton getBtnVolver() {
-		return btnVolver;
+		return btnRegistrarse;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object boton = e.getSource();
+		
+		if(boton.equals(btnRegistrarse)) {
+			URL url=null;
+			try {
+			    url = new URL("http://www.google.es/");
+			    try {
+			        Desktop.getDesktop().browse(url.toURI());
+			    } catch (IOException e1) {
+			        e1.printStackTrace();
+			    } catch (URISyntaxException e1) {
+			        e1.printStackTrace();
+			    }
+			} catch (MalformedURLException e1) {
+			    e1.printStackTrace();
+			}
+			
+		}else if (boton.equals(btnEntrar)) {
+			gt = new Gestion();
+			String pass = new String(tfContraseña.getPassword());
+			
+			try {				
+				resultado = gt.comprobarCliente(tfCorreo.getText(), pass);
+				while(resultado.next()) {
+					System.out.println(resultado.getString("correo"));
+					System.out.println(resultado.getString("contraseña"));
+				}
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
 	}
 }
