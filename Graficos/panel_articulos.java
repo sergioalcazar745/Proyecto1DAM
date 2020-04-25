@@ -4,13 +4,19 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class panel_articulos extends JPanel {
+public class panel_articulos extends JPanel implements MouseListener{
 
 	/**
 	 * Create the panel.
@@ -26,6 +32,7 @@ public class panel_articulos extends JPanel {
 		panel.setLayout(new GridLayout(3, 3, 50, 50));
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.addMouseListener(this);
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.WHITE);
 		panel.add(panel_1);
@@ -48,6 +55,7 @@ public class panel_articulos extends JPanel {
 		panel_1.add(label_2);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.addMouseListener(this);
 		panel_2.setLayout(null);
 		panel_2.setBackground(Color.WHITE);
 		panel.add(panel_2);
@@ -223,6 +231,41 @@ public class panel_articulos extends JPanel {
 		label_26.setBounds(128, 314, 86, 17);
 		panel_9.add(label_26);
 
+	}
+
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		Object evento=e.getSource();
+		if(evento.equals("panel_1")) {
+			System.out.println("hola");
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

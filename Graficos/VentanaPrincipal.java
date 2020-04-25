@@ -244,6 +244,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(evento.equals(btnHome)) {
 			desactivarPaneles();
 			panel_2.setVisible(true);
+			contentPane.revalidate();
 		}else if(evento.equals(btnAccount)) {
 			desactivarPaneles();
 			panelCuenta.setVisible(true);
