@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -23,16 +25,21 @@ import javax.swing.JTree;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.border.TitledBorder;
 
-public class panelAdministrador extends JPanel {
+public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField textField;
 	private JTextField textField_1;
 	JComboBox comboBox_Nombres = new JComboBox();
 	JComboBox comboBox_Categorias = new JComboBox();
 	//array con los nombres de los productos.
 	ArrayList<String> nombre_articulos=new ArrayList<String>();
+	private JButton btnCrearCategoria;
+	
 	public panelAdministrador() {
+		setBorder(new TitledBorder(null, "COMPRAR SUMINISTROS", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 		//agregacion de los nombres de los articulos.
+				nombre_articulos.add("");
 				nombre_articulos.add("Bermuda Denim Mom Fit");
 				nombre_articulos.add("Bermuda Efecto Brillo");
 				nombre_articulos.add("Body Encaje");
@@ -54,9 +61,7 @@ public class panelAdministrador extends JPanel {
 				nombre_articulos.add("Sudadera Volantes Combinados");
 				nombre_articulos.add("Top Lazada");
 				//lo añadimos al comboBox
-				insertarNombres(nombre_articulos);
-				
-				
+				insertarNombres(nombre_articulos);				
 				
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
@@ -151,7 +156,8 @@ public class panelAdministrador extends JPanel {
 		lblCategoria.setBounds(375, 56, 105, 19);
 		add(lblCategoria);
 		
-		JLabel lblNewLabel_5 = new JLabel("Categorias disponibles");
+		JLabel lblNewLabel_5 = new JLabel("A\u00F1adir categoria");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel_5.setBounds(44, 138, 188, 16);
 		add(lblNewLabel_5);
@@ -168,10 +174,32 @@ public class panelAdministrador extends JPanel {
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setFocusPainted(false);
 		add(btnNewButton);
+		
+		btnCrearCategoria = new JButton("Crear categoria");
+		btnCrearCategoria.addActionListener(this);
+		btnCrearCategoria.setBackground(new Color(192, 192, 192));
+		btnCrearCategoria.setFont(new Font("Lucida Console", Font.BOLD, 16));
+		btnCrearCategoria.setOpaque(false);
+		btnCrearCategoria.setFocusPainted(false);
+		btnCrearCategoria.setContentAreaFilled(false);
+		btnCrearCategoria.setBorderPainted(false);
+		btnCrearCategoria.setBounds(315, 167, 228, 29);
+		add(btnCrearCategoria);
 	}
 	public void insertarNombres(ArrayList<String> nombre_articulos){
 		for(String n:nombre_articulos) {
 			comboBox_Nombres.addItem(n);
+		}
+	}
+	public JButton getBtnCrearCategoria() {
+		return btnCrearCategoria;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object evento = e.getSource();
+		
+		if(evento.equals(btnCrearCategoria)) {
+			panelCategoria pc = new panelCategoria();
 		}
 	}
 }
