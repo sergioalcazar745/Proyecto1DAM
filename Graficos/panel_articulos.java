@@ -28,7 +28,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 	private JPanel panel_9;
 
 	/**
-	 * Create the panel.
+	 ** Create the panel.
 	 */
 	public panel_articulos() {
 		setLayout(null);
