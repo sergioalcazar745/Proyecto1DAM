@@ -74,6 +74,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnShop;
 	private panel_articulos panel_articulos;
 	private JScrollPane scrollPane;
+	private JPanel panel_2 = new JPanel();
 	
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
@@ -101,7 +102,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(232, 11, 853, 544);
 		
-		JPanel panel_2 = new JPanel();
+
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(232, 11, 853, 544);
 		contentPane.add(panel_2);
@@ -242,8 +243,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			 System.exit(WIDTH);
 		}else if(evento.equals(btnHome)) {
 			desactivarPaneles();
-			scrollPane.setVisible(true);
-			panel_articulos.setVisible(true);
+			panel_2.setVisible(true);
 		}else if(evento.equals(btnAccount)) {
 			desactivarPaneles();
 			panelCuenta.setVisible(true);

@@ -113,7 +113,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		
 		btnRegistrarse = new JButton("REGISTRARSE");
 		btnRegistrarse.addActionListener(this);
-		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
+		//btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
 		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
 		btnRegistrarse.setBounds(493, 405, 183, 52);
 		btnRegistrarse.setBorderPainted(false);
