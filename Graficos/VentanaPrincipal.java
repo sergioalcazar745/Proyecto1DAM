@@ -64,7 +64,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
 	String correo = "";
-	private JPanel panelCuenta = new panelCuenta(gdb, cnx, correo);
+	private JPanel panelCuenta = new panelCuenta(gdb, cnx);
 	private JPanel panelInicioSesion = new panelInicioSesion(gdb, cnx);
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -254,8 +254,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			contentPane.revalidate();
 		}else if(evento.equals(btnAccount)) {
 			desactivarPaneles();
+			System.out.println("true o false:"+gdb.getSesionIniciada());
+			JPanel panelCuenta=new panelCuenta(gdb, cnx);
+			contentPane.add(panelCuenta);
 			panelCuenta.setVisible(true);
-			panelCuenta.revalidate();
 		}else if(evento.equals(btnSignOut)) {
 			desactivarPaneles();
 			panelInicioSesion.setVisible(true);

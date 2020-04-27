@@ -27,12 +27,12 @@ import java.awt.Color;
 
 public class panelCuenta extends JPanel implements ActionListener{
 	
+	JTextField tfCorreo = new JTextField();
 	JTextField tfNombre = new JTextField();
-	private JTextField tfApellidos;
-	private JTextField tfFecha_Nacimiento;
-	private JTextField tfTelefono;
-	private JTextField tfCorreo;
-	private JPasswordField tfContraseña;
+	JTextField tfFecha_Nacimiento = new JTextField();
+	JTextField tfTelefono = new JTextField();
+	JTextField tfApellidos = new JTextField();
+	JPasswordField tfContraseña = new JPasswordField();
 	private JButton btnEditNombre;
 	private JButton btnEditApellidos;
 	private JButton btnEditFechaNacimiento;
@@ -43,12 +43,17 @@ public class panelCuenta extends JPanel implements ActionListener{
 	Gestion gdb=new Gestion();
 	conexion conx=new conexion();
 	
+
 	
-	public panelCuenta(Gestion gdb_aux, conexion conx_aux, String correo) {
+	public panelCuenta(Gestion gdb_aux, conexion conx_aux) {
 		System.out.println("Hola" + tfNombre.getText());
 		this.gdb=gdb_aux;
 		this.conx=conx_aux;
-		revalidate();
+		System.out.println("true o false2:"+gdb.getSesionIniciada());
+		if(gdb.getSesionIniciada()==true) {
+			System.out.println("sesion iniciada");
+			actualizarTextFields();
+		}
 
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
@@ -81,7 +86,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnGuardar.setFocusPainted(false);
 		add(btnGuardar);
 		
-		tfApellidos = new JTextField();
+		
 		tfApellidos.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfApellidos.setColumns(10);
 		tfApellidos.setBounds(305, 111, 379, 34);
@@ -93,7 +98,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblFechaDeNacimiento.setBounds(12, 175, 197, 34);
 		add(lblFechaDeNacimiento);
 		
-		tfFecha_Nacimiento = new JTextField();
+		
 		tfFecha_Nacimiento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfFecha_Nacimiento.setColumns(10);
 		tfFecha_Nacimiento.setBounds(305, 176, 379, 34);
@@ -105,7 +110,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblTelefono.setBounds(52, 239, 157, 34);
 		add(lblTelefono);
 		
-		tfTelefono = new JTextField();
+		
 		tfTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(305, 240, 379, 34);
@@ -117,7 +122,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblCorreoElectronico.setBounds(12, 302, 197, 34);
 		add(lblCorreoElectronico);
 		
-		tfCorreo = new JTextField();
+		
 		tfCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfCorreo.setColumns(10);
 		tfCorreo.setBounds(305, 303, 379, 34);
@@ -199,7 +204,6 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditContraseña.setFocusPainted(false);
 		add(btnEditContraseña);
 		
-		tfContraseña = new JPasswordField();
 		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(305, 370, 379, 33);
 		add(tfContraseña);
@@ -239,8 +243,15 @@ public class panelCuenta extends JPanel implements ActionListener{
 	}
 
 	
-	public void insertarDatosTextFields() {
-		
+	public void actualizarTextFields() {
+		ArrayList<String> datos=gdb.getDatos();
+		tfNombre.setText(datos.get(3));
+		tfApellidos.setText(datos.get(4));
+		tfFecha_Nacimiento.setText(datos.get(5));
+		tfCorreo.setText(datos.get(0));
+		tfContraseña.setText(datos.get(1));
+		tfContraseña.setEchoChar((char)0);
+		tfTelefono.setText(datos.get(2));
 	}
 
 	public void setTfNombre(JTextField tfNombre) {

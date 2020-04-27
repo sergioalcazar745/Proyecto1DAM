@@ -16,7 +16,14 @@ public class Gestion  {
 	private ResultSet resultado, resultado2; //recibe consulta
 	private String id;
 	ArrayList<String> array_datos=new ArrayList<String>();
+	boolean sesionIniciada=false;
 	
+	public boolean getSesionIniciada() {
+		return sesionIniciada;
+	}
+	public void setSesionIniciada(boolean sesion) {
+		this.sesionIniciada=sesion;
+	}
 	public Gestion() {
 		
 	}
