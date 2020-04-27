@@ -44,6 +44,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private JLabel lblError;
 	private JLabel lblInicio;
 	private JLabel lblIncorrecto;
+	private panelCuenta pc;
 
 	public panelInicioSesion() {
 		setBackground(Color.WHITE);
@@ -122,7 +123,6 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		btnRegistrarse = new JButton("REGISTRARSE");
 		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
 		btnRegistrarse.addActionListener(this);
-		//btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
 		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
 		btnRegistrarse.setBounds(493, 405, 183, 52);
 		btnRegistrarse.setBorderPainted(false);
@@ -160,7 +160,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			gt = new Gestion();
 			
 			try {				
-				resultado = gt.comprobarCliente(tfCorreo.getText());
+				resultado = gt.comprobarSesion(tfCorreo.getText());
 				while(resultado.next()) {
 					
 					if(resultado == null) {
@@ -172,9 +172,12 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						tfCorreo.setText("");
 						tfContraseña.setText("");
 						System.out.println("Hola");
-					}
-					if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
+					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
+						
+						pc = new panelCuenta();
+						pc.introducirDatos(resultado);
+						
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);

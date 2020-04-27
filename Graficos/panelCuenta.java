@@ -8,11 +8,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Base_de_datos.Gestion;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -31,7 +36,9 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private JButton btnEditTelefono;
 	private JButton btnEditCorreo;
 	private JButton btnEditContraseña;
-//
+	private ResultSet resultado2;
+	private Gestion gdb;
+
 	public panelCuenta() {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
@@ -44,6 +51,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblNewLabel);
 		
 		tfNombre = new JTextField();
+		tfNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfNombre.setBounds(305, 46, 379, 34);
 		add(tfNombre);
 		tfNombre.setColumns(10);
@@ -65,6 +73,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(btnGuardar);
 		
 		tfApellidos = new JTextField();
+		tfApellidos.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfApellidos.setColumns(10);
 		tfApellidos.setBounds(305, 111, 379, 34);
 		add(tfApellidos);
@@ -76,6 +85,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblFechaDeNacimiento);
 		
 		tfFecha_Nacimiento = new JTextField();
+		tfFecha_Nacimiento.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfFecha_Nacimiento.setColumns(10);
 		tfFecha_Nacimiento.setBounds(305, 176, 379, 34);
 		add(tfFecha_Nacimiento);
@@ -87,6 +97,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblTelefono);
 		
 		tfTelefono = new JTextField();
+		tfTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfTelefono.setColumns(10);
 		tfTelefono.setBounds(305, 240, 379, 34);
 		add(tfTelefono);
@@ -98,6 +109,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblCorreoElectronico);
 		
 		tfCorreo = new JTextField();
+		tfCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfCorreo.setColumns(10);
 		tfCorreo.setBounds(305, 303, 379, 34);
 		add(tfCorreo);
@@ -179,8 +191,9 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(btnEditContraseña);
 		
 		tfContraseña = new JPasswordField();
+		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(305, 370, 379, 33);
-		add(tfContraseña);		
+		add(tfContraseña);
 	}
 
 	@Override
@@ -213,6 +226,39 @@ public class panelCuenta extends JPanel implements ActionListener{
 			}else {
 				JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
 			}			
+		}
+	}
+	
+	public void introducirDatos(ResultSet resultado) {
+		gdb = new Gestion();
+		try {
+			resultado2 = gdb.comprobarCliente(resultado.getString("id_persona"));
+			while(resultado2.next()) {
+				tfNombre.setText(resultado2.getString("nombre"));
+				tfApellidos.setText(resultado2.getString("apellidos"));
+				tfFecha_Nacimiento.setText(resultado2.getString("fecha_nacimiento"));
+
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			tfCorreo.setText(resultado.getString("correo"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			tfContraseña.setText(resultado.getString("contraseña"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			tfTelefono.setText(resultado.getString("telefono"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	protected JButton getBtnEditNombre() {

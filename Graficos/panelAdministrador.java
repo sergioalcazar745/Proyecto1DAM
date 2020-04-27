@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -162,7 +163,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_5.setBounds(44, 138, 188, 16);
 		add(lblNewLabel_5);
 		
-
 		comboBox_Categorias.setBounds(315, 86, 211, 29);
 		add(comboBox_Categorias);
 		
@@ -199,7 +199,11 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		Object evento = e.getSource();
 		
 		if(evento.equals(btnCrearCategoria)) {
-			panelCategoria pc = new panelCategoria();
+			try {
+				panelCategoria pc = new panelCategoria();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 }
