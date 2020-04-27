@@ -41,10 +41,11 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private Gestion gdb;
 	private ArrayList<String> datos;
 	
+	public  panelCuenta(ArrayList<String> Datos) {
+		this.datos=Datos;
+	}
 	public panelCuenta() {
-		if(datos!=null) {
 			insertarDatosTextFields(datos);
-		}
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -240,30 +241,30 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 	}
 	
-//	public void insertarDatosTextFields(ArrayList<String> datos) {
-//		try {
-//			datos = gdb.devolverDatos(tfCorreo.getText());
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		if(datos!=null) {			
-//		
-//			for(String n:datos) {
-//				System.out.println(n);
-//			}
-//			
-//			tfNombre.setText(datos.get(3));
-//			tfApellidos.setText(datos.get(4));
-//			tfFecha_Nacimiento.setText(datos.get(5));
-//			tfCorreo.setText(datos.get(0));
-//			tfContraseña.setText(datos.get(1));
-//			tfTelefono.setText(datos.get(2));
-//			System.out.println("Joputa");
-//		}else {
-//			System.out.println("Joputa2");
-//		}
-//	}
+	public void insertarDatosTextFields(ArrayList<String> datos) {
+		try {
+			datos = gdb.devolverDatos(tfCorreo.getText());
+	} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(datos!=null) {			
+		
+			for(String n:datos) {
+				System.out.println(n);
+			}
+			
+			tfNombre.setText(datos.get(3));
+			tfApellidos.setText(datos.get(4));
+			tfFecha_Nacimiento.setText(datos.get(5));
+			tfCorreo.setText(datos.get(0));
+			tfContraseña.setText(datos.get(1));
+			tfTelefono.setText(datos.get(2));
+			System.out.println("Joputa");
+		}else {
+			System.out.println("Joputa2");
+		}
+	}
 	protected void setDatos(ArrayList Datos) {
 		this.datos=Datos;
 	}

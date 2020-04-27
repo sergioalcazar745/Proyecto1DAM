@@ -174,10 +174,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						System.out.println("Hola");
 					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
-						gt.devolverDatos(tfCorreo.getText());
-						pc = new panelCuenta();
-						pc.insertarDatosTextFields(datos);
-						
+						pc = new panelCuenta(gt.devolverDatos(tfCorreo.getText()));
+						pc =new panelCuenta();
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);
