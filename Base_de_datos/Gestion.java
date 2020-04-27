@@ -38,7 +38,7 @@ public class Gestion  {
 	}
 	
 	
-	public void devolverDatos(String correo) throws SQLException {	
+	public void guardarDatos(String correo) throws SQLException {	
 		ArrayList<String> datos=new ArrayList<String>();
 		String id = "";
 		int confirmar = 0;
@@ -84,8 +84,9 @@ public class Gestion  {
 			System.out.println("Fallo al buscar2");
 			e.printStackTrace();
 		}
-		
-		datos=array_datos;
+		System.out.println("Hola");
+	array_datos=datos;
+	System.out.println(array_datos.size());
 	}
 	public ArrayList getDatos() {
 		return array_datos;

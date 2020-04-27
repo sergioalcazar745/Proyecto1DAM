@@ -26,7 +26,8 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 
 public class panelCuenta extends JPanel implements ActionListener{
-	private JTextField tfNombre;
+	
+	JTextField tfNombre = new JTextField();
 	private JTextField tfApellidos;
 	private JTextField tfFecha_Nacimiento;
 	private JTextField tfTelefono;
@@ -41,11 +42,14 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private ResultSet resultado2;
 	Gestion gdb=new Gestion();
 	conexion conx=new conexion();
-	ArrayList<String> datos=new ArrayList<String>();
-	public panelCuenta(Gestion gdb_aux, conexion conx_aux) {
+	
+	
+	public panelCuenta(Gestion gdb_aux, conexion conx_aux, String correo) {
+		System.out.println("Hola" + tfNombre.getText());
 		this.gdb=gdb_aux;
 		this.conx=conx_aux;
-		insertarDatosTextFields(gdb);
+		revalidate();
+
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -56,7 +60,6 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		add(lblNewLabel);
 		
-		tfNombre = new JTextField();
 		tfNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfNombre.setBounds(305, 46, 379, 34);
 		add(tfNombre);
@@ -200,7 +203,6 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(305, 370, 379, 33);
 		add(tfContraseña);
-		
 	}
 
 	@Override
@@ -237,22 +239,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 	}
 
 	
-	public void insertarDatosTextFields(Gestion gdb) {
-			ArrayList<String> datos=gdb.getDatos();
+	public void insertarDatosTextFields() {
 		
-			for(String n:datos) {
-				System.out.println(n);
-			}
-			
-			tfNombre.setText(datos.get(3));
-			tfApellidos.setText(datos.get(4));
-			tfFecha_Nacimiento.setText(datos.get(5));
-			tfCorreo.setText(datos.get(0));
-			tfContraseña.setText(datos.get(1));
-			tfTelefono.setText(datos.get(2));
-			System.out.println("Joputa");
-
-			System.out.println("Joputa2");
 	}
 
 	public void setTfNombre(JTextField tfNombre) {

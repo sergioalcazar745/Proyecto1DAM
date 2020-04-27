@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -44,9 +45,14 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private JLabel lblError;
 	private JLabel lblInicio;
 	private JLabel lblIncorrecto;
-	private panelCuenta pc;
 	conexion conx=new conexion();
 	Gestion gdb=new Gestion();
+	ArrayList<String> datos=new ArrayList<String>();
+	String sesionIniciada = "";
+	
+	public String getSesionIniciada() {
+		return sesionIniciada;
+	}
 
 	public panelInicioSesion(Gestion gdb_aux, conexion conx_aux) {
 		this.gdb=gdb_aux;
@@ -178,7 +184,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						System.out.println("Hola");
 					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
-						panelCuenta pc = new panelCuenta(gdb, conx);
+						sesionIniciada = tfCorreo.getText();
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);
