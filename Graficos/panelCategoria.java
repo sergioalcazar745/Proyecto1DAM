@@ -1,6 +1,7 @@
 package Graficos;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 
 public class panelCategoria extends JDialog implements ActionListener{
 
@@ -42,8 +44,9 @@ public class panelCategoria extends JDialog implements ActionListener{
 	private Gestion gdb;
 	private JButton btnAceptar;
 
-	public panelCategoria() throws SQLException {
-		setVisible(true);		
+	public panelCategoria() throws SQLException {	
+		setVisible(true);
+		setResizable(false);
 		setBounds(100, 100, 545, 398);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

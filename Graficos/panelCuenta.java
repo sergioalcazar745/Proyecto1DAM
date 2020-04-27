@@ -234,6 +234,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		try {
 			resultado2 = gdb.comprobarCliente(resultado.getString("id_persona"));
 			while(resultado2.next()) {
+				System.out.println(resultado2.getString("correo"));
 				tfNombre.setText(resultado2.getString("nombre"));
 				tfApellidos.setText(resultado2.getString("apellidos"));
 				tfFecha_Nacimiento.setText(resultado2.getString("fecha_nacimiento"));
