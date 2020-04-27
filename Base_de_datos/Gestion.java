@@ -2,6 +2,7 @@ package Base_de_datos;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -11,8 +12,8 @@ import com.mysql.jdbc.Statement;
 public class Gestion {
 	private Connection con;//objeto conexion
 	private conexion cx= new conexion();
-	private Statement st;//realiza consulta
-	private ResultSet resultado; //recibe consulta
+	private Statement st, st2;//realiza consulta
+	private ResultSet resultado, resultado2; //recibe consulta
 	private String id;
 	
 	public ResultSet comprobarSesion(String correo) throws SQLException {		
@@ -30,6 +31,44 @@ public class Gestion {
 		}
 		
 		return resultado;
+	}
+	
+	
+	public ArrayList devolverDatos(String correo) throws SQLException {	
+		ArrayList<String> datos=new ArrayList<String>();
+		int confirmar = 0;
+		
+		con = cx.getConexion();
+		//cogemos el id;
+		String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";
+		
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			int id=Integer.parseInt(resultado.getString("id_persona"));
+			
+			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
+				try {
+					st2=(Statement) con.createStatement();
+					resultado2 = st2.executeQuery(sql2);
+					datos.add(resultado2.getString("nombre"));
+					datos.add(resultado2.getString("apellidos"));
+					datos.add(resultado2.getString("fecha_nacimiento"));
+					for(String n: datos){
+						System.out.println(n);
+					}
+				} catch (SQLException e) {
+					System.out.println("Fallo al buscar");
+					e.printStackTrace();
+				}
+			
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return datos;
 	}
 	
 	public ResultSet comprobarCliente(String id) throws SQLException {		

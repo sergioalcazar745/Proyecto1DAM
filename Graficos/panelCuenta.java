@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -39,7 +40,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private ResultSet resultado2;
 	private Gestion gdb;
 
-	public panelCuenta() {
+	public panelCuenta(ArrayList<String> datos) {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
