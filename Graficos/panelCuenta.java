@@ -39,8 +39,9 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private JButton btnEditContraseña;
 	private ResultSet resultado2;
 	private Gestion gdb;
-
+	private ArrayList<String> datos;
 	public panelCuenta() {
+		insertarDatosTextFields(datos);
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -229,39 +230,19 @@ public class panelCuenta extends JPanel implements ActionListener{
 			}			
 		}
 	}
-	
-	public void introducirDatos(ResultSet resultado) {
-		gdb = new Gestion();
-		try {
-			resultado2 = gdb.comprobarCliente(resultado.getString("id_persona"));
-			while(resultado2.next()) {
-				System.out.println(resultado2.getString("correo"));
-				tfNombre.setText(resultado2.getString("nombre"));
-				tfApellidos.setText(resultado2.getString("apellidos"));
-				tfFecha_Nacimiento.setText(resultado2.getString("fecha_nacimiento"));
-
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+	public void insertarDatosTextFields(ArrayList<String> datos) {
+		for(String n:datos) {
+			System.out.println(n);
 		}
-		try {
-			tfCorreo.setText(resultado.getString("correo"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			tfContraseña.setText(resultado.getString("contraseña"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		try {
-			tfTelefono.setText(resultado.getString("telefono"));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		tfNombre.setText(datos.get(0));
+		tfApellidos.setText(datos.get(1));
+		tfFecha_Nacimiento.setText(datos.get(2));
+		tfCorreo.setText(datos.get(3));
+		tfContraseña.setText(datos.get(4));
+		tfTelefono.setText(datos.get(5));
+	}
+	protected void setDatos(ArrayList Datos) {
+		this.datos=Datos;
 	}
 	protected JButton getBtnEditNombre() {
 		return btnEditNombre;

@@ -62,6 +62,10 @@ public class Gestion {
 						datos.add(resultado2.getString("nombre"));
 						datos.add(resultado2.getString("apellidos"));
 						datos.add(resultado2.getString("fecha_nacimiento"));
+						
+						datos.add(resultado.getString("correo"));
+						datos.add(resultado.getString("contraseña"));
+						datos.add(resultado.getString("telefono"));
 					}
 
 					for(String n: datos){
