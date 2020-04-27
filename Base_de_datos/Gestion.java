@@ -36,6 +36,7 @@ public class Gestion {
 	
 	public ArrayList devolverDatos(String correo) throws SQLException {	
 		ArrayList<String> datos=new ArrayList<String>();
+		String id = "";
 		int confirmar = 0;
 		
 		con = cx.getConexion();
@@ -46,25 +47,34 @@ public class Gestion {
 		try {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
-			int id=Integer.parseInt(resultado.getString("id_persona"));
 			
-			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
+			while(resultado.next()) {
+				id=(resultado.getString(1));
+			}
+
+			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux="+id+"";
+			
 				try {
 					st2=(Statement) con.createStatement();
 					resultado2 = st2.executeQuery(sql2);
-					datos.add(resultado2.getString("nombre"));
-					datos.add(resultado2.getString("apellidos"));
-					datos.add(resultado2.getString("fecha_nacimiento"));
+					System.out.println("Hola");
+					while(resultado2.next()) {
+						datos.add(resultado2.getString("nombre"));
+						datos.add(resultado2.getString("apellidos"));
+						datos.add(resultado2.getString("fecha_nacimiento"));
+					}
+
 					for(String n: datos){
 						System.out.println(n);
 					}
+					
 				} catch (SQLException e) {
-					System.out.println("Fallo al buscar");
+					System.out.println("Fallo al buscar1");
 					e.printStackTrace();
 				}
 			
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
+			System.out.println("Fallo al buscar2");
 			e.printStackTrace();
 		}
 		

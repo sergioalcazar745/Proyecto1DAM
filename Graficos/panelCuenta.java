@@ -40,7 +40,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private ResultSet resultado2;
 	private Gestion gdb;
 
-	public panelCuenta(ArrayList<String> datos) {
+	public panelCuenta() {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
