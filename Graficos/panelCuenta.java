@@ -40,8 +40,11 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private ResultSet resultado2;
 	private Gestion gdb;
 	private ArrayList<String> datos;
+	
 	public panelCuenta() {
-		insertarDatosTextFields(datos);
+		if(datos!=null) {
+			insertarDatosTextFields(datos);
+		}
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -196,6 +199,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(305, 370, 379, 33);
 		add(tfContraseña);
+		
+		insertarDatos();
 	}
 
 	@Override
@@ -230,17 +235,35 @@ public class panelCuenta extends JPanel implements ActionListener{
 			}			
 		}
 	}
-	public void insertarDatosTextFields(ArrayList<String> datos) {
-		for(String n:datos) {
-			System.out.println(n);
-		}
-		tfNombre.setText(datos.get(0));
-		tfApellidos.setText(datos.get(1));
-		tfFecha_Nacimiento.setText(datos.get(2));
-		tfCorreo.setText(datos.get(3));
-		tfContraseña.setText(datos.get(4));
-		tfTelefono.setText(datos.get(5));
+	
+	protected void insertarDatos() {
+		
 	}
+	
+//	public void insertarDatosTextFields(ArrayList<String> datos) {
+//		try {
+//			datos = gdb.devolverDatos(tfCorreo.getText());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		if(datos!=null) {			
+//		
+//			for(String n:datos) {
+//				System.out.println(n);
+//			}
+//			
+//			tfNombre.setText(datos.get(3));
+//			tfApellidos.setText(datos.get(4));
+//			tfFecha_Nacimiento.setText(datos.get(5));
+//			tfCorreo.setText(datos.get(0));
+//			tfContraseña.setText(datos.get(1));
+//			tfTelefono.setText(datos.get(2));
+//			System.out.println("Joputa");
+//		}else {
+//			System.out.println("Joputa2");
+//		}
+//	}
 	protected void setDatos(ArrayList Datos) {
 		this.datos=Datos;
 	}
