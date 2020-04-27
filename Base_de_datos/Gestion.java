@@ -9,13 +9,17 @@ import com.mysql.jdbc.Statement;
 
 
 
-public class Gestion {
+public class Gestion  {
 	private Connection con;//objeto conexion
 	private conexion cx= new conexion();
 	private Statement st, st2;//realiza consulta
 	private ResultSet resultado, resultado2; //recibe consulta
 	private String id;
+	ArrayList<String> array_datos=new ArrayList<String>();
 	
+	public Gestion() {
+		
+	}
 	public ResultSet comprobarSesion(String correo) throws SQLException {		
 		int confirmar = 0;
 		
@@ -34,7 +38,7 @@ public class Gestion {
 	}
 	
 	
-	public ArrayList devolverDatos(String correo) throws SQLException {	
+	public void devolverDatos(String correo) throws SQLException {	
 		ArrayList<String> datos=new ArrayList<String>();
 		String id = "";
 		int confirmar = 0;
@@ -60,7 +64,7 @@ public class Gestion {
 				try {
 					st2=(Statement) con.createStatement();
 					resultado2 = st2.executeQuery(sql2);
-					System.out.println("Hola");
+					//System.out.println("Hola");
 					while(resultado2.next()) {
 						datos.add(resultado2.getString("nombre"));
 						datos.add(resultado2.getString("apellidos"));
@@ -81,9 +85,11 @@ public class Gestion {
 			e.printStackTrace();
 		}
 		
-		return datos;
+		datos=array_datos;
 	}
-	
+	public ArrayList getDatos() {
+		return array_datos;
+	}
 	public ResultSet comprobarCliente(String id) throws SQLException {		
 		int confirmar = 0;
 		

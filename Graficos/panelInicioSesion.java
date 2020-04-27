@@ -45,8 +45,12 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private JLabel lblInicio;
 	private JLabel lblIncorrecto;
 	private panelCuenta pc;
+	conexion conx=new conexion();
+	Gestion gdb=new Gestion();
 
-	public panelInicioSesion() {
+	public panelInicioSesion(Gestion gdb_aux, conexion conx_aux) {
+		this.gdb=gdb_aux;
+		this.conx=conx_aux;
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -174,8 +178,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						System.out.println("Hola");
 					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
-						pc = new panelCuenta(gt.devolverDatos(tfCorreo.getText()));
-						pc =new panelCuenta();
+						panelCuenta pc = new panelCuenta(gdb, conx);
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);
@@ -203,5 +206,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	}
 	protected JLabel getLblIncorrecto() {
 		return lblIncorrecto;
+	}
+	public void hola() {
+		
 	}
 }

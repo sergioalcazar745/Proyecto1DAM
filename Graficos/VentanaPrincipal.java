@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.Connection;
 
+import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 
 import javax.swing.JSplitPane;
@@ -54,21 +55,22 @@ import java.util.Arrays;
 import javax.swing.JComboBox;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
-
 	private JPanel contentPane;
 	private JPanel panel;
 	private JButton btnAccount;
 	private JButton btnHome;
 	
 	private JPanel panelAdministrador = new panelAdministrador();
-	private JPanel panelCuenta = new panelCuenta();
-	private JPanel panelInicioSesion = new panelInicioSesion();
+	conexion cnx=new conexion();
+	Gestion gdb=new Gestion();
+	private JPanel panelCuenta = new panelCuenta(gdb, cnx);
+	private JPanel panelInicioSesion = new panelInicioSesion(gdb, cnx);
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
 	private JButton btnOrders;
-
+	String palabra="hola";
 	
 	private conexion cn = new conexion();
 	private Connection con;
@@ -80,7 +82,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
 	public VentanaPrincipal() throws Exception{
-		
 		
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");

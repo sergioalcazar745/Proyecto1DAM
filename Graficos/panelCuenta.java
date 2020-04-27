@@ -10,6 +10,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import Base_de_datos.Gestion;
+import Base_de_datos.conexion;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -38,14 +39,13 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private JButton btnEditCorreo;
 	private JButton btnEditContraseña;
 	private ResultSet resultado2;
-	private Gestion gdb;
-	private ArrayList<String> datos;
-	
-	public  panelCuenta(ArrayList<String> Datos) {
-		this.datos=Datos;
-	}
-	public panelCuenta() {
-			insertarDatosTextFields(datos);
+	Gestion gdb=new Gestion();
+	conexion conx=new conexion();
+	ArrayList<String> datos=new ArrayList<String>();
+	public panelCuenta(Gestion gdb_aux, conexion conx_aux) {
+		this.gdb=gdb_aux;
+		this.conx=conx_aux;
+		insertarDatosTextFields(gdb);
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
@@ -201,7 +201,6 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfContraseña.setBounds(305, 370, 379, 33);
 		add(tfContraseña);
 		
-		insertarDatos();
 	}
 
 	@Override
@@ -236,19 +235,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 			}			
 		}
 	}
+
 	
-	protected void insertarDatos() {
-		
-	}
-	
-	public void insertarDatosTextFields(ArrayList<String> datos) {
-		try {
-			datos = gdb.devolverDatos(tfCorreo.getText());
-	} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		if(datos!=null) {			
+	public void insertarDatosTextFields(Gestion gdb) {
+			ArrayList<String> datos=gdb.getDatos();
 		
 			for(String n:datos) {
 				System.out.println(n);
@@ -261,13 +251,70 @@ public class panelCuenta extends JPanel implements ActionListener{
 			tfContraseña.setText(datos.get(1));
 			tfTelefono.setText(datos.get(2));
 			System.out.println("Joputa");
-		}else {
+
 			System.out.println("Joputa2");
-		}
 	}
-	protected void setDatos(ArrayList Datos) {
-		this.datos=Datos;
+
+	public void setTfNombre(JTextField tfNombre) {
+		this.tfNombre = tfNombre;
 	}
+
+	public void setTfApellidos(JTextField tfApellidos) {
+		this.tfApellidos = tfApellidos;
+	}
+
+	public void setTfFecha_Nacimiento(JTextField tfFecha_Nacimiento) {
+		this.tfFecha_Nacimiento = tfFecha_Nacimiento;
+	}
+
+	public void setTfTelefono(JTextField tfTelefono) {
+		this.tfTelefono = tfTelefono;
+	}
+
+	public void setTfCorreo(JTextField tfCorreo) {
+		this.tfCorreo = tfCorreo;
+	}
+
+	public void setTfContraseña(JPasswordField tfContraseña) {
+		this.tfContraseña = tfContraseña;
+	}
+
+	public void setBtnEditNombre(JButton btnEditNombre) {
+		this.btnEditNombre = btnEditNombre;
+	}
+
+	public void setBtnEditApellidos(JButton btnEditApellidos) {
+		this.btnEditApellidos = btnEditApellidos;
+	}
+
+	public void setBtnEditFechaNacimiento(JButton btnEditFechaNacimiento) {
+		this.btnEditFechaNacimiento = btnEditFechaNacimiento;
+	}
+
+	public void setBtnEditTelefono(JButton btnEditTelefono) {
+		this.btnEditTelefono = btnEditTelefono;
+	}
+
+	public void setBtnEditCorreo(JButton btnEditCorreo) {
+		this.btnEditCorreo = btnEditCorreo;
+	}
+
+	public void setBtnEditContraseña(JButton btnEditContraseña) {
+		this.btnEditContraseña = btnEditContraseña;
+	}
+
+	public void setResultado2(ResultSet resultado2) {
+		this.resultado2 = resultado2;
+	}
+
+	public void setGdb(Gestion gdb) {
+		this.gdb = gdb;
+	}
+
+	public void setConx(conexion conx) {
+		this.conx = conx;
+	}
+
 	protected JButton getBtnEditNombre() {
 		return btnEditNombre;
 	}
