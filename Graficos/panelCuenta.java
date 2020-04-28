@@ -250,7 +250,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfFecha_Nacimiento.setText(datos.get(5));
 		tfCorreo.setText(datos.get(0));
 		tfContraseña.setText(datos.get(1));
-		tfContraseña.setEchoChar((char)0);
+		tfContraseña.setEchoChar((char)'*');
 		tfTelefono.setText(datos.get(2));
 	}
 
