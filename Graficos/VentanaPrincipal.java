@@ -255,6 +255,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(evento.equals(btnAccount)) {
 			desactivarPaneles();
 			System.out.println("true o false:"+gdb.getSesionIniciada());
+			//volvemos a crear el panel para que se cargue el codigo interno. con revalidate o repaint no funciona.
 			JPanel panelCuenta=new panelCuenta(gdb, cnx);
 			contentPane.add(panelCuenta);
 			panelCuenta.setVisible(true);
