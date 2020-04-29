@@ -35,16 +35,16 @@ import com.mysql.jdbc.Connection;
 
 import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfDinero;
 	JComboBox comboBox_Nombres = new JComboBox();
 	JComboBox comboBox_Pertenece = new JComboBox();
 	JComboBox comboBox_Categorias = new JComboBox();
 	JButton btnAñadirCategoriaArticulo = new JButton("");
-	//array con los nombres de los productos.
-	ArrayList<String> nombre_articulos=new ArrayList<String>();
 	private JButton btnCrearCategoria;
 	private conexion cx = new conexion();
 	private Connection con;
@@ -52,30 +52,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private Gestion gdb;
 	public panelAdministrador() {
 		setBorder(new TitledBorder(null, "COMPRAR SUMINISTROS", TitledBorder.LEFT, TitledBorder.TOP, null, null));
-		//agregacion de los nombres de los articulos.
-				nombre_articulos.add("");
-				nombre_articulos.add("Bermuda Denim Mom Fit");
-				nombre_articulos.add("Bermuda Efecto Brillo");
-				nombre_articulos.add("Body Encaje");
-				nombre_articulos.add("Camiseta Básica Regular Fit");
-				nombre_articulos.add("Camiseta Estampada Smiley");
-				nombre_articulos.add("Camiseta Marilyn Monroe TM");
-				nombre_articulos.add("Camiseta Volantes");
-				nombre_articulos.add("Cazadora Denim Cropped");
-				nombre_articulos.add("Deportivo Retro Suela Volumen");
-				nombre_articulos.add("Deportivo Volumen Multipiezas");
-				nombre_articulos.add("Falda Mini Estampada");
-				nombre_articulos.add("Camiseta texto combinado");
-				nombre_articulos.add("Pantalon Jogger Básico");
-				nombre_articulos.add("Pantalon Jogger Biker");
-				nombre_articulos.add("Pantalon Tobillero");
-				nombre_articulos.add("Polo Básico Color Block");
-				nombre_articulos.add("Polo Jacquard Mercerizado");
-				nombre_articulos.add("Sudadera Manga Engomada");
-				nombre_articulos.add("Sudadera Volantes Combinados");
-				nombre_articulos.add("Top Lazada");
-				//lo añadimos al comboBox
-				insertarNombres(nombre_articulos);				
 				
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
@@ -90,8 +66,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(665, 57, 88, 16);
 		add(lblNewLabel_1);
-		
-
+		comboBox_Nombres.addActionListener(this);
 		comboBox_Nombres.setBounds(32, 86, 211, 29);
 		add(comboBox_Nombres);
 		
@@ -139,12 +114,12 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_4.setBounds(51, 460, 142, 16);
 		add(lblNewLabel_4);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		textField_1.setEnabled(false);
-		textField_1.setBounds(222, 455, 567, 29);
-		add(textField_1);
-		textField_1.setColumns(10);
+		tfDinero = new JTextField();
+		tfDinero.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tfDinero.setEnabled(false);
+		tfDinero.setBounds(222, 455, 567, 29);
+		add(tfDinero);
+		tfDinero.setColumns(10);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
 		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/equis.png")));
@@ -198,13 +173,28 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnCrearCategoria.setBounds(315, 167, 228, 29);
 		add(btnCrearCategoria);
 		
-		
 		introducirDatos();
+		insertarNombres();
 	}
-	public void insertarNombres(ArrayList<String> nombre_articulos){
-		for(String n:nombre_articulos) {
-			comboBox_Nombres.addItem(n);
+	public void insertarNombres(){
+		
+		try {
+			con = (Connection) cx.getConexion();
+			System.out.println("Conexion realizada");
+			gdb = new Gestion();
+			resultado = gdb.recorrerArticuloGenerico();
+			comboBox_Nombres.addItem("");
+			
+			while(resultado.next()) {
+				comboBox_Nombres.addItem(resultado.getString("nombre"));
+			}
+			
+		}catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Fallo al conectar");
+			e1.printStackTrace();
 		}
+			
+		
 	}
 	public JButton getBtnCrearCategoria() {
 		return btnCrearCategoria;
@@ -222,7 +212,25 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		}else if(evento.equals(btnAñadirCategoriaArticulo)) {
 			//creamos el objeto de que el articulo pertenece una categoria.
 			//seleccionamos el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
-			
+			try {
+				gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categorias.getSelectedItem().toString());
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			comboBox_Pertenece.removeAllItems();
+			updateComboBoxPertenece();			
+		}else if(evento.equals(comboBox_Nombres)) {
+			comboBox_Pertenece.removeAllItems();
+			updateComboBoxPertenece();
+		}
+	}
+	
+	public void updateComboBoxPertenece() {
+		if(comboBox_Nombres.getSelectedItem() != null) {
+			for(String n : gdb.asociacionCategoria(comboBox_Nombres.getSelectedItem().toString())) {
+				comboBox_Pertenece.addItem(n);
+			}
 		}
 	}
 	
@@ -242,5 +250,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
 			e1.printStackTrace();
 		}
+	}
+	protected JComboBox getComboBox_Pertenece() {
+		return comboBox_Pertenece;
 	}
 }

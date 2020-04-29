@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
@@ -132,6 +134,23 @@ public class Gestion  {
 		return resultado;
 	}
 	
+	public ResultSet recorrerArticuloGenerico() throws SQLException {		
+		int confirmar = 0;
+		
+		con = cx.getConexion();
+		String sql = "SELECT * FROM articulogenerico";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);			
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
 	public boolean insertarCategoria(String nombre) {
 		boolean insertado = false;
 		String sql="INSERT INTO categoria (nombre) VALUES ('"+nombre+"')";
@@ -142,8 +161,6 @@ public class Gestion  {
 			int confirmar=st.executeUpdate(sql);
 			if(confirmar ==1) {
 				insertado=true;
-				st.close();
-				con.close();
 				System.out.println("creado");
 			}
 		}catch (SQLException e) {
@@ -152,6 +169,123 @@ public class Gestion  {
 		}
 		return insertado;
 	}
+	
+	public ArrayList<String> asociacionCategoria(String name) {
+		boolean insertado = false;
+		String sql="SELECT id_generico FROM articulogenerico WHERE nombre = '"+name+"'";
+		String id_generico = null, id_categoria = null;
+		ArrayList <String> nombres = new ArrayList <String>();
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_generico = resultado.getString("id_generico");
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("no creado");
+		}
+		
+		String sql2="SELECT id_categoria_aux FROM pertenece where id_articulogenerico_aux='"+id_generico+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql2);
+			while(resultado.next()) {
+				id_categoria = resultado.getString("id_categoria_aux");
+			}
+			
+			String sql3 = "SELECT nombre FROM categoria WHERE id_categoria = '"+id_categoria+"'";
+			
+			try {
+				st2= (Statement) con.createStatement();
+				resultado2 = st2.executeQuery(sql3);
+				
+				if(resultado2.next()) {
+					nombres.add(resultado2.getString("nombre"));
+				}
+				
+			}catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("no creado");
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("no creado");
+		}	
+		
+		return nombres;
+	}
+		
+				
+	
+	public void asignarCategoriaArticulo(String nombre_articulo, String nombre_categoria) throws SQLException{		
+		boolean insertado = true;
+		String id_generico = null, id_categoria = null;
+		
+		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+nombre_articulo+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_generico = resultado.getString("id_generico");
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("No creado");
+		}
+		
+		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql2);
+			if(resultado.next()) {
+				id_categoria = resultado.getString("id_categoria");
+			}			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String buscar = "SELECT * FROM pertenece WHERE id_articulogenerico_aux='"+id_generico+"' and id_categoria_aux='"+id_categoria+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();			
+			resultado2 = st.executeQuery(buscar);
+			if(resultado2.next()) {
+				JOptionPane.showMessageDialog(null, "Ya esta asignada");
+			}else {
+				
+				String sql3 = "INSERT INTO pertenece (id_articulogenerico_aux, id_categoria_aux) values('"+id_generico+"', '"+id_categoria+"')";
+				try {
+					st2= (Statement) con.createStatement();
+					st2.executeUpdate(sql3);
+					JOptionPane.showMessageDialog(null, "Insertado");
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+				
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("no creado");
+		}
+	}
+	
+	
+	
+	//------------------------------------------------------------------------------------------------------------------------------------//
+	
+	
 	
 	public ResultSet buscarAlumno(String correo, String pass) throws SQLException {		
 		int confirmar = 0;
@@ -230,8 +364,5 @@ public class Gestion  {
 			e.printStackTrace();
 		}
 		return insertado;
-	}
-	public void asignarCategoriaArticulo(String nombre_articulo, String nombre_categoria) {
-		
 	}
 }
