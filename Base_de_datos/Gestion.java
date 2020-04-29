@@ -231,4 +231,7 @@ public class Gestion  {
 		}
 		return insertado;
 	}
+	public void asignarCategoriaArticulo(String nombre_articulo, String nombre_categoria) {
+		
+	}
 }
