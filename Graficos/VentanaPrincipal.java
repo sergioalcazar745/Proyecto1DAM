@@ -53,6 +53,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JComboBox;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel contentPane;
@@ -134,6 +136,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		textField.setBounds(329, 11, 300, 26);
 		panel_2.add(textField);
 		textField.setColumns(10);
+		panelInicioSesion.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				if(gdb.getSesionIniciada()) {
+					btnAccount.setVisible(true);
+					panel_2.setVisible(true);
+				}
+			}
+		});
 		
 		panelInicioSesion.setBackground(Color.WHITE);		
 		
@@ -180,6 +191,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnAccount.setOpaque(false);
 		btnAccount.setContentAreaFilled(false);
 		btnAccount.setFocusPainted(false);
+		btnAccount.setVisible(false);
 		panel.add(btnAccount);
 		
 		btnOrders = new JButton("ORDERS");

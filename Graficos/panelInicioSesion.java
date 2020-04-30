@@ -186,6 +186,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						JOptionPane.showMessageDialog(null, "Correcto");
 						gdb.guardarDatos(tfCorreo.getText());
 						gdb.setSesionIniciada(true);
+						setVisible(false);
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);
