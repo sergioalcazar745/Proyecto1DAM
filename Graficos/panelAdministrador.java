@@ -235,6 +235,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	}
 	
 	private void introducirDatos() {
+		gdb = new Gestion();
 		
 		try {
 			con = (Connection) cx.getConexion();

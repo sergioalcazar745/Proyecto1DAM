@@ -44,8 +44,7 @@ public class Gestion  {
 		}
 		
 		return resultado;
-	}
-	
+	}	
 	
 	public void guardarDatos(String correo) throws SQLException {	
 		ArrayList<String> datos=new ArrayList<String>();
@@ -73,7 +72,6 @@ public class Gestion  {
 				try {
 					st2=(Statement) con.createStatement();
 					resultado2 = st2.executeQuery(sql2);
-					//System.out.println("Hola");
 					while(resultado2.next()) {
 						datos.add(resultado2.getString("nombre"));
 						datos.add(resultado2.getString("apellidos"));
@@ -117,13 +115,12 @@ public class Gestion  {
 		return resultado;
 	}
 	
-	public ResultSet recorrerCategorias() throws SQLException {		
-		int confirmar = 0;
+	public ResultSet recorrerCategorias() throws SQLException {				
 		
-		con = cx.getConexion();
 		String sql = "SELECT * FROM categoria";
 		
 		try {
+			con = cx.getConexion();
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);			
 		} catch (SQLException e) {
@@ -221,9 +218,7 @@ public class Gestion  {
 		
 		return nombres;
 	}
-		
-				
-	
+
 	public void asignarCategoriaArticulo(String nombre_articulo, String nombre_categoria) throws SQLException{		
 		boolean insertado = true;
 		String id_generico = null, id_categoria = null;
@@ -281,10 +276,55 @@ public class Gestion  {
 		}
 	}
 	
+	public boolean actualizarCampos (String nombre, String apellidos, String fecha_nacimiento, String telefono, String correo, String contraseña) throws SQLException{
+		boolean actualizado = false;
+		String id = null;
+		
+		String sql = "SELECT id_persona FROM persona WHERE correo = '"+correo+"' and contraseña = '"+contraseña+"'";
+		
+		try {
+			con = cx.getConexion();
+			st = (Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id = resultado.getString("id_persona");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql2 = "UPDATE persona SET correo = '"+correo+"', contraseña = '"+contraseña+"', telefono = '"+telefono+"' WHERE correo = '"+correo+"' and contraseña = '"+contraseña+"'";
+		
+		try {
+			con = cx.getConexion();
+			st = (Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id = resultado.getString("id_persona");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String sql3 = "UPDATE cliente SET nombre = '"+nombre+"', apellidos = '"+apellidos+"', fecha_nacimiento = '"+fecha_nacimiento+"' WHERE id_persona_aux = '"+id+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			int confirmar=st.executeUpdate(sql3);
+			if(confirmar ==1) {
+				actualizado=true;
+				st.close();
+				con.close();
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return actualizado;
+	}
 	
-	
-	//------------------------------------------------------------------------------------------------------------------------------------//
-	
+	//------------------------------------------------------------------------------------------------------------------------------------//	
 	
 	
 	public ResultSet buscarAlumno(String correo, String pass) throws SQLException {		

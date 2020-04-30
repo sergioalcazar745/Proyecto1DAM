@@ -42,16 +42,12 @@ public class panelCuenta extends JPanel implements ActionListener{
 	private ResultSet resultado2;
 	Gestion gdb=new Gestion();
 	conexion conx=new conexion();
-	
-
+	private JButton btnGuardar;
 	
 	public panelCuenta(Gestion gdb_aux, conexion conx_aux) {
-		System.out.println("Hola" + tfNombre.getText());
 		this.gdb=gdb_aux;
 		this.conx=conx_aux;
-		System.out.println("true o false2:"+gdb.getSesionIniciada());
 		if(gdb.getSesionIniciada()==true) {
-			System.out.println("sesion iniciada");
 			actualizarTextFields();
 		}
 
@@ -76,7 +72,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
 		add(lblNewLabel_1);
 		
-		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar = new JButton("GUARDAR");
+		btnGuardar.addActionListener(this);
 		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/save.png")));
 		btnGuardar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnGuardar.setBounds(132, 446, 193, 45);
@@ -214,15 +211,15 @@ public class panelCuenta extends JPanel implements ActionListener{
 		Object boton = e.getSource();
 		
 		if(boton.equals(btnEditNombre)) {
-			JOptionPane.showInputDialog("Introduzca el nuevo nombre: ");
+			tfNombre.setText(JOptionPane.showInputDialog("Introduzca el nuevo nombre: "));			
 		}else if(boton.equals(btnEditApellidos)) {
-			JOptionPane.showInputDialog("Introduzca los apellidos nuevos: ");
+			tfApellidos.setText(JOptionPane.showInputDialog("Introduzca los apellidos nuevos: "));
 		}else if(boton.equals(btnEditFechaNacimiento)) {
-			JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: ");
+			tfFecha_Nacimiento.setText(JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: "));
 		}else if(boton.equals(btnEditTelefono)) {
-			JOptionPane.showInputDialog("Introduzca el nuevo telefono: ");
+			tfTelefono.setText(JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
 		}else if(boton.equals(btnEditCorreo)) {
-			JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
+			tfCorreo.setText(JOptionPane.showInputDialog("Introduzca el nuevo correo: "));
 		}else if(boton.equals(btnEditContraseña)) {
 			JPasswordField pf = new JPasswordField();
 			
@@ -239,9 +236,18 @@ public class panelCuenta extends JPanel implements ActionListener{
 			}else {
 				JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
 			}			
+		}else if(boton.equals(btnGuardar)) {
+			gdb = new Gestion();
+			try {
+				if(gdb.actualizarCampos(tfNombre.getText(), tfApellidos.getText(), tfFecha_Nacimiento.getText(), tfTelefono.getText(),tfCorreo.getText(), tfContraseña.getText())) {
+					JOptionPane.showMessageDialog(null, "Los campos han sido actualizados");
+				}
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
-
 	
 	public void actualizarTextFields() {
 		ArrayList<String> datos=gdb.getDatos();
@@ -349,5 +355,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 	}
 	protected JPasswordField getTfContraseña() {
 		return tfContraseña;
+	}
+	protected JButton getBtnGuardar() {
+		return btnGuardar;
 	}
 }
