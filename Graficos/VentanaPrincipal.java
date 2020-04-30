@@ -59,7 +59,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel;
 	private JButton btnAccount;
 	private JButton btnHome;
-	
+	//Copia de seguridad
 	private JPanel panelAdministrador = new panelAdministrador();
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
