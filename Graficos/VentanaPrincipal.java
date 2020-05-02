@@ -48,6 +48,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +62,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel;
 	private JButton btnAccount;
 	private JButton btnHome;
+	ResultSet resultado;
 	//Copia de seguridad
 	private JPanel panelAdministrador = new panelAdministrador();
 	conexion cnx=new conexion();
@@ -127,9 +129,14 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_articulos_filtros = new panel_articulos_filtros();
 		scrollPane.setViewportView(panel_articulos_filtros);
 		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
+		comboBox_Filtro.addActionListener(this);
 		
 
 		comboBox_Filtro.setBounds(207, 11, 123, 26);
+		resultado=gdb.recorrerCategorias();
+		while(resultado.next()) {
+			comboBox_Filtro.addItem(resultado.getString("nombre"));
+		}
 		panel_2.add(comboBox_Filtro);
 		
 		textField = new JTextField();
@@ -278,6 +285,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			desactivarPaneles();
 			panelAdministrador.setVisible(true);
 			contentPane.revalidate();
+		}else if(evento.equals(comboBox_Filtro)) {
+			//aqui determinaremos el numero de articulos que tenemos y se lo pasaremos al panel filtros para hacer las columnas y filas
 		}
 	}
 	
