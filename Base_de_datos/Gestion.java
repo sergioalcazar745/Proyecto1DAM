@@ -177,7 +177,7 @@ public class Gestion  {
 			con=cx.getConexion();
 			st= (Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
-			if(resultado.next()) {
+			while(resultado.next()) {
 				id_generico = resultado.getString("id_generico");
 			}
 			
@@ -194,28 +194,32 @@ public class Gestion  {
 			resultado = st.executeQuery(sql2);
 			while(resultado.next()) {
 				id_categoria = resultado.getString("id_categoria_aux");
-			}
-			
-			String sql3 = "SELECT nombre FROM categoria WHERE id_categoria = '"+id_categoria+"'";
-			
-			try {
-				st2= (Statement) con.createStatement();
-				resultado2 = st2.executeQuery(sql3);
 				
-				if(resultado2.next()) {
-					nombres.add(resultado2.getString("nombre"));
+				String sql3 = "SELECT nombre FROM categoria WHERE id_categoria = '"+id_categoria+"'";
+				
+				try {
+					st2= (Statement) con.createStatement();
+					resultado2 = st2.executeQuery(sql3);
+					
+					if(resultado2.next()) {
+						nombres.add(resultado2.getString("nombre"));
+					}
+					
+				}catch (SQLException e) {
+					e.printStackTrace();
+					System.out.println("no creado");
 				}
-				
-			}catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println("no creado");
 			}
+			
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("no creado");
 		}	
 		
+		for (String string : nombres) {
+			System.out.println("array: "+string);
+		}
 		return nombres;
 	}
 
