@@ -273,8 +273,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			contentPane.revalidate();
 		}else if(evento.equals(btnAccount)) {
 			desactivarPaneles();
-			System.out.println("true o false:"+gdb.getSesionIniciada());
 			//volvemos a crear el panel para que se cargue el codigo interno. con revalidate o repaint no funciona.
+			try {
+				gdb.guardarDatos(gdb.getDatos().get(0).toString());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
 			JPanel panelCuenta=new panelCuenta(gdb, cnx);
 			contentPane.add(panelCuenta);
 			panelCuenta.setVisible(true);
