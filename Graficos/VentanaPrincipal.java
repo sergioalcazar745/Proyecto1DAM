@@ -82,7 +82,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JButton btnSignOut;
 	private JButton btnShop;
-	private panel_articulos_filtros panel_articulos_filtros;
+	private panel_articulos_filtros panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "");
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
@@ -126,13 +126,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
-		panel_articulos_filtros = new panel_articulos_filtros();
+		contentPane.add(panel_articulos_filtros);
+		//panel_articulos_filtros = new panel_articulos_filtros();
 		scrollPane.setViewportView(panel_articulos_filtros);
 		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
 		comboBox_Filtro.addActionListener(this);
 		
 
 		comboBox_Filtro.setBounds(207, 11, 123, 26);
+		comboBox_Filtro.addItem("");
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
@@ -292,11 +294,19 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			contentPane.revalidate();
 		}else if(evento.equals(comboBox_Filtro)) {
 			//aqui determinaremos el numero de articulos que tenemos y se lo pasaremos al panel filtros para hacer las columnas y filas
-			try {
-				gdb.devolverArticulosDeCategoria(comboBox_Filtro.getSelectedItem().toString());
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+//			try {
+//				numero_articulos=gdb.devolverArticulosDeCategoria(comboBox_Filtro.getSelectedItem().toString());
+//			} catch (SQLException e1) {
+//				e1.printStackTrace();
+//			}
+			//remove(panel_articulos_filtros);
+//			if(comboBox_Filtro.getSelectedItem()==null) {
+//				JPanel panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "");
+//			}else{
+//				JPanel panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString());
+//			}
+			//contentPane.add(panel_articulos_filtros);
+			//panel_articulos_filtros.setVisible(true);
 		}
 	}
 	

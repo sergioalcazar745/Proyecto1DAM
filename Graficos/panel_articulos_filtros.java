@@ -10,11 +10,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import Base_de_datos.Gestion;
+import Base_de_datos.conexion;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 public class panel_articulos_filtros extends JPanel implements MouseListener{
 	private JPanel panel_1;
@@ -30,12 +35,30 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	/**
 	 ** Create the panel.
 	 */
-	public panel_articulos_filtros() {
+	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro) {
+		int numero_filas=0;
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 839, 1421);
-		panel.setPreferredSize(new Dimension(825, 1300));
+		//433 por fila
+		if(!filtro.equals("")) {
+			try {
+				if(gdb.devolverArticulosDeCategoria(filtro)%3 == 0) {
+					numero_filas=gdb.devolverArticulosDeCategoria(filtro);
+				}else {
+					numero_filas=Math.round(gdb.devolverArticulosDeCategoria(filtro)/3);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			panel.setPreferredSize(new Dimension(825, 433*numero_filas));
+			System.out.println("jesus");
+		}else {
+			panel.setPreferredSize(new Dimension(825, 1300));
+			System.out.println("hola");
+		}
 		panel.setBackground(Color.WHITE);
 		add(panel);
 		panel.setLayout(new GridLayout(3, 3, 50, 50));
