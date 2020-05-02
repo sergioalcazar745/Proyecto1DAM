@@ -80,7 +80,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JButton btnSignOut;
 	private JButton btnShop;
-	private panel_articulos panel_articulos;
+	private panel_articulos_filtros panel_articulos_filtros;
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
@@ -124,9 +124,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
-		panel_articulos = new panel_articulos();
-		scrollPane.setViewportView(panel_articulos);
-		panel_articulos.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_articulos_filtros = new panel_articulos_filtros();
+		scrollPane.setViewportView(panel_articulos_filtros);
+		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
 		
 
 		comboBox_Filtro.setBounds(207, 11, 123, 26);
@@ -310,8 +310,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JButton getBtnShop() {
 		return btnShop;
 	}
-	protected panel_articulos getPanel_articulos_() {
-		return panel_articulos;
+	protected panel_articulos_filtros getPanel_articulos_() {
+		return panel_articulos_filtros;
 	}
 	protected JScrollPane getScrollPane() {
 		return scrollPane;

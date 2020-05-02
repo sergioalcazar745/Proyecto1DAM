@@ -16,7 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class panel_articulos extends JPanel implements MouseListener{
+public class panel_articulos_filtros extends JPanel implements MouseListener{
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
@@ -30,7 +30,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 	/**
 	 ** Create the panel.
 	 */
-	public panel_articulos() {
+	public panel_articulos_filtros() {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -47,7 +47,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_1);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BERMUDA DENIM MOM FIT.jpg")));
+		label.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/BERMUDA DENIM MOM FIT.jpg")));
 		label.setBounds(35, 1, 175, 271);
 		panel_1.add(label);
 		
@@ -70,7 +70,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_2);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BERMUDA EFECTO BRILLO.jpg")));
+		label_3.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/BERMUDA EFECTO BRILLO.jpg")));
 		label_3.setBounds(35, 1, 175, 271);
 		panel_2.add(label_3);
 		
@@ -93,7 +93,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_3);
 		
 		JLabel label_6 = new JLabel("");
-		label_6.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/BODY ENCAJE.jpg")));
+		label_6.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/BODY ENCAJE.jpg")));
 		label_6.setBounds(35, 1, 175, 271);
 		panel_3.add(label_6);
 		
@@ -116,7 +116,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_4);
 		
 		JLabel label_9 = new JLabel("");
-		label_9.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA ESTAMPADA SMILEY.jpg")));
+		label_9.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/CAMISETA ESTAMPADA SMILEY.jpg")));
 		label_9.setBounds(35, 1, 175, 271);
 		panel_4.add(label_9);
 		
@@ -139,7 +139,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_5);
 		
 		JLabel label_12 = new JLabel("");
-		label_12.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA MARILYN MONROE TM.jpg")));
+		label_12.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/CAMISETA MARILYN MONROE TM.jpg")));
 		label_12.setBounds(35, 1, 175, 271);
 		panel_5.add(label_12);
 		
@@ -162,7 +162,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_6);
 		
 		JLabel label_15 = new JLabel("");
-		label_15.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAMISETA VOLANTES.jpg")));
+		label_15.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/CAMISETA VOLANTES.jpg")));
 		label_15.setBounds(35, 1, 175, 271);
 		panel_6.add(label_15);
 		
@@ -185,7 +185,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_7);
 		
 		JLabel label_18 = new JLabel("");
-		label_18.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/CAZADORA DENIM CROPPED.jpg")));
+		label_18.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/CAZADORA DENIM CROPPED.jpg")));
 		label_18.setBounds(35, 1, 175, 271);
 		panel_7.add(label_18);
 		
@@ -208,7 +208,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_8);
 		
 		JLabel label_21 = new JLabel("");
-		label_21.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/DEPORTIVO RETRO SUELA VOLUMEN.jpg")));
+		label_21.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/DEPORTIVO RETRO SUELA VOLUMEN.jpg")));
 		label_21.setBounds(35, 1, 175, 271);
 		panel_8.add(label_21);
 		
@@ -231,7 +231,7 @@ public class panel_articulos extends JPanel implements MouseListener{
 		panel.add(panel_9);
 		
 		JLabel label_24 = new JLabel("");
-		label_24.setIcon(new ImageIcon(panel_articulos.class.getResource("/fotos_articulos/DEPORTIVO VOLUMEN MULTIPIEZAS.jpg")));
+		label_24.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/DEPORTIVO VOLUMEN MULTIPIEZAS.jpg")));
 		label_24.setBounds(35, 1, 175, 271);
 		panel_9.add(label_24);
 		
