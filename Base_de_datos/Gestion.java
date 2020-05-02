@@ -324,7 +324,7 @@ public class Gestion  {
 		return actualizado;
 	}
 	
-	public void devolverArticulosDeCategoria(String nombre) throws SQLException {
+	public int devolverArticulosDeCategoria(String nombre) throws SQLException {
 		String id_categoria = null;
 		int numero = 0;
 		
@@ -355,6 +355,7 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
+		return numero;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
