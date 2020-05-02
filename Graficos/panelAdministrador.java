@@ -230,7 +230,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		if(comboBox_Nombres.getSelectedItem() != null) {
 			for(String n : gdb.asociacionCategoria(comboBox_Nombres.getSelectedItem().toString())) {
 				comboBox_Pertenece.addItem(n);
-				System.out.println("categoria: "+n);
 			}
 		}
 	}

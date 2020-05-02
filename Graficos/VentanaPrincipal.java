@@ -287,6 +287,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			contentPane.revalidate();
 		}else if(evento.equals(comboBox_Filtro)) {
 			//aqui determinaremos el numero de articulos que tenemos y se lo pasaremos al panel filtros para hacer las columnas y filas
+			try {
+				gdb.devolverArticulosDeCategoria(comboBox_Filtro.getSelectedItem().toString());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	

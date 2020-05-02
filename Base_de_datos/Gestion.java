@@ -216,10 +216,6 @@ public class Gestion  {
 			e.printStackTrace();
 			System.out.println("no creado");
 		}	
-		
-		for (String string : nombres) {
-			System.out.println("array: "+string);
-		}
 		return nombres;
 	}
 
@@ -326,6 +322,39 @@ public class Gestion  {
 		}
 		
 		return actualizado;
+	}
+	
+	public void devolverArticulosDeCategoria(String nombre) throws SQLException {
+		String id_categoria = null;
+		int numero = 0;
+		
+		con = cx.getConexion();
+		String sql = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_categoria = resultado.getString("id_categoria");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+	sql = "SELECT id_articulogenerico_aux FROM pertenece WHERE id_categoria_aux = '"+id_categoria+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			while(resultado.next()) {
+				numero ++;
+			}
+			System.out.println(numero);
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
