@@ -173,6 +173,16 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnCrearCategoria.setBounds(315, 167, 228, 29);
 		add(btnCrearCategoria);
 		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
+		comboBox.setBounds(331, 249, 178, 26);
+		add(comboBox);
+		
+		JLabel lblNewLabel_6 = new JLabel("Talla");
+		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_6.setBounds(397, 217, 56, 16);
+		add(lblNewLabel_6);
+		
 		introducirDatos();
 		insertarNombres();
 	}
