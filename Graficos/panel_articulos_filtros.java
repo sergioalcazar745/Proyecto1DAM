@@ -54,7 +54,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				e.printStackTrace();
 			}
 			panel.setPreferredSize(new Dimension(825, 433*numero_filas));
-			System.out.println("jesus");
+			System.out.println("jesus: "+433*numero_filas);
 		}else {
 			panel.setPreferredSize(new Dimension(825, 1300));
 			System.out.println("hola");
@@ -63,6 +63,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		add(panel);
 		panel.setLayout(new GridLayout(3, 3, 50, 50));
 		
+		if(filtro.equals("")) {
 		panel_1 = new JPanel();
 		panel_1.addMouseListener(this);
 		panel_1.setLayout(null);
@@ -108,7 +109,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		label_5.setBounds(128, 314, 86, 17);
 		panel_2.add(label_5);
-		
+		System.out.println("todos");
+		}	
 		panel_3 = new JPanel();
 		panel_3.addMouseListener(this);
 		panel_3.setLayout(null);

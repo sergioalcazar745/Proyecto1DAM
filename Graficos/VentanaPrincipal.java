@@ -82,7 +82,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JButton btnSignOut;
 	private JButton btnShop;
-	private panel_articulos_filtros panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "");
+	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "");
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
@@ -126,7 +126,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
-		contentPane.add(panel_articulos_filtros);
+
 		//panel_articulos_filtros = new panel_articulos_filtros();
 		scrollPane.setViewportView(panel_articulos_filtros);
 		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
@@ -300,13 +300,19 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //				e1.printStackTrace();
 //			}
 			//remove(panel_articulos_filtros);
-//			if(comboBox_Filtro.getSelectedItem()==null) {
-//				JPanel panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "");
-//			}else{
-//				JPanel panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString());
-//			}
-			//contentPane.add(panel_articulos_filtros);
-			//panel_articulos_filtros.setVisible(true);
+			
+			if(comboBox_Filtro.getSelectedItem()==null) {
+				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "");
+			}else{
+				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString());
+			}
+
+			scrollPane.setViewportView(panel_articulos_filtros);
+			panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
+			panel_2.revalidate();
+			panel_2.repaint();
+			System.out.println("panel: "+panel_articulos_filtros.getHeight());
+
 		}
 	}
 	
@@ -339,9 +345,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JButton getBtnShop() {
 		return btnShop;
 	}
-	protected panel_articulos_filtros getPanel_articulos_() {
-		return panel_articulos_filtros;
-	}
+
 	protected JScrollPane getScrollPane() {
 		return scrollPane;
 	}
