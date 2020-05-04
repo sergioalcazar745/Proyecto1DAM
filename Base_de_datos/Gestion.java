@@ -375,18 +375,13 @@ public class Gestion  {
 					st2=(Statement) con.createStatement();
 					resultado2 = st2.executeQuery(sql2);
 					while(resultado2.next()) {
-						//System.out.println("resultado2: "+resultado2.getString("nombre"));
 						nombres.add(resultado2.getString("nombre"));
 					}
-					//System.out.println(numero);
-					//System.out.println("gola");
 				} catch (SQLException e) {
 					System.out.println("Fallo al buscar");
 					e.printStackTrace();
 				}
-				//System.out.println("gola");
 			}
-			//System.out.println(numero);
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
@@ -398,6 +393,27 @@ public class Gestion  {
 //			System.out.println("nombre: "+string);
 //		}
 		return nombres;
+	}
+	
+	public String devolverPrecioDeCategoria(String nombre) throws SQLException {
+		String id_categoria = null, precio = null;
+		int numero = 0;
+		
+		con = cx.getConexion();		
+		String sql = "SELECT precio FROM articulogenerico WHERE nombre = '"+nombre+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				precio = resultado.getString("precio");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return precio;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	

@@ -39,13 +39,17 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
 	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
+	JLabel [] array_precios = new JLabel[80];//1 precio por aticulo
+	
 	/**
 	 ** Create the panel.
 	 */
 	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro) {
 		float numero_filas=0;
 		int posicion_label=0;
-		ArrayList<String> nombre_fotos=new ArrayList<String>();
+		String precio = null;
+		ArrayList<String> nombre_fotos = new ArrayList<String>();
+
 		try {
 			if(!filtro.equals("")) {
 				nombre_fotos=gdb.devolverArticulosDeCategoria(filtro);
@@ -83,6 +87,12 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
 		
 			for(int i=0; i<nombre_fotos.size(); i++) {
+				//recogemos el precio
+				try {
+					precio = gdb.devolverPrecioDeCategoria(nombre_fotos.get(i));
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				array_paneles[i] = new JPanel();
 				array_paneles[i].addMouseListener(this);
 				array_paneles[i].setLayout(null);
@@ -102,10 +112,10 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			array_paneles[i].add(array_labels[posicion_label]);
 			posicion_label++;
 			
-			array_labels[posicion_label] = new JLabel("Precio: 30000");
+			array_labels[posicion_label] = new JLabel("Precio: " + precio);
 			array_labels[posicion_label].setHorizontalAlignment(SwingConstants.RIGHT);
 			array_labels[posicion_label].setFont(new Font("Tahoma", Font.PLAIN, 14));
-			array_labels[posicion_label].setBounds(128, 314, 86, 17);
+			array_labels[posicion_label].setBounds(/*128*/114, 314, /*86*/100, 17);
 			array_paneles[i].add(array_labels[posicion_label]);
 			posicion_label++;
 			}
