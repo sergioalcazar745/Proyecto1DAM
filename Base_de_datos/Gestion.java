@@ -148,6 +148,25 @@ public class Gestion  {
 		return resultado;
 	}
 	
+	public ArrayList recorrerArticuloGenericoString() throws SQLException {		
+		ArrayList<String> nombres=new ArrayList<String>();
+		
+		con = cx.getConexion();
+		String sql = "SELECT * FROM articulogenerico";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);	
+			while(resultado.next()) {
+				nombres.add(resultado.getString("nombre"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return nombres;
+	}
 	public boolean insertarCategoria(String nombre) {
 		boolean insertado = false;
 		String sql="INSERT INTO categoria (nombre) VALUES ('"+nombre+"')";
@@ -324,7 +343,8 @@ public class Gestion  {
 		return actualizado;
 	}
 	
-	public int devolverArticulosDeCategoria(String nombre) throws SQLException {
+	public ArrayList<String> devolverArticulosDeCategoria(String nombre) throws SQLException {
+		ArrayList<String> nombres= new ArrayList<String>();
 		String id_categoria = null;
 		int numero = 0;
 		
@@ -348,14 +368,36 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
 			while(resultado.next()) {
-				numero ++;
+				String nombre_aux=resultado.getString("id_articulogenerico_aux");
+				String sql2 = "SELECT nombre FROM articulogenerico WHERE id_generico= '"+nombre_aux+"'";
+				
+				try {
+					st2=(Statement) con.createStatement();
+					resultado2 = st2.executeQuery(sql2);
+					while(resultado2.next()) {
+						//System.out.println("resultado2: "+resultado2.getString("nombre"));
+						nombres.add(resultado2.getString("nombre"));
+					}
+					//System.out.println(numero);
+					//System.out.println("gola");
+				} catch (SQLException e) {
+					System.out.println("Fallo al buscar");
+					e.printStackTrace();
+				}
+				//System.out.println("gola");
 			}
-			System.out.println(numero);
+			//System.out.println(numero);
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		return numero;
+		
+		
+		
+//		for (String string : nombres) {
+//			System.out.println("nombre: "+string);
+//		}
+		return nombres;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	

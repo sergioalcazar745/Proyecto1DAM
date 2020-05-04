@@ -82,7 +82,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JButton btnSignOut;
 	private JButton btnShop;
-	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "");
+	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "lenceria");
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
