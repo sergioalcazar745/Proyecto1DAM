@@ -45,12 +45,12 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	JComboBox comboBox_Pertenece = new JComboBox();
 	JComboBox comboBox_Categorias = new JComboBox();
 	JButton btnAñadirCategoriaArticulo = new JButton("");
-	private JButton btnCrearCategoria;
 	private conexion cx = new conexion();
 	private Connection con;
 	private ResultSet resultado;
 	private Gestion gdb;
-	public panelAdministrador() {
+	private JComboBox comboBox_proveedor_1;
+	public panelAdministrador() throws SQLException {
 				
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
@@ -69,9 +69,9 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		comboBox_Nombres.setBounds(32, 86, 211, 29);
 		add(comboBox_Nombres);
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(593, 86, 211, 29);
-		add(comboBox_2);
+		comboBox_proveedor_1 = new JComboBox();
+		comboBox_proveedor_1.setBounds(593, 86, 211, 29);
+		add(comboBox_proveedor_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cantidad:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
@@ -136,6 +136,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnComprar.setFocusPainted(false);
 		
 		comboBox_Categorias.setBounds(32, 167, 211, 29);
+		comboBox_Categorias.addItem("");
 		add(comboBox_Categorias);
 		
 		JLabel lblCategoria = new JLabel("Pertenece a:");
@@ -161,17 +162,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnAñadirCategoriaArticulo.setFocusPainted(false);
 		add(btnAñadirCategoriaArticulo);
 		
-		btnCrearCategoria = new JButton("Crear categoria");
-		btnCrearCategoria.addActionListener(this);
-		btnCrearCategoria.setBackground(new Color(192, 192, 192));
-		btnCrearCategoria.setFont(new Font("Lucida Console", Font.BOLD, 16));
-		btnCrearCategoria.setOpaque(false);
-		btnCrearCategoria.setFocusPainted(false);
-		btnCrearCategoria.setContentAreaFilled(false);
-		btnCrearCategoria.setBorderPainted(false);
-		btnCrearCategoria.setBounds(315, 167, 228, 29);
-		add(btnCrearCategoria);
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
 		comboBox.setBounds(331, 249, 178, 26);
@@ -183,13 +173,13 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		add(lblNewLabel_6);
 		
 		introducirDatos();
-		insertarNombres();
+		insertarArticulos();
+		insertarProveedores();
 	}
-	public void insertarNombres(){
+	public void insertarArticulos(){
 		
 		try {
 			con = (Connection) cx.getConexion();
-			System.out.println("Conexion realizada");
 			gdb = new Gestion();
 			resultado = gdb.recorrerArticuloGenerico();
 			comboBox_Nombres.addItem("");
@@ -201,24 +191,24 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
 			e1.printStackTrace();
-		}
-			
-		
+		}		
 	}
-	public JButton getBtnCrearCategoria() {
-		return btnCrearCategoria;
+	
+	public void insertarProveedores() throws SQLException{
+		ArrayList<String> nombres = new ArrayList<String>();
+		gdb = new Gestion();
+		nombres = gdb.recorrerProveedores();
+		comboBox_proveedor_1.addItem("");
+		
+		for(String n : nombres) {
+			comboBox_proveedor_1.addItem(n);
+		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evento = e.getSource();
 		
-		if(evento.equals(btnCrearCategoria)) {
-			try {
-				panelCategoria pc = new panelCategoria();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-		}else if(evento.equals(btnAñadirCategoriaArticulo)) {
+	if(evento.equals(btnAñadirCategoriaArticulo)) {
 			//creamos el objeto de que el articulo pertenece una categoria.
 			//seleccionamos el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
 			try {
@@ -263,5 +253,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	}
 	protected JComboBox getComboBox_Pertenece() {
 		return comboBox_Pertenece;
+	}
+	protected JComboBox getComboBox_proveedor() {
+		return comboBox_proveedor_1;
 	}
 }

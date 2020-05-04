@@ -416,6 +416,26 @@ public class Gestion  {
 		return precio;
 	}
 	
+	public ArrayList<String> recorrerProveedores() throws SQLException {		
+		ArrayList<String> nombres=new ArrayList<String>();
+		
+		con = cx.getConexion();
+		String sql = "SELECT * FROM proveedor";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);	
+			while(resultado.next()) {
+				nombres.add(resultado.getString("nombre"));
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		return nombres;
+	}
+	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
 	
 	

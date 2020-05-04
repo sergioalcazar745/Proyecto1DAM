@@ -86,6 +86,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
 	private JPanel panel_3;
+	private panelCesta panelCesta;
 	public VentanaPrincipal() throws Exception{
 		
 		//creacion tipo de fuentee
@@ -126,6 +127,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		panelAdministrador panelAdministrador_ = new panelAdministrador();
 		tabbedPane.addTab("Suministros", null, panelAdministrador_, null);
+		
+		panelAsignarCategoria panelAsignarCategoria_ = new panelAsignarCategoria();
+		tabbedPane.addTab("Categoria", null, panelAsignarCategoria_, null);
 
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(232, 11, 853, 544);
@@ -139,7 +143,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_2.setLayout(null);
 		panel_2.add(scrollPane);
 		
-
 		//panel_articulos_filtros = new panel_articulos_filtros();
 		scrollPane.setViewportView(panel_articulos_filtros);
 		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
@@ -187,8 +190,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		JSeparator separator = new JSeparator();
 		separator.setBackground(Color.LIGHT_GRAY);
 		separator.setBounds(12, 149, 198, 2);
-		panel.add(separator);
-		
+		panel.add(separator);		
 
 		btnHome = new JButton("HOME");
 		btnHome.addActionListener(this);
@@ -266,6 +268,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnSalir.setContentAreaFilled(false);
 		contentPane.add(btnSalir);
 		
+		panelCesta = new panelCesta();
+		panelCesta.setBounds(0, 0, 10, 10);
+		panelCesta.setBounds(232, 11, 853, 544);
+		contentPane.add(panelCesta);
+		
+		
 		
 		JButton btnNewButton = new JButton("Borrar");
 	}
@@ -322,6 +330,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_2.repaint();
 			System.out.println("panel: "+panel_articulos_filtros.getHeight());
 
+		}else if(evento.equals(btnOrders)) {
+			desactivarPaneles();
+			panelCesta.setVisible(true);
 		}
 	}
 	
@@ -339,6 +350,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			}
 		}
 	}
+	
 	public JPanel getPanel() {
 		return panel;
 	}
@@ -354,11 +366,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JButton getBtnShop() {
 		return btnShop;
 	}
-
 	protected JScrollPane getScrollPane() {
 		return scrollPane;
 	}
-	public JPanel getPanel_3() {
+	protected JPanel getPanel_3() {
 		return panel_3;
+	}	
+	protected panelCesta getPanelCesta_() {
+		return panelCesta;
 	}
 }
