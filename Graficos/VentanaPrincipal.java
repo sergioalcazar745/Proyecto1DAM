@@ -15,6 +15,7 @@ import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 
 import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -63,8 +64,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnAccount;
 	private JButton btnHome;
 	ResultSet resultado;
-	//Copia de seguridad
-	private JPanel panelAdministrador = new panelAdministrador();
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
 	String correo = "";
@@ -86,6 +85,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
+	private JPanel panel_3;
 	public VentanaPrincipal() throws Exception{
 		
 		//creacion tipo de fuentee
@@ -111,8 +111,21 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(232, 11, 853, 544);
+		panel_1.setBounds(232, 11, 853, 544);		
 		
+		panel_3 = new JPanel();
+		panel_3.setBackground(Color.WHITE);
+		panel_3.setVisible(false);
+		panel_3.setBounds(232, 11, 853, 544);
+		contentPane.add(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBackground(Color.WHITE);
+		panel_3.add(tabbedPane);
+		
+		panelAdministrador panelAdministrador_ = new panelAdministrador();
+		tabbedPane.addTab("Suministros", null, panelAdministrador_, null);
 
 		panel_2.setBackground(Color.WHITE);
 		panel_2.setBounds(232, 11, 853, 544);
@@ -160,11 +173,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(panelInicioSesion);
 		panelCuenta.setBackground(Color.WHITE);
 		contentPane.add(panelCuenta);
-		panelAdministrador.setBackground(Color.WHITE);
-		contentPane.add(panelAdministrador);
 		panelInicioSesion.setVisible(false);
 		panelCuenta.setVisible(false);
-		panelAdministrador.setVisible(false);
 		
 		panel = new JPanel();
 		panel.setName("panelMenu");
@@ -249,13 +259,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		btnSalir = new JButton("SALIR");
 		btnSalir.addActionListener(this);
-		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 16));		
 		btnSalir.setBounds(972, 554, 113, 50);
 		btnSalir.setBorderPainted(false);
 		btnSalir.setOpaque(false);
 		btnSalir.setContentAreaFilled(false);
 		contentPane.add(btnSalir);
-		
 		
 		
 		JButton btnNewButton = new JButton("Borrar");
@@ -290,7 +299,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panelInicioSesion.setVisible(true);
 		}else if(evento.equals(btnShop)) {
 			desactivarPaneles();
-			panelAdministrador.setVisible(true);
+			panel_3.setVisible(true);
 			contentPane.revalidate();
 		}else if(evento.equals(comboBox_Filtro)) {
 			//aqui determinaremos el numero de articulos que tenemos y se lo pasaremos al panel filtros para hacer las columnas y filas
@@ -349,5 +358,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JScrollPane getScrollPane() {
 		return scrollPane;
 	}
-
+	public JPanel getPanel_3() {
+		return panel_3;
+	}
 }

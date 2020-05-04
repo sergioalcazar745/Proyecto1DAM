@@ -51,7 +51,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private ResultSet resultado;
 	private Gestion gdb;
 	public panelAdministrador() {
-		setBorder(new TitledBorder(null, "COMPRAR SUMINISTROS", TitledBorder.LEFT, TitledBorder.TOP, null, null));
 				
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
