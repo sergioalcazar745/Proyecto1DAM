@@ -116,7 +116,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			array_paneles[i].add(array_labels[posicion_label]);
 			posicion_label++;
 			}
-		//si tenemos 4 elementos el cardlayaout falla y hace solo dos columnas. Asi pues lo que haremos es añadir un panel vacio.
+		//si tenemos 4 elementos el cardlayaout falla y hace solo dos columnas. Asi pues lo que haremos es añadir un panel vacio..
 			if(nombre_fotos.size()==4) {
 			JPanel panel_vacio=new JPanel();
 			panel_vacio.setLayout(null);
