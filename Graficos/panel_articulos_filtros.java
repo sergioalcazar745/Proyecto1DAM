@@ -38,7 +38,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	
 	
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
-	JLabel [] array_labels = new JLabel[80];//2 label por aticulo
+	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
 	/**
 	 ** Create the panel.
 	 */
@@ -61,10 +61,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 839, 1421);
 		//433 por fila
-		System.out.println("numeroooo");
 		float real = 14.999f;
 		int entero = (int)real;
-		System.out.println("entero: "+entero);
 		if(!filtro.equals("")) {
 			try {
 				if(gdb.devolverArticulosDeCategoria(filtro).size()%3 == 0) {
@@ -77,19 +75,14 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				e.printStackTrace();
 			}
 			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
-			System.out.println("jesus: "+433*(int)numero_filas);
 		}else {
 			panel.setPreferredSize(new Dimension(825, 3031));
-			System.out.println("hola: dimensiones");
 		}
 		panel.setBackground(Color.WHITE);
 		add(panel);
-		System.out.println("filas: "+(int)numero_filas);
 		panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
 		
-		System.out.println(nombre_fotos.size()+"hitler");
 			for(int i=0; i<nombre_fotos.size(); i++) {
-				System.out.println("añadido: "+i);
 				array_paneles[i] = new JPanel();
 				array_paneles[i].addMouseListener(this);
 				array_paneles[i].setLayout(null);
@@ -341,9 +334,6 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		Object evento=e.getSource();
-		if(e.getComponent() instanceof JPanel) {
-			System.out.println("hola"+e.getComponent());
-		}
 	}
 
 	@Override

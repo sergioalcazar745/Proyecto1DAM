@@ -211,7 +211,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		Object boton = e.getSource();
 		
 		if(boton.equals(btnEditNombre)) {
-			tfNombre.setText(JOptionPane.showInputDialog("Introduzca el nuevo nombre: "));			
+			tfNombre.setText(JOptionPane.showInputDialog("Introduzca el nuevo nombre: "));		
 		}else if(boton.equals(btnEditApellidos)) {
 			tfApellidos.setText(JOptionPane.showInputDialog("Introduzca los apellidos nuevos: "));
 		}else if(boton.equals(btnEditFechaNacimiento)) {
