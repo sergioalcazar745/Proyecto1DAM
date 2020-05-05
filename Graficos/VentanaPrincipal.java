@@ -57,6 +57,8 @@ import java.util.Arrays;
 import javax.swing.JComboBox;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel contentPane;
@@ -78,10 +80,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	private conexion cn = new conexion();
 	private Connection con;
-	private JTextField textField;
+	private JTextField textField_filtro;
 	private JButton btnSignOut;
 	private JButton btnShop;
-	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "lenceria");
+	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "", "");
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
@@ -117,6 +119,45 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setVisible(false);
+		
+				panel_2.setBackground(Color.WHITE);
+				panel_2.setBounds(232, 11, 853, 544);
+				contentPane.add(panel_2);
+				
+				scrollPane = new JScrollPane();
+				scrollPane.setBounds(0, 48, 853, 544);
+				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollPane.setBorder(BorderFactory.createEmptyBorder());
+				scrollPane.getVerticalScrollBar().setUnitIncrement(25);
+				panel_2.setLayout(null);
+				panel_2.add(scrollPane);
+				
+				//panel_articulos_filtros = new panel_articulos_filtros();
+				scrollPane.setViewportView(panel_articulos_filtros);
+				panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
+				comboBox_Filtro.addActionListener(this);
+				
+
+				comboBox_Filtro.setBounds(207, 11, 123, 26);
+				comboBox_Filtro.addItem("");
+				panel_2.add(comboBox_Filtro);
+				
+				textField_filtro = new JTextField();
+						textField_filtro.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+								if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+									panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", textField_filtro.getText());
+									scrollPane.setViewportView(panel_articulos_filtros);
+									panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
+									panel_2.revalidate();
+									panel_2.repaint();
+								}
+							}
+						});
+						textField_filtro.setBounds(329, 11, 300, 26);
+						panel_2.add(textField_filtro);
+						textField_filtro.setColumns(10);
 		panel_3.setBounds(232, 11, 853, 544);
 		contentPane.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
@@ -130,37 +171,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		panelAsignarCategoria panelAsignarCategoria_ = new panelAsignarCategoria();
 		tabbedPane.addTab("Categoria", null, panelAsignarCategoria_, null);
-
-		panel_2.setBackground(Color.WHITE);
-		panel_2.setBounds(232, 11, 853, 544);
-		contentPane.add(panel_2);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 48, 853, 544);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		scrollPane.getVerticalScrollBar().setUnitIncrement(25);
-		panel_2.setLayout(null);
-		panel_2.add(scrollPane);
-		
-		//panel_articulos_filtros = new panel_articulos_filtros();
-		scrollPane.setViewportView(panel_articulos_filtros);
-		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
-		comboBox_Filtro.addActionListener(this);
-		
-
-		comboBox_Filtro.setBounds(207, 11, 123, 26);
-		comboBox_Filtro.addItem("");
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
 		}
-		panel_2.add(comboBox_Filtro);
-		
-		textField = new JTextField();
-		textField.setBounds(329, 11, 300, 26);
-		panel_2.add(textField);
-		textField.setColumns(10);
 		panelInicioSesion.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
@@ -319,16 +333,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			//remove(panel_articulos_filtros);
 			
 			if(comboBox_Filtro.getSelectedItem()==null) {
-				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "");
+				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", "");
 			}else{
-				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString());
+				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString(), "");
 			}
 
 			scrollPane.setViewportView(panel_articulos_filtros);
 			panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
 			panel_2.revalidate();
 			panel_2.repaint();
-			System.out.println("panel: "+panel_articulos_filtros.getHeight());
+			//System.out.println("panel: "+panel_articulos_filtros.getHeight());
 
 		}else if(evento.equals(btnOrders)) {
 			desactivarPaneles();

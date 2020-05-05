@@ -22,6 +22,8 @@ import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class panel_articulos_filtros extends JPanel implements MouseListener{
 	private JPanel panel_1;
@@ -39,22 +41,35 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
 	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
-	JLabel [] array_precios = new JLabel[80];//1 precio por aticulo
 	
 	/**
 	 ** Create the panel.
 	 */
-	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro) {
+	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro, String palabra_buscar) {
 		float numero_filas=0;
 		int posicion_label=0;
 		String precio = null;
 		ArrayList<String> nombre_fotos = new ArrayList<String>();
-
+		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
 		try {
 			if(!filtro.equals("")) {
 				nombre_fotos=gdb.devolverArticulosDeCategoria(filtro);
 			}else {
 				nombre_fotos=gdb.recorrerArticuloGenericoString();
+				// cuando pulsa enter hacemos una limpiza.
+				if(!palabra_buscar.equals("")) {//si palabra buscar esta rellena es que busca por la palabra y no por la categoria
+					for (String name : nombre_fotos) {
+				        String patternString = ".*"+palabra_buscar+".*";
+				        Pattern pattern = Pattern.compile(patternString);
+				        Matcher matcher = pattern.matcher(name);
+				        boolean matches = matcher.matches();
+				        if(matches) {
+				        	nombre_fotos_aux.add(name);
+				        }
+					}
+					nombre_fotos.clear();
+					nombre_fotos=nombre_fotos_aux;
+				}
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
