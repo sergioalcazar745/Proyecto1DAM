@@ -99,7 +99,11 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		}
 		panel.setBackground(Color.WHITE);
 		add(panel);
-		panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
+		if(nombre_fotos.size()==0) {
+			panel.setLayout(new GridLayout(1, 1, 50, 50));
+		}else {
+			panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
+		}
 		
 			for(int i=0; i<nombre_fotos.size(); i++) {
 				//recogemos el precio
@@ -140,7 +144,22 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			panel_vacio.setLayout(null);
 			panel_vacio.setBackground(Color.WHITE);
 			panel.add(panel_vacio);
+			}else if(nombre_fotos.size()==0) {
+				JPanel panel_resultado=new JPanel();
+				panel_resultado.setLayout(null);
+				panel_resultado.setBackground(Color.WHITE);
+				panel.add(panel_resultado);
+				
+				JLabel mensaje = new JLabel("No se han encontrado resultados");
+				mensaje.setHorizontalAlignment(SwingConstants.CENTER);
+				mensaje.setForeground(Color.GRAY);
+				mensaje.setFont(new Font("Arial", Font.BOLD, 20));
+				mensaje.setBounds(0, 28, 853, 51);
+				mensaje.setVisible(true);
+				panel_resultado.add(mensaje);
 			}
+			
+			
 			
 			
 			
