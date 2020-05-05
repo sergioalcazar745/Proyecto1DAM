@@ -2,6 +2,7 @@ package Graficos;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
@@ -51,6 +55,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		String precio = null;
 		ArrayList<String> nombre_fotos = new ArrayList<String>();
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
+		
 		try {
 			if(!filtro.equals("")) {
 				nombre_fotos=gdb.devolverArticulosDeCategoria(filtro);
@@ -114,8 +119,11 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				}
 				array_paneles[i] = new JPanel();
 				array_paneles[i].addMouseListener(this);
+				array_paneles[i].setName(""+i+"");
 				array_paneles[i].setLayout(null);
 				array_paneles[i].setBackground(Color.WHITE);
+				array_paneles[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				array_paneles[i].addMouseListener(this);
 			panel.add(array_paneles[i]);
 			
 			array_labels[posicion_label] = new JLabel("");
@@ -382,14 +390,26 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+		Border blackline = BorderFactory.createLineBorder(Color.black);
+		Object evento=e.getComponent().getName();
+		for (int i=0; i<array_paneles.length; i++) {
+			if(evento.equals(array_paneles[i].getName())) {
+				array_paneles[i].setBorder(blackline);
+			}
+		}
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		//Border blackline = BorderFactory.createLineBorder(Color.black);
+		Object evento=e.getComponent().getName();
+		for (int i=0; i<array_paneles.length; i++) {
+			if(evento.equals(array_paneles[i].getName())) {
+				array_paneles[i].setBorder(null);
+			}
+		}
 	}
 
 	@Override
