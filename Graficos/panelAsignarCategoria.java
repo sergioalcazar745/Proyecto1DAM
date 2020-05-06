@@ -75,6 +75,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		add(lblNewLabel);
 		
 		comboBox_Nombres = new JComboBox();
+		comboBox_Nombres.addActionListener(this);
 		comboBox_Nombres.setBounds(118, 42, 147, 25);
 		add(comboBox_Nombres);
 		
