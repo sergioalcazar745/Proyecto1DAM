@@ -6,16 +6,25 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.sql.SQLException;
+
 import javax.swing.JTextArea;
+
+import Base_de_datos.Gestion;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class panel_Articulo extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
+	Gestion gdb=new Gestion();
 	public panel_Articulo(String nombre_articulo) {
+		setBackground(Color.WHITE);
+		String descripcion="";
 		System.out.println("nombre: "+nombre_articulo);
 		setBounds(0, 48, 853, 496);
 		setLayout(null);
@@ -30,6 +39,13 @@ public class panel_Articulo extends JPanel {
 		add(lblNewLabel_1);
 		
 		JTextArea textArea = new JTextArea();
+		try {
+			descripcion=gdb.devolverDescripcion(nombre_articulo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		textArea.setText(descripcion);
 		textArea.setBounds(397, 228, 259, 99);
 		add(textArea);
 		
@@ -37,17 +53,19 @@ public class panel_Articulo extends JPanel {
 		lblNewLabel_2.setBounds(397, 194, 141, 23);
 		add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("Comprar");
-		btnNewButton.setBounds(532, 423, 124, 49);
-		add(btnNewButton);
+		JButton btnComprar = new JButton("");
+		btnComprar.setBackground(Color.WHITE);
+		btnComprar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/comprar_boton.png")));
+		btnComprar.setBounds(515, 423, 168, 49);
+		btnComprar.setBorderPainted(false);
+		btnComprar.setOpaque(false);
+		btnComprar.setContentAreaFilled(false);
+		btnComprar.setFocusPainted(false);
+		add(btnComprar);
 		
 		JButton btnNewButton_1 = new JButton("Cesta");
 		btnNewButton_1.setBounds(693, 423, 106, 49);
 		add(btnNewButton_1);
-		
-		JButton btnNewButton_2 = new JButton("Volver");
-		btnNewButton_2.setBounds(358, 423, 147, 49);
-		add(btnNewButton_2);
 		
 	}
 }
