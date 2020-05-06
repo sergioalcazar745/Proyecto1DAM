@@ -43,8 +43,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField tfDinero;
 	JComboBox comboBox_Nombres = new JComboBox();
 	JComboBox comboBox_Pertenece = new JComboBox();
-	JComboBox comboBox_Categorias = new JComboBox();
-	JButton btnAñadirCategoriaArticulo = new JButton("");
 	private conexion cx = new conexion();
 	private Connection con;
 	private ResultSet resultado;
@@ -135,32 +133,13 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
 		
-		comboBox_Categorias.setBounds(32, 167, 211, 29);
-		comboBox_Categorias.addItem("");
-		add(comboBox_Categorias);
-		
 		JLabel lblCategoria = new JLabel("Pertenece a:");
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 16));
 		lblCategoria.setBounds(375, 56, 105, 19);
 		add(lblCategoria);
 		
-		JLabel lblNewLabel_5 = new JLabel("A\u00F1adir categoria");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_5.setBounds(44, 138, 188, 16);
-		add(lblNewLabel_5);
-		
 		comboBox_Pertenece.setBounds(315, 86, 211, 29);
 		add(comboBox_Pertenece);
-		
-		btnAñadirCategoriaArticulo.addActionListener(this);
-		btnAñadirCategoriaArticulo.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/plus.png")));
-		btnAñadirCategoriaArticulo.setBounds(254, 167, 43, 29);
-		btnAñadirCategoriaArticulo.setBorderPainted(false);
-		btnAñadirCategoriaArticulo.setOpaque(false);
-		btnAñadirCategoriaArticulo.setContentAreaFilled(false);
-		btnAñadirCategoriaArticulo.setFocusPainted(false);
-		add(btnAñadirCategoriaArticulo);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
@@ -172,7 +151,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_6.setBounds(397, 217, 56, 16);
 		add(lblNewLabel_6);
 		
-		introducirDatos();
 		insertarArticulos();
 		insertarProveedores();
 	}
@@ -207,22 +185,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evento = e.getSource();
-		
-	if(evento.equals(btnAñadirCategoriaArticulo)) {
-			//creamos el objeto de que el articulo pertenece una categoria.
-			//seleccionamos el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
-			try {
-				gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categorias.getSelectedItem().toString());
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			comboBox_Pertenece.removeAllItems();
-			updateComboBoxPertenece();			
-		}else if(evento.equals(comboBox_Nombres)) {
-			comboBox_Pertenece.removeAllItems();
-			updateComboBoxPertenece();
-		}
+	
 	}
 	
 	public void updateComboBoxPertenece() {
@@ -233,24 +196,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		}
 	}
 	
-	private void introducirDatos() {
-		gdb = new Gestion();
-		
-		try {
-			con = (Connection) cx.getConexion();
-			System.out.println("Conexion realizada");
-			gdb = new Gestion();
-			resultado = gdb.recorrerCategorias();
-			
-			while(resultado.next()) {
-				comboBox_Categorias.addItem(resultado.getString("nombre"));
-			}
-			
-		}catch (SQLException e1) {
-			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
-		}
-	}
 	protected JComboBox getComboBox_Pertenece() {
 		return comboBox_Pertenece;
 	}
