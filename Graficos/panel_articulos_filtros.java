@@ -1,6 +1,8 @@
 package Graficos;
 
 import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -39,8 +41,9 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	private JPanel panel_7;
 	private JPanel panel_8;
 	private JPanel panel_9;
+	JPanel panel = new JPanel();
 	ResultSet resultado;
-	
+	JPanel panel_Articulo=new panel_Articulo();
 	
 	
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
@@ -82,7 +85,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		}
 		setLayout(null);
 		
-		JPanel panel = new JPanel();
+
 		panel.setBounds(0, 0, 839, 1421);
 		//433 por fila
 		float real = 14.999f;
@@ -385,7 +388,20 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		Object evento=e.getSource();
+		Object evento=e.getComponent().getName();
+		for (int i=0; i<array_paneles.length; i++) {
+			if(array_paneles[i]!=null) {
+				if(evento.equals(array_paneles[i].getName())) {
+					panel.removeAll();
+					panel.setBounds(232, 11, 853, 544);
+					panel.setPreferredSize(new Dimension(853, 544));
+					panel.setLayout(new BorderLayout(0, 0));
+					panel.add(panel_Articulo, BorderLayout.CENTER);
+					panel.repaint();
+					panel.revalidate();
+				}
+			}
+		}
 	}
 
 	@Override
@@ -393,8 +409,10 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		Border blackline = BorderFactory.createLineBorder(Color.black);
 		Object evento=e.getComponent().getName();
 		for (int i=0; i<array_paneles.length; i++) {
-			if(evento.equals(array_paneles[i].getName())) {
-				array_paneles[i].setBorder(blackline);
+			if(array_paneles[i]!=null) {
+				if(evento.equals(array_paneles[i].getName())) {
+					array_paneles[i].setBorder(blackline);
+				}
 			}
 		}
 		
@@ -406,8 +424,10 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		//Border blackline = BorderFactory.createLineBorder(Color.black);
 		Object evento=e.getComponent().getName();
 		for (int i=0; i<array_paneles.length; i++) {
-			if(evento.equals(array_paneles[i].getName())) {
-				array_paneles[i].setBorder(null);
+			if(array_paneles[i]!=null) {
+				if(evento.equals(array_paneles[i].getName())) {
+					array_paneles[i].setBorder(null);
+				}
 			}
 		}
 	}

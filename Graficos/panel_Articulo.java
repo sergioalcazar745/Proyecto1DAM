@@ -17,11 +17,11 @@ public class panel_Articulo extends JPanel {
 	public panel_Articulo() {
 		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("Imagen");
 		lblNewLabel.setBounds(10, 84, 250, 150);
 		add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
+		JLabel lblNewLabel_1 = new JLabel("Titulo");
 		lblNewLabel_1.setBounds(270, 84, 250, 23);
 		add(lblNewLabel_1);
 		
