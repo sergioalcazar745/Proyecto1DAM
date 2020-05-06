@@ -141,9 +141,13 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			}
 		}else if(evento.equals(btnAñadirCategoriaArticulo)) {
 			//creamos el objeto de que el articulo pertenece una categoria.
-			//seleccionamos el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
+			//seleccionamoss el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
 			try {
+				if(comboBox_Categoria.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
+					
+				}else {
 				gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
+				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
