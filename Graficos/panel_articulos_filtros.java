@@ -101,7 +101,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		if(!filtro.equals("")) {
 			try {
 				if(gdb.devolverArticulosDeCategoria(filtro).size()%3 == 0) {
-					numero_filas=gdb.devolverArticulosDeCategoria(filtro).size()%3;
+					numero_filas=gdb.devolverArticulosDeCategoria(filtro).size()/3;
 				}else {
 					numero_filas=((int)gdb.devolverArticulosDeCategoria(filtro).size()/3)+1;
 				}
@@ -110,14 +110,16 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				e.printStackTrace();
 			}
 			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
-		}else {
+		}else{
 			panel.setPreferredSize(new Dimension(825, 3031));
 		}
 		panel.setBackground(Color.WHITE);
 		add(panel);
+		
+		
 		if(nombre_fotos.size()==0) {
 			panel.setLayout(new GridLayout(1, 1, 50, 50));
-		}else {
+		}else{
 			panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
 		}
 		
@@ -158,7 +160,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			posicion_label++;
 			}
 		//si tenemos 4 elementos el cardlayaout falla y hace solo dos columnas. Asi pues lo que haremos es añadir un panel vacio..
-			if(nombre_fotos.size()==4) {
+			if(nombre_fotos.size()==4 || nombre_fotos.size()==2) {
 			JPanel panel_vacio=new JPanel();
 			panel_vacio.setLayout(null);
 			panel_vacio.setBackground(Color.WHITE);
@@ -176,10 +178,21 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				mensaje.setBounds(0, 28, 853, 51);
 				mensaje.setVisible(true);
 				panel_resultado.add(mensaje);
+			}else if(nombre_fotos.size()==1) {
+				JPanel panel_vacio1=new JPanel();
+				panel_vacio1.setLayout(null);
+				panel_vacio1.setBackground(Color.WHITE);
+				panel.add(panel_vacio1);
+				
+				JPanel panel_vacio2=new JPanel();
+				panel_vacio2.setLayout(null);
+				panel_vacio2.setBackground(Color.WHITE);
+				panel.add(panel_vacio2);
+				
 			}
 			
 			
-			
+
 			
 			
 //		if(filtro.equals("")) {
@@ -400,6 +413,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		for (int i=0; i<array_paneles.length; i++) {
 			if(array_paneles[i]!=null) {
 				if(evento.equals(array_paneles[i].getName())) {
+					System.out.println("ancho: "+array_paneles[i].getWidth());
+					System.out.println("alto: "+array_paneles[i].getHeight());
 					panel.removeAll();
 					panel.setBounds(0, 48, 853, 496);
 					panel.setPreferredSize(new Dimension(853, 496));
