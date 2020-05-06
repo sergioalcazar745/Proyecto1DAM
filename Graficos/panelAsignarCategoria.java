@@ -146,7 +146,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 				if(comboBox_Categoria.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 					
 				}else {
-				gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
+					gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
 				}
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block

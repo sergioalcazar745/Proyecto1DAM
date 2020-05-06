@@ -21,8 +21,8 @@ public class panel_Articulo extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	Gestion gdb=new Gestion();
-	public panel_Articulo(String nombre_articulo) {
+	Gestion gdb;
+	public panel_Articulo(String nombre_articulo, Gestion gdb) {
 		setBackground(Color.WHITE);
 		String descripcion="";
 		System.out.println("nombre: "+nombre_articulo);

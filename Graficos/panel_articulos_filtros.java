@@ -45,7 +45,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	ResultSet resultado;
 	JPanel panel_Articulo;
 	ArrayList<String> nombre_fotos = new ArrayList<String>();
-	
+	Gestion gdb;
 	public ArrayList<String> getNombre_fotos() {
 		return nombre_fotos;
 	}
@@ -60,6 +60,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	 ** Create the panel.
 	 */
 	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro, String palabra_buscar) {
+		this.gdb=gdb;
 		float numero_filas=0;
 		int posicion_label=0;
 		String precio = null;
@@ -403,7 +404,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 					panel.setBounds(0, 48, 853, 496);
 					panel.setPreferredSize(new Dimension(853, 496));
 					panel.setLayout(new BorderLayout(0, 0));
-					JPanel panel_Articulo=new panel_Articulo(nombre_fotos.get(i));
+					JPanel panel_Articulo=new panel_Articulo(nombre_fotos.get(i), gdb);
 					panel.add(panel_Articulo, BorderLayout.CENTER);
 					panel.repaint();
 					panel.revalidate();
