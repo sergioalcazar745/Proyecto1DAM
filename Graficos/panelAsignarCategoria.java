@@ -20,6 +20,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -35,10 +39,10 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	public panelAsignarCategoria() throws SQLException {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
-		setLayout(null);
 		
 		table = new JTable();
 		modelo.addColumn("Categoria");
+		setLayout(null);
 		table.setModel(modelo);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -47,16 +51,35 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		scrollPane.setViewportView(table);
 		
 		tfInsertar = new JTextField();
-		tfInsertar.setFont(new Font("Arial", Font.PLAIN, 16));
 		tfInsertar.setBounds(118, 88, 498, 22);
+		tfInsertar.setFont(new Font("Arial", Font.PLAIN, 16));
 		add(tfInsertar);
 		tfInsertar.setColumns(10);
 		
 		btnAñadir = new JButton("A\u00F1adir");
+		btnAñadir.setBounds(628, 85, 97, 25);
 		btnAñadir.addActionListener(this);
 		btnAñadir.setFont(new Font("Arial", Font.BOLD, 16));
-		btnAñadir.setBounds(628, 85, 97, 25);
 		add(btnAñadir);
+		
+		JLabel lblNewLabel = new JLabel("Articulo");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel.setBounds(188, 13, 126, 16);
+		add(lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(185, 42, 129, 25);
+		add(comboBox);
+		
+		JButton btnAñadirCategoriaArticulo = new JButton("");
+		btnAñadirCategoriaArticulo.setIcon(new ImageIcon(panelAsignarCategoria.class.getResource("/Imagenes/plus.png")));
+		btnAñadirCategoriaArticulo.setBounds(390, 36, 40, 39);
+		btnAñadirCategoriaArticulo.setBorderPainted(false);
+		btnAñadirCategoriaArticulo.setOpaque(false);
+		btnAñadirCategoriaArticulo.setContentAreaFilled(false);
+		btnAñadirCategoriaArticulo.setFocusPainted(false);
+		add(btnAñadirCategoriaArticulo);
 		
 		introducirDatos();
 	}

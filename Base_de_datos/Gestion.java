@@ -436,6 +436,25 @@ public class Gestion  {
 		return nombres;
 	}
 	
+	public String devolverDescripcion(String nombre) throws SQLException {
+		String descripcion = null;
+		
+		String sql = "SELECT descripcion FROM articulogenerico WHERE nombre = '"+nombre+"'";
+		
+		con = cx.getConexion();
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);	
+			if(resultado.next()) {
+				descripcion = resultado.getString("descripcion");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		return descripcion;
+	}
+	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
 	
 	
