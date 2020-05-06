@@ -43,9 +43,16 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	private JPanel panel_9;
 	JPanel panel = new JPanel();
 	ResultSet resultado;
-	JPanel panel_Articulo=new panel_Articulo();
+	JPanel panel_Articulo;
+	ArrayList<String> nombre_fotos = new ArrayList<String>();
 	
-	
+	public ArrayList<String> getNombre_fotos() {
+		return nombre_fotos;
+	}
+
+	public void setNombre_fotos(ArrayList<String> nombre_fotos) {
+		this.nombre_fotos = nombre_fotos;
+	}
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
 	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
 	
@@ -56,7 +63,6 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		float numero_filas=0;
 		int posicion_label=0;
 		String precio = null;
-		ArrayList<String> nombre_fotos = new ArrayList<String>();
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
 		
 		try {
@@ -79,6 +85,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 					nombre_fotos=nombre_fotos_aux;
 				}
 			}
+			setNombre_fotos(nombre_fotos);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -393,9 +400,10 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			if(array_paneles[i]!=null) {
 				if(evento.equals(array_paneles[i].getName())) {
 					panel.removeAll();
-					panel.setBounds(232, 11, 853, 544);
-					panel.setPreferredSize(new Dimension(853, 544));
+					panel.setBounds(0, 48, 853, 496);
+					panel.setPreferredSize(new Dimension(853, 496));
 					panel.setLayout(new BorderLayout(0, 0));
+					JPanel panel_Articulo=new panel_Articulo(nombre_fotos.get(i));
 					panel.add(panel_Articulo, BorderLayout.CENTER);
 					panel.repaint();
 					panel.revalidate();

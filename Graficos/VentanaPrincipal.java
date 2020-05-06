@@ -125,7 +125,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				contentPane.add(panel_2);
 				
 				scrollPane = new JScrollPane();
-				scrollPane.setBounds(0, 48, 853, 544);
+				scrollPane.setBounds(0, 48, 853, 496);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				scrollPane.setBorder(BorderFactory.createEmptyBorder());
 				scrollPane.getVerticalScrollBar().setUnitIncrement(25);
