@@ -109,13 +109,22 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("hitler: "+numero_filas);
 			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
+		}else if(!palabra_buscar.equals("")) {
+				if(nombre_fotos.size()%3 == 0) {
+					System.out.println("laura");
+					numero_filas=nombre_fotos.size()/3;
+				}else {
+					System.out.println("laura2");
+					numero_filas=((int)nombre_fotos.size()/3)+1;
+				}
+				panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
 		}else{
 			panel.setPreferredSize(new Dimension(825, 3031));
 		}
 		panel.setBackground(Color.WHITE);
 		add(panel);
-		
 		
 		if(nombre_fotos.size()==0) {
 			panel.setLayout(new GridLayout(1, 1, 50, 50));
