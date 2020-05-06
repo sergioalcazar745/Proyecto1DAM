@@ -42,12 +42,12 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField textField;
 	private JTextField tfDinero;
 	JComboBox comboBox_Nombres = new JComboBox();
-	JComboBox comboBox_Pertenece = new JComboBox();
 	private conexion cx = new conexion();
 	private Connection con;
 	private ResultSet resultado;
 	private Gestion gdb;
 	private JComboBox comboBox_proveedor_1;
+	
 	public panelAdministrador() throws SQLException {
 				
 		setBounds(232, 11, 853, 544);
@@ -56,7 +56,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		
 		JLabel lblNewLabel = new JLabel("Articulo:");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel.setBounds(94, 57, 71, 16);
+		lblNewLabel.setBounds(106, 57, 99, 16);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Proveedor:");
@@ -133,22 +133,14 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
 		
-		JLabel lblCategoria = new JLabel("Pertenece a:");
-		lblCategoria.setFont(new Font("Arial", Font.BOLD, 16));
-		lblCategoria.setBounds(375, 56, 105, 19);
-		add(lblCategoria);
-		
-		comboBox_Pertenece.setBounds(315, 86, 211, 29);
-		add(comboBox_Pertenece);
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
-		comboBox.setBounds(331, 249, 178, 26);
+		comboBox.setBounds(330, 87, 178, 26);
 		add(comboBox);
 		
 		JLabel lblNewLabel_6 = new JLabel("Talla");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_6.setBounds(397, 217, 56, 16);
+		lblNewLabel_6.setBounds(398, 57, 56, 16);
 		add(lblNewLabel_6);
 		
 		insertarArticulos();
@@ -186,20 +178,5 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object evento = e.getSource();
 	
-	}
-	
-	public void updateComboBoxPertenece() {
-		if(comboBox_Nombres.getSelectedItem() != null) {
-			for(String n : gdb.asociacionCategoria(comboBox_Nombres.getSelectedItem().toString())) {
-				comboBox_Pertenece.addItem(n);
-			}
-		}
-	}
-	
-	protected JComboBox getComboBox_Pertenece() {
-		return comboBox_Pertenece;
-	}
-	protected JComboBox getComboBox_proveedor() {
-		return comboBox_proveedor_1;
 	}
 }

@@ -455,6 +455,10 @@ public class Gestion  {
 		return descripcion;
 	}
 	
+	public void comprar (String nombre, String talla, String proveedor) {
+		
+	}
+	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
 	
 	
