@@ -56,16 +56,23 @@ public class panel_Articulo extends JPanel {
 		JButton btnComprar = new JButton("");
 		btnComprar.setBackground(Color.WHITE);
 		btnComprar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/comprar_boton.png")));
-		btnComprar.setBounds(515, 423, 168, 49);
+		btnComprar.setBounds(455, 423, 168, 49);
 		btnComprar.setBorderPainted(false);
 		btnComprar.setOpaque(false);
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
 		add(btnComprar);
 		
-		JButton btnNewButton_1 = new JButton("Cesta");
-		btnNewButton_1.setBounds(693, 423, 106, 49);
-		add(btnNewButton_1);
+		JButton btnCesta = new JButton("");
+		btnCesta.setBackground(Color.WHITE);
+		btnCesta.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/boton_cesta.png")));
+		btnCesta.setBounds(633, 423, 189, 49);
+		btnCesta.setBorderPainted(false);
+		btnCesta.setOpaque(false);
+		btnCesta.setContentAreaFilled(false);
+		btnCesta.setFocusPainted(false);
+		add(btnCesta);
+		
 		
 	}
 }
