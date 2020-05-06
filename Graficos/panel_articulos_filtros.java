@@ -95,7 +95,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		
 
 		panel.setBounds(0, 0, 839, 1421);
-		//433 por fila
+		//433 por filaa
 		float real = 14.999f;
 		int entero = (int)real;
 		if(!filtro.equals("")) {
