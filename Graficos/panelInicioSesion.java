@@ -204,7 +204,6 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						lblIncorrecto.setVisible(false);						
 						
 						gdb.guardarDatos(tfCorreo.getText());
-						System.out.println("Correo: "+tfCorreo.getText());
 						gdb.setSesionIniciada(true);
 						setVisible(false);
 						tfCorreo.setText("");

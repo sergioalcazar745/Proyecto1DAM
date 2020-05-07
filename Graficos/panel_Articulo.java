@@ -22,6 +22,10 @@ import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import java.awt.Font;
+import javax.swing.DefaultComboBoxModel;
 
 public class panel_Articulo extends JPanel  implements ActionListener{
 
@@ -45,12 +49,14 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/"+nombre_articulo+".jpg")));
 		lblNewLabel.setBounds(185, 111, 175, 271);
 		add(lblNewLabel);
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		lblNewLabel_1.setText(nombre_articulo);
-		lblNewLabel_1.setBounds(397, 161, 250, 23);
+		lblNewLabel_1.setBounds(372, 111, 302, 23);
 		add(lblNewLabel_1);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setFont(new Font("Arial", Font.PLAIN, 15));
 		try {
 			descripcion=gdb.devolverDescripcion(nombre_articulo);
 		} catch (SQLException e) {
@@ -58,12 +64,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			e.printStackTrace();
 		}
 		textArea.setText(descripcion);
-		textArea.setBounds(397, 228, 259, 99);
+		textArea.setBounds(372, 154, 284, 99);
 		add(textArea);
-		
-		JLabel lblNewLabel_2 = new JLabel("Descripcion");
-		lblNewLabel_2.setBounds(397, 194, 141, 23);
-		add(lblNewLabel_2);
 		
 		JButton btnComprar = new JButton("");
 		btnComprar.setBackground(Color.WHITE);
@@ -98,6 +100,25 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnVolver.setFocusPainted(false);
 		btnVolver.addActionListener(this);
 		add(btnVolver);
+		
+		JSpinner spinner = new JSpinner();
+		spinner.setBounds(470, 274, 80, 22);
+		add(spinner);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
+		comboBox.setBounds(470, 326, 80, 22);
+		add(comboBox);
+		
+		JLabel lblNewLabel_3 = new JLabel("Cantidad:");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_3.setBounds(372, 277, 74, 16);
+		add(lblNewLabel_3);
+		
+		JLabel lblTalla = new JLabel("Talla:");
+		lblTalla.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTalla.setBounds(372, 329, 74, 16);
+		add(lblTalla);
 		
 		
 	}

@@ -26,6 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private DefaultTableModel modelo = new DefaultTableModel();
@@ -48,6 +50,12 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		setBounds(232, 11, 853, 544);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		modelo.addColumn("Categoria");
 		setLayout(null);
 		table.setModel(modelo);

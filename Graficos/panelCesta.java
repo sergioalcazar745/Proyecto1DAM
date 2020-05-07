@@ -37,7 +37,6 @@ public class panelCesta extends JPanel {
 		//System.out.println("abse_datos: "+array_paneles.size());
 		for(int i=0; i<array_paneles.size(); i++) {
 			add(array_paneles.get(i));
-			System.out.println("añadido: "+i);
 		}
 		setPreferredSize(new Dimension(825, 496*array_articulos.size()));
 		

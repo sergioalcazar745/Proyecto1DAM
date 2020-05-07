@@ -76,7 +76,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
-	private JButton btnOrders;
 	String palabra="hola";
 	
 	private conexion cn = new conexion();
@@ -244,17 +243,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnAccount.setContentAreaFilled(false);
 		btnAccount.setFocusPainted(false);
 		panel.add(btnAccount);
-		
-		btnOrders = new JButton("ORDERS");
-		btnOrders.addActionListener(this);
-		btnOrders.setForeground(Color.WHITE);
-		btnOrders.setFont(dynamicFont32Pt);
-		btnOrders.setBounds(12, 240, 198, 25);
-		btnOrders.setBorderPainted(false);
-		btnOrders.setOpaque(false);
-		btnOrders.setContentAreaFilled(false);
-		btnOrders.setFocusPainted(false);
-		panel.add(btnOrders);
 
 		btnShop = new JButton("SHOPPING");
 		btnShop.addActionListener(this);
@@ -303,7 +291,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnCesta.addActionListener(this);
 		btnCesta.setForeground(Color.WHITE);
 		btnCesta.setFont(dynamicFont32Pt);
-		btnCesta.setBounds(51, 366, 125, 25);
+		btnCesta.setBounds(12, 240, 198, 25);
 		btnCesta.setBorderPainted(false);
 		btnCesta.setOpaque(false);
 		btnCesta.setContentAreaFilled(false);
@@ -377,9 +365,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_2.repaint();
 			//System.out.println("panel: "+panel_articulos_filtros.getHeight());
 
-		}else if(evento.equals(btnOrders)) {
-			desactivarPaneles();
-			//panelCesta.setVisible(true);
 		}else if(evento.equals(btnCesta)) {
 			desactivarPaneles();
 			panelCesta=new panelCesta(gdb, cnx);
@@ -411,9 +396,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	}
 	protected JButton getBtnProfits() {
 		return btnAccount;
-	}
-	protected JButton getBtnOrders() {
-		return btnOrders;
 	}
 	protected JButton getBtnSignOut() {
 		return btnSignOut;
