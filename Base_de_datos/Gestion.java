@@ -516,6 +516,17 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
+		String descripcion_aux="";
+		int salto_linea=0;
+		for(int i=0; i<descripcion.length(); i++) {
+			descripcion_aux+=descripcion.charAt(i);
+			salto_linea++;
+			if(salto_linea==42) {
+				descripcion_aux+="\n";
+				salto_linea=0;
+			}
+		}
+		descripcion=descripcion_aux;
 		return descripcion;
 	}
 	
