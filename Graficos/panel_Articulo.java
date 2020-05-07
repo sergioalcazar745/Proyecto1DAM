@@ -20,6 +20,8 @@ import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class panel_Articulo extends JPanel  implements ActionListener{
 
@@ -29,6 +31,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	Gestion gdb;
 	JButton btnCesta = new JButton("");
 	JLabel lblNewLabel_1 = new JLabel();
+	private JLabel lblReturn;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -85,6 +88,17 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(btnCesta);
 		btnCesta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
+		lblReturn = new JLabel("");
+		lblReturn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				setVisible(false);
+			}
+		});
+		lblReturn.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/Go-back_36760.png")));
+		lblReturn.setBounds(42, 433, 37, 39);
+		add(lblReturn);
+		
 		
 	}
 	@Override
@@ -94,5 +108,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		if(evento.equals(btnCesta)) {
 			gdb.añadirCesta(lblNewLabel_1.getText());
 		}
+	}
+	protected JLabel getLblReturn() {
+		return lblReturn;
 	}
 }

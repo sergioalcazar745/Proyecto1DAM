@@ -77,7 +77,7 @@ public class Gestion  {
 				id=(resultado.getString(1));
 			}
 
-			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux="+id+"";
+			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
 			
 				try {
 					st2=(Statement) con.createStatement();
@@ -86,10 +86,6 @@ public class Gestion  {
 						datos.add(resultado2.getString("nombre"));
 						datos.add(resultado2.getString("apellidos"));
 						datos.add(resultado2.getString("fecha_nacimiento"));
-					}
-
-					for(String n: datos){
-						System.out.println(n);
 					}
 					
 				} catch (SQLException e) {
@@ -101,7 +97,6 @@ public class Gestion  {
 			System.out.println("Fallo al buscar2");
 			e.printStackTrace();
 		}
-		System.out.println("Hola");
 	array_datos=datos;
 	System.out.println(array_datos.size());
 	}
@@ -249,7 +244,7 @@ public class Gestion  {
 	}
 
 	public void asignarCategoriaArticulo(String nombre_articulo, String nombre_categoria) throws SQLException{		
-		boolean insertado = true;
+		boolean insertado = false;
 		String id_generico = null, id_categoria = null;
 		
 		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+nombre_articulo+"'";
@@ -342,10 +337,11 @@ public class Gestion  {
 			con=cx.getConexion();
 			st= (Statement) con.createStatement();			
 			resultado2 = st.executeQuery(buscar);
-			if(resultado2.next()) {
+	
+			if(!resultado2.next()) {
 				JOptionPane.showMessageDialog(null, "No esta asignado");
-			}else {
-				
+				System.out.println(resultado2.getRow());
+			}else {				
 				String sql3 = "DELETE FROM pertenece WHERE id_articulogenerico_aux = '"+id_generico+"' and id_categoria_aux = '"+id_categoria+"'";
 				try {
 					st2= (Statement) con.createStatement();

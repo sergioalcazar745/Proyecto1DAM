@@ -233,6 +233,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel.add(btnHome);
 		
 		btnAccount = new JButton("ACCOUNT");
+		btnAccount.setVisible(false);
 		btnAccount.addActionListener(this);
 		btnAccount.setForeground(Color.WHITE);
 		btnAccount.setFont(dynamicFont32Pt);
@@ -241,7 +242,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnAccount.setOpaque(false);
 		btnAccount.setContentAreaFilled(false);
 		btnAccount.setFocusPainted(false);
-		btnAccount.setVisible(false);
 		panel.add(btnAccount);
 		
 		btnOrders = new JButton("ORDERS");

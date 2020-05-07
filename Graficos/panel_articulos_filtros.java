@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -405,7 +407,14 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 //		label_26.setFont(new Font("Tahoma", Font.PLAIN, 14));
 //		label_26.setBounds(128, 314, 86, 17);
 //		panel_9.add(label_26);
-	}
+			
+		panel_Articulo.addComponentListener(new ComponentAdapter() {
+		@Override
+		public void componentHidden(ComponentEvent arg0) {
+			setVisible(true);
+		}
+	});
+}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

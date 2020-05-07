@@ -49,6 +49,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	Gestion gdb=new Gestion();
 	ArrayList<String> datos=new ArrayList<String>();
 	String sesionIniciada = "";
+	private JLabel lblIniciado;
 	
 	public String getSesionIniciada() {
 		return sesionIniciada;
@@ -69,7 +70,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		
 		lblImagenError = new JLabel("");
 		lblImagenError.setVisible(false);
-		lblImagenError.setBounds(0, 0, 131, 115);
+		lblImagenError.setBounds(0, 0, 131, 128);
 		panel.add(lblImagenError);
 		lblImagenError.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/dialog_warning.png")));
 		
@@ -92,6 +93,13 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		panel.add(lblIncorrecto);
 		lblIncorrecto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIncorrecto.setFont(new Font("Arial", Font.BOLD, 20));
+		
+		lblIniciado = new JLabel("Ya has iniciado sesion");
+		lblIniciado.setVisible(false);
+		lblIniciado.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIniciado.setFont(new Font("Arial", Font.BOLD, 20));
+		lblIniciado.setBounds(0, 28, 853, 51);
+		panel.add(lblIniciado);
 		
 		JLabel lblNewLabel = new JLabel("INICIO DE SESI\u00D3N");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -171,19 +179,27 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			
 			try {				
 				resultado = gt.comprobarSesion(tfCorreo.getText());
-				while(resultado.next()) {
+				
+				if(!resultado.next()) {
+					lblInicio.setVisible(false);
+					lblImagenError.setVisible(true);
+					lblError.setVisible(true);
+					lblIncorrecto.setVisible(true);
 					
-					if(resultado == null) {
+					tfCorreo.setText("");
+					tfContraseña.setText("");
+				}else {
+					
+					if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
+						JOptionPane.showMessageDialog(null, "Correcto");
+						lblIniciado.setVisible(true);
 						lblInicio.setVisible(false);
-						lblImagenError.setVisible(true);
-						lblError.setVisible(true);
-						lblIncorrecto.setVisible(true);
-						
+						lblImagenError.setVisible(false);
+						lblError.setVisible(false);
+						lblIncorrecto.setVisible(false);						
 						tfCorreo.setText("");
 						tfContraseña.setText("");
-						System.out.println("Hola");
-					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
-						JOptionPane.showMessageDialog(null, "Correcto");
+						
 						gdb.guardarDatos(tfCorreo.getText());
 						gdb.setSesionIniciada(true);
 						setVisible(false);
@@ -192,11 +208,37 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						lblImagenError.setVisible(true);
 						lblError.setVisible(true);
 						lblIncorrecto.setVisible(true);
-						
+							
 						tfCorreo.setText("");
 						tfContraseña.setText("");
 					}
 				}
+//				while(resultado.next()) {
+//					
+//					if(resultado == null) {
+//						lblInicio.setVisible(false);
+//						lblImagenError.setVisible(true);
+//						lblError.setVisible(true);
+//						lblIncorrecto.setVisible(true);
+//						
+//						tfCorreo.setText("");
+//						tfContraseña.setText("");
+//						System.out.println("Hola");
+//					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
+//						JOptionPane.showMessageDialog(null, "Correcto");
+//						gdb.guardarDatos(tfCorreo.getText());
+//						gdb.setSesionIniciada(true);
+//						setVisible(false);
+//					}else {
+//						lblInicio.setVisible(false);
+//						lblImagenError.setVisible(true);
+//						lblError.setVisible(true);
+//						lblIncorrecto.setVisible(true);
+//						
+//						tfCorreo.setText("");
+//						tfContraseña.setText("");
+//					}
+//				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -217,5 +259,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	}
 	public void hola() {
 		
+	}
+	protected JLabel getLblIniciado() {
+		return lblIniciado;
 	}
 }

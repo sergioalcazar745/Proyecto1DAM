@@ -123,7 +123,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		btnMenos.setFocusPainted(false);
 		btnMenos.setContentAreaFilled(false);
 		btnMenos.setBorderPainted(false);
-		btnMenos.setBounds(465, 28, 32, 50);
+		btnMenos.setBounds(462, 28, 32, 50);
 		add(btnMenos);
 		
 		introducirDatos();
