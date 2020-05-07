@@ -530,8 +530,23 @@ public class Gestion  {
 		return descripcion;
 	}
 	
-	public void comprar (String nombre, String talla, String proveedor) {
+	public int stock (String nombre, String talla) throws SQLException {
+		int numero=0;
+		String id_articulo = "";
+		con = cx.getConexion();		
+		String sql = "SELECT talla FROM articulos inner join articulogenerico on articulos.id_articulogenerico_aux=articulogenerico.id_generico WHERE nombre='"+nombre+"' and talla='"+talla+"'";
 		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.last()) {
+				numero = resultado.getRow();
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		return numero;
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	
