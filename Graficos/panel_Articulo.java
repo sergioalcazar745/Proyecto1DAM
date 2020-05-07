@@ -26,6 +26,7 @@ import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
 
 public class panel_Articulo extends JPanel  implements ActionListener{
 
@@ -36,6 +37,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JButton btnCesta = new JButton("");
 	JLabel lblNewLabel_1 = new JLabel();
 	private JButton btnVolver;
+	JComboBox comboBox_Tallas = new JComboBox();
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -105,20 +107,31 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		spinner.setBounds(470, 274, 80, 22);
 		add(spinner);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
-		comboBox.setBounds(470, 326, 80, 22);
-		add(comboBox);
+		comboBox_Tallas.addActionListener(this);
+		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
+		comboBox_Tallas.setBounds(470, 326, 80, 22);
+		add(comboBox_Tallas);
 		
 		JLabel lblNewLabel_3 = new JLabel("Cantidad:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(372, 277, 74, 16);
+		lblNewLabel_3.setBounds(370, 276, 74, 16);
 		add(lblNewLabel_3);
 		
 		JLabel lblTalla = new JLabel("Talla:");
 		lblTalla.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblTalla.setBounds(372, 329, 74, 16);
+		lblTalla.setBounds(370, 328, 74, 16);
 		add(lblTalla);
+		
+		JLabel lblStock = new JLabel("En Stock:");
+		lblStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblStock.setBounds(372, 359, 75, 23);
+		add(lblStock);
+		
+		JLabel lblNewLabel_2 = new JLabel("0");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_2.setBounds(470, 359, 80, 23);
+		add(lblNewLabel_2);
 		
 		
 	}
@@ -130,6 +143,9 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			gdb.añadirCesta(lblNewLabel_1.getText());
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
+		}else if(evento.equals(comboBox_Tallas)) {
+			//Aqui que recoger el numero de tallas.
+			
 		}
 	}
 	public JButton getBtnVolver() {
