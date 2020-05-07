@@ -197,6 +197,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				if(gdb.getSesionIniciada()) {
 					btnAccount.setVisible(true);
 					panel_2.setVisible(true);
+					btnSignOut.setText("Cerrar Sesion");
 				}
 			}
 		});
@@ -277,12 +278,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnSetting.setVisible(false);
 		panel.add(btnSetting);
 		
-		btnSignOut = new JButton("SIGN OUT");
+		btnSignOut = new JButton("Iniciar Sesion");
 		btnSignOut.addActionListener(this);
 		btnSignOut.setBackground(Color.RED);
 		btnSignOut.setForeground(new Color(255, 255, 255));
 		btnSignOut.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnSignOut.setBounds(51, 566, 125, 25);
+		btnSignOut.setBounds(41, 566, 145, 25);
 		btnSignOut.setContentAreaFilled(false);
 		btnSignOut.setOpaque(true);
 		btnSignOut.setFocusPainted(false);
@@ -342,8 +343,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			contentPane.add(panelCuenta);
 			panelCuenta.setVisible(true);
 		}else if(evento.equals(btnSignOut)) {
-			desactivarPaneles();
-			panelInicioSesion.setVisible(true);
+			if(btnSignOut.getText()=="Iniciar Sesion") {
+				desactivarPaneles();
+				panelInicioSesion.setVisible(true);
+			}else {
+				btnAccount.setVisible(false);
+				gdb.setSesionIniciada(false);
+				panel_2.setVisible(true);
+				btnSignOut.setText("Iniciar Sesion");
+			}
 		}else if(evento.equals(btnShop)) {
 			desactivarPaneles();
 			panel_3.setVisible(true);

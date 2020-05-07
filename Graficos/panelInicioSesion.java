@@ -81,11 +81,15 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		lblError.setBounds(101, 0, 90, 29);
 		panel.add(lblError);
 		
-		lblInicio = new JLabel("Si todav\u00EDa no te has registrado pulsa en el boton de registrarse.");
+		
+		lblInicio = new JLabel();
 		lblInicio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblInicio.setFont(new Font("Arial", Font.BOLD, 20));
 		lblInicio.setBounds(0, 28, 853, 51);
 		panel.add(lblInicio);
+		if(gdb.getSesionIniciada()==false) {
+		lblInicio.setText(("Si todav\u00EDa no te has registrado pulsa en el boton de registrarse."));	
+		}
 		
 		lblIncorrecto = new JLabel("El correo o la contrase\u00F1a son incorrectos. Vuelva a intentarlo.");
 		lblIncorrecto.setVisible(false);
@@ -94,12 +98,13 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		lblIncorrecto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIncorrecto.setFont(new Font("Arial", Font.BOLD, 20));
 		
-		lblIniciado = new JLabel("Ya has iniciado sesion");
-		lblIniciado.setVisible(false);
-		lblIniciado.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIniciado.setFont(new Font("Arial", Font.BOLD, 20));
-		lblIniciado.setBounds(0, 28, 853, 51);
-		panel.add(lblIniciado);
+//		lblIniciado = new JLabel("Ya has iniciado sesion");
+//		lblIniciado.setVisible(false);
+//		lblIniciado.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblIniciado.setFont(new Font("Arial", Font.BOLD, 20));
+//		lblIniciado.setBounds(0, 28, 853, 51);
+//		panel.add(lblIniciado);
+		
 		
 		JLabel lblNewLabel = new JLabel("INICIO DE SESI\u00D3N");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -192,17 +197,18 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 					
 					if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
-						lblIniciado.setVisible(true);
+						//lblIniciado.setVisible(true);
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(false);
 						lblError.setVisible(false);
 						lblIncorrecto.setVisible(false);						
-						tfCorreo.setText("");
-						tfContraseña.setText("");
 						
 						gdb.guardarDatos(tfCorreo.getText());
+						System.out.println("Correo: "+tfCorreo.getText());
 						gdb.setSesionIniciada(true);
 						setVisible(false);
+						tfCorreo.setText("");
+						tfContraseña.setText("");
 					}else {
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(true);

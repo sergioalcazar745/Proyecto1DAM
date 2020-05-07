@@ -98,9 +98,10 @@ public class Gestion  {
 			e.printStackTrace();
 		}
 	array_datos=datos;
-	System.out.println(array_datos.size());
+	System.out.println("array_datos: "+array_datos.size());
 	}
 	public ArrayList getDatos() {
+		System.out.println("array_datos get: "+array_datos.size());
 		return array_datos;
 	}
 	public ResultSet comprobarCliente(String id) throws SQLException {		
