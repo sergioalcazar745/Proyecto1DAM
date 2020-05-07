@@ -51,15 +51,18 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	Gestion gdb;
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
 	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
-	
+	int posicion_label=0;
+	String precio = null;
+	float numero_filas=0;
+	String filtro=null;
+	String palabra_buscar=null;
 	/**
 	 ** Create the panel.
 	 */
 	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro, String palabra_buscar) {
+		this.filtro=filtro;
+		this.palabra_buscar=palabra_buscar;
 		this.gdb=gdb;
-		float numero_filas=0;
-		int posicion_label=0;
-		String precio = null;
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
 		try {
 			if(!filtro.equals("")) {
@@ -93,107 +96,9 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		//433 por filaa
 		float real = 14.999f;
 		int entero = (int)real;
-		if(!filtro.equals("")) {
-			try {
-				if(gdb.devolverArticulosDeCategoria(filtro).size()%3 == 0) {
-					numero_filas=gdb.devolverArticulosDeCategoria(filtro).size()/3;
-				}else {
-					numero_filas=((int)gdb.devolverArticulosDeCategoria(filtro).size()/3)+1;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("hitler: "+numero_filas);
-			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
-		}else if(!palabra_buscar.equals("")) {
-				if(nombre_fotos.size()%3 == 0) {
-					System.out.println("laura");
-					numero_filas=nombre_fotos.size()/3;
-				}else {
-					System.out.println("laura2");
-					numero_filas=((int)nombre_fotos.size()/3)+1;
-				}
-				panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
-		}else{
-			panel.setPreferredSize(new Dimension(825, 3031));
-		}
-		panel.setBackground(Color.WHITE);
-		add(panel);
+		establecerTamaño(filtro,palabra_buscar);
 		
-		if(nombre_fotos.size()==0) {
-			panel.setLayout(new GridLayout(1, 1, 50, 50));
-		}else{
-			panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
-		}
-		
-			for(int i=0; i<nombre_fotos.size(); i++) {
-				//recogemos el precio
-				try {
-					precio = gdb.devolverPrecioDeCategoria(nombre_fotos.get(i));
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				array_paneles[i] = new JPanel();
-				array_paneles[i].addMouseListener(this);
-				array_paneles[i].setName(""+i+"");
-				array_paneles[i].setLayout(null);
-				array_paneles[i].setBackground(Color.WHITE);
-				array_paneles[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				array_paneles[i].addMouseListener(this);
-			panel.add(array_paneles[i]);
-			
-			array_labels[posicion_label] = new JLabel("");
-			array_labels[posicion_label].setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/"+nombre_fotos.get(i)+".jpg")));
-			array_labels[posicion_label].setBounds(35, 1, 175, 271);
-			array_paneles[i].add(array_labels[posicion_label]);
-			posicion_label++;
-			
-			array_labels[posicion_label] = new JLabel(nombre_fotos.get(i));
-			array_labels[posicion_label].setHorizontalAlignment(SwingConstants.CENTER);
-			array_labels[posicion_label].setFont(new Font("Tahoma", Font.PLAIN, 16));
-			array_labels[posicion_label].setBounds(0, 283, 246, 20);
-			array_paneles[i].add(array_labels[posicion_label]);
-			posicion_label++;
-			
-			array_labels[posicion_label] = new JLabel("Precio: " + precio);
-			array_labels[posicion_label].setHorizontalAlignment(SwingConstants.RIGHT);
-			array_labels[posicion_label].setFont(new Font("Tahoma", Font.PLAIN, 14));
-			array_labels[posicion_label].setBounds(/*128*/114, 314, /*86*/100, 17);
-			array_paneles[i].add(array_labels[posicion_label]);
-			posicion_label++;
-			}
-		//si tenemos 4 elementos el cardlayaout falla y hace solo dos columnas. Asi pues lo que haremos es añadir un panel vacio..
-			if(nombre_fotos.size()==4 || nombre_fotos.size()==2) {
-			JPanel panel_vacio=new JPanel();
-			panel_vacio.setLayout(null);
-			panel_vacio.setBackground(Color.WHITE);
-			panel.add(panel_vacio);
-			}else if(nombre_fotos.size()==0) {
-				JPanel panel_resultado=new JPanel();
-				panel_resultado.setLayout(null);
-				panel_resultado.setBackground(Color.WHITE);
-				panel.add(panel_resultado);
-				
-				JLabel mensaje = new JLabel("No se han encontrado resultados");
-				mensaje.setHorizontalAlignment(SwingConstants.CENTER);
-				mensaje.setForeground(Color.GRAY);
-				mensaje.setFont(new Font("Arial", Font.BOLD, 20));
-				mensaje.setBounds(0, 28, 853, 51);
-				mensaje.setVisible(true);
-				panel_resultado.add(mensaje);
-			}else if(nombre_fotos.size()==1) {
-				JPanel panel_vacio1=new JPanel();
-				panel_vacio1.setLayout(null);
-				panel_vacio1.setBackground(Color.WHITE);
-				panel.add(panel_vacio1);
-				
-				JPanel panel_vacio2=new JPanel();
-				panel_vacio2.setLayout(null);
-				panel_vacio2.setBackground(Color.WHITE);
-				panel.add(panel_vacio2);
-				
-			}
+		añadirPaneles();
 			
 
 			
@@ -407,13 +312,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 //		label_26.setFont(new Font("Tahoma", Font.PLAIN, 14));
 //		label_26.setBounds(128, 314, 86, 17);
 //		panel_9.add(label_26);
-			
-		panel_Articulo.addComponentListener(new ComponentAdapter() {
-		@Override
-		public void componentHidden(ComponentEvent arg0) {
-			setVisible(true);
-		}
-	});
+
 }
 
 	@Override
@@ -432,6 +331,18 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 					panel.setPreferredSize(new Dimension(853, 496));
 					panel.setLayout(new BorderLayout(0, 0));
 					JPanel panel_Articulo=new panel_Articulo(nombre_fotos.get(i), gdb);
+					
+					panel_Articulo.addComponentListener(new ComponentAdapter() {
+						@Override
+						public void componentHidden(ComponentEvent arg0) {
+							panel.removeAll();
+							posicion_label=0;
+							establecerTamaño(filtro,palabra_buscar);
+							añadirPaneles();
+							//System.out.println("hola"+nombre_fotos.size());
+							setVisible(true);
+						}
+					});
 					panel.add(panel_Articulo, BorderLayout.CENTER);
 					panel.repaint();
 					panel.revalidate();
@@ -479,6 +390,111 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	public void añadirPaneles() {
+		for(int i=0; i<nombre_fotos.size(); i++) {
+			//recogemos el precio
+			try {
+				precio = gdb.devolverPrecioDeCategoria(nombre_fotos.get(i));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			array_paneles[i] = new JPanel();
+			array_paneles[i].addMouseListener(this);
+			array_paneles[i].setName(""+i+"");
+			array_paneles[i].setLayout(null);
+			array_paneles[i].setBackground(Color.WHITE);
+			array_paneles[i].setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			array_paneles[i].addMouseListener(this);
+		panel.add(array_paneles[i]);
+		
+		array_labels[posicion_label] = new JLabel("");
+		array_labels[posicion_label].setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/"+nombre_fotos.get(i)+".jpg")));
+		array_labels[posicion_label].setBounds(35, 1, 175, 271);
+		array_paneles[i].add(array_labels[posicion_label]);
+		posicion_label++;
+		
+		array_labels[posicion_label] = new JLabel(nombre_fotos.get(i));
+		array_labels[posicion_label].setHorizontalAlignment(SwingConstants.CENTER);
+		array_labels[posicion_label].setFont(new Font("Tahoma", Font.PLAIN, 16));
+		array_labels[posicion_label].setBounds(0, 283, 246, 20);
+		array_paneles[i].add(array_labels[posicion_label]);
+		posicion_label++;
+		
+		array_labels[posicion_label] = new JLabel("Precio: " + precio);
+		array_labels[posicion_label].setHorizontalAlignment(SwingConstants.RIGHT);
+		array_labels[posicion_label].setFont(new Font("Tahoma", Font.PLAIN, 14));
+		array_labels[posicion_label].setBounds(/*128*/114, 314, /*86*/100, 17);
+		array_paneles[i].add(array_labels[posicion_label]);
+		posicion_label++;
+		}
+	//si tenemos 4 elementos el cardlayaout falla y hace solo dos columnas. Asi pues lo que haremos es añadir un panel vacio..
+		if(nombre_fotos.size()==4 || nombre_fotos.size()==2) {
+		JPanel panel_vacio=new JPanel();
+		panel_vacio.setLayout(null);
+		panel_vacio.setBackground(Color.WHITE);
+		panel.add(panel_vacio);
+		}else if(nombre_fotos.size()==0) {
+			JPanel panel_resultado=new JPanel();
+			panel_resultado.setLayout(null);
+			panel_resultado.setBackground(Color.WHITE);
+			panel.add(panel_resultado);
+			
+			JLabel mensaje = new JLabel("No se han encontrado resultados");
+			mensaje.setHorizontalAlignment(SwingConstants.CENTER);
+			mensaje.setForeground(Color.GRAY);
+			mensaje.setFont(new Font("Arial", Font.BOLD, 20));
+			mensaje.setBounds(0, 28, 853, 51);
+			mensaje.setVisible(true);
+			panel_resultado.add(mensaje);
+		}else if(nombre_fotos.size()==1) {
+			JPanel panel_vacio1=new JPanel();
+			panel_vacio1.setLayout(null);
+			panel_vacio1.setBackground(Color.WHITE);
+			panel.add(panel_vacio1);
+			
+			JPanel panel_vacio2=new JPanel();
+			panel_vacio2.setLayout(null);
+			panel_vacio2.setBackground(Color.WHITE);
+			panel.add(panel_vacio2);
+			
+		}
+	}
+	public void establecerTamaño(String filtro, String palabra_buscar) {
+		//System.out.println("hola: "+nombre_fotos.size());
+		if(!filtro.equals("")) {
+			try {
+				if(gdb.devolverArticulosDeCategoria(filtro).size()%3 == 0) {
+					numero_filas=gdb.devolverArticulosDeCategoria(filtro).size()/3;
+				}else {
+					numero_filas=((int)gdb.devolverArticulosDeCategoria(filtro).size()/3)+1;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("hitler: "+numero_filas);
+			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
+		}else if(!palabra_buscar.equals("")) {
+				if(nombre_fotos.size()%3 == 0) {
+					System.out.println("laura");
+					numero_filas=nombre_fotos.size()/3;
+				}else {
+					System.out.println("laura2");
+					numero_filas=((int)nombre_fotos.size()/3)+1;
+				}
+				panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
+		}else{
+			panel.setPreferredSize(new Dimension(825, 3031));
+		}
+		panel.setBackground(Color.WHITE);
+		add(panel);
+		
+		if(nombre_fotos.size()==0) {
+			panel.setLayout(new GridLayout(1, 1, 50, 50));
+		}else{
+			panel.setLayout(new GridLayout((int)numero_filas, 3, 50, 50));
+		}
 	}
 	protected JPanel getPanel_1() {
 		return panel_1;
