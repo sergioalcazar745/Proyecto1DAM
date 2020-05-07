@@ -65,6 +65,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel;
 	private JButton btnAccount;
 	private JButton btnHome;
+	private JButton btnCesta;
 	ResultSet resultado;
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
@@ -86,9 +87,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel_articulos_filtros= new panel_articulos_filtros(gdb, cnx, "", "");
 	private JScrollPane scrollPane;
 	private JPanel panel_2 = new JPanel();
+	private JPanel panel_Cesta = new JPanel();
 	private JComboBox comboBox_Filtro = new JComboBox();
 	private JPanel panel_3;
-	private panelCesta panelCesta;
+	private JPanel panelCesta= new panelCesta(gdb,cnx);
+	private JScrollPane scrollPane_Cesta;
 	public VentanaPrincipal() throws Exception{
 		
 		//creacion tipo de fuentee
@@ -119,7 +122,20 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setVisible(false);
-		
+				
+				panel_Cesta.setBackground(Color.WHITE);
+				panel_Cesta.setBounds(232, 11, 853, 544);
+				contentPane.add(panel_Cesta);
+				panel_Cesta.setLayout(new BorderLayout(0, 0));
+				panel_Cesta.setVisible(false);
+				
+				scrollPane_Cesta = new JScrollPane();
+				panel_Cesta.add(scrollPane_Cesta, BorderLayout.CENTER);
+				scrollPane_Cesta.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollPane_Cesta.getVerticalScrollBar().setUnitIncrement(25);
+				scrollPane_Cesta.setViewportView(panelCesta);
+
+				
 				panel_2.setBackground(Color.WHITE);
 				panel_2.setBounds(232, 11, 853, 544);
 				contentPane.add(panel_2);
@@ -190,7 +206,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(panelInicioSesion);
 		panelCuenta.setBackground(Color.WHITE);
 		contentPane.add(panelCuenta);
-		panelInicioSesion.setVisible(false);
 		panelCuenta.setVisible(false);
 		
 		panel = new JPanel();
@@ -281,15 +296,26 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnSalir.setOpaque(false);
 		btnSalir.setContentAreaFilled(false);
 		contentPane.add(btnSalir);
-		
-		panelCesta = new panelCesta();
-		panelCesta.setBounds(0, 0, 10, 10);
-		panelCesta.setBounds(232, 11, 853, 544);
-		contentPane.add(panelCesta);
-		
-		
-		
 		JButton btnNewButton = new JButton("Borrar");
+		
+		
+		btnCesta = new JButton("Cesta");
+		btnCesta.addActionListener(this);
+		btnCesta.setForeground(Color.WHITE);
+		btnCesta.setFont(dynamicFont32Pt);
+		btnCesta.setBounds(51, 366, 125, 25);
+		btnCesta.setBorderPainted(false);
+		btnCesta.setOpaque(false);
+		btnCesta.setContentAreaFilled(false);
+		btnCesta.setFocusPainted(false);
+		panel.add(btnCesta);
+//		panel_articulos_filtros.addComponentListener(new ComponentAdapter() {
+//			@Override
+//			public void componentHidden(ComponentEvent arg0) {
+//				comboBox_Filtro.setVisible(false);
+//				textField_filtro.setVisible(false);
+//			}
+//		});
 	}
 	protected JButton getBtnHome() {
 		return btnHome;
@@ -346,7 +372,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 		}else if(evento.equals(btnOrders)) {
 			desactivarPaneles();
-			panelCesta.setVisible(true);
+			//panelCesta.setVisible(true);
+		}else if(evento.equals(btnCesta)) {
+			desactivarPaneles();
+			panelCesta=new panelCesta(gdb, cnx);
+			scrollPane_Cesta.setViewportView(panelCesta);
+			panel_Cesta.setVisible(true);
+			panel_Cesta.revalidate();
+			panel_Cesta.repaint();
+			//System.out.println("hola");
 		}
 	}
 	
@@ -386,7 +420,4 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JPanel getPanel_3() {
 		return panel_3;
 	}	
-	protected panelCesta getPanelCesta_() {
-		return panelCesta;
-	}
 }

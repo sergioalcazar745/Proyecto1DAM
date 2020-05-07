@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JTextArea;
 
@@ -15,14 +16,21 @@ import Base_de_datos.Gestion;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
 
-public class panel_Articulo extends JPanel {
+public class panel_Articulo extends JPanel  implements ActionListener{
 
 	/**
 	 * Create the panel.
 	 */
 	Gestion gdb;
-	public panel_Articulo(String nombre_articulo, Gestion gdb) {
+	JButton btnCesta = new JButton("");
+	JLabel lblNewLabel_1 = new JLabel();
+	public panel_Articulo(String nombre_articulo, Gestion gdb){
+		this.gdb=gdb;
+		setName("laura callate");
 		setBackground(Color.WHITE);
 		String descripcion="";
 		System.out.println("nombre: "+nombre_articulo);
@@ -34,7 +42,7 @@ public class panel_Articulo extends JPanel {
 		lblNewLabel.setBounds(185, 111, 175, 271);
 		add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel(nombre_articulo);
+		lblNewLabel_1.setText(nombre_articulo);
 		lblNewLabel_1.setBounds(397, 161, 250, 23);
 		add(lblNewLabel_1);
 		
@@ -63,7 +71,7 @@ public class panel_Articulo extends JPanel {
 		btnComprar.setFocusPainted(false);
 		add(btnComprar);
 		
-		JButton btnCesta = new JButton("");
+
 		btnCesta.setBackground(Color.WHITE);
 		btnCesta.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/boton_cesta.png")));
 		btnCesta.setBounds(633, 423, 189, 49);
@@ -71,8 +79,17 @@ public class panel_Articulo extends JPanel {
 		btnCesta.setOpaque(false);
 		btnCesta.setContentAreaFilled(false);
 		btnCesta.setFocusPainted(false);
+		btnCesta.addActionListener(this);
 		add(btnCesta);
 		
 		
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		Object evento=e.getSource();
+		if(evento.equals(btnCesta)) {
+			gdb.añadirCesta(lblNewLabel_1.getText());
+		}
 	}
 }

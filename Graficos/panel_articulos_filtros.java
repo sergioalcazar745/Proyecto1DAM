@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -46,13 +47,6 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	JPanel panel_Articulo;
 	ArrayList<String> nombre_fotos = new ArrayList<String>();
 	Gestion gdb;
-	public ArrayList<String> getNombre_fotos() {
-		return nombre_fotos;
-	}
-
-	public void setNombre_fotos(ArrayList<String> nombre_fotos) {
-		this.nombre_fotos = nombre_fotos;
-	}
 	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
 	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
 	
@@ -65,7 +59,6 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		int posicion_label=0;
 		String precio = null;
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
-		
 		try {
 			if(!filtro.equals("")) {
 				nombre_fotos=gdb.devolverArticulosDeCategoria(filtro);
@@ -199,7 +192,6 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				panel.add(panel_vacio2);
 				
 			}
-			
 			
 
 			
@@ -422,9 +414,11 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		for (int i=0; i<array_paneles.length; i++) {
 			if(array_paneles[i]!=null) {
 				if(evento.equals(array_paneles[i].getName())) {
+					//setVisible(false);
 					System.out.println("ancho: "+array_paneles[i].getWidth());
 					System.out.println("alto: "+array_paneles[i].getHeight());
 					panel.removeAll();
+					//panel.setVisible(false);
 					panel.setBounds(0, 48, 853, 496);
 					panel.setPreferredSize(new Dimension(853, 496));
 					panel.setLayout(new BorderLayout(0, 0));
@@ -432,6 +426,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 					panel.add(panel_Articulo, BorderLayout.CENTER);
 					panel.repaint();
 					panel.revalidate();
+					//setVisible(true);
 				}
 			}
 		}
@@ -502,5 +497,12 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	}
 	public JPanel getPanel_9() {
 		return panel_9;
+	}
+	public ArrayList<String> getNombre_fotos() {
+		return nombre_fotos;
+	}
+
+	public void setNombre_fotos(ArrayList<String> nombre_fotos) {
+		this.nombre_fotos = nombre_fotos;
 	}
 }
