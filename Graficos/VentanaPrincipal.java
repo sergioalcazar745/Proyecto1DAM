@@ -202,7 +202,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		});
 		
 		panelInicioSesion.setBackground(Color.WHITE);		
-		
+		panelInicioSesion.setVisible(false);
 		contentPane.add(panelInicioSesion);
 		panelCuenta.setBackground(Color.WHITE);
 		contentPane.add(panelCuenta);
@@ -298,8 +298,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(btnSalir);
 		JButton btnNewButton = new JButton("Borrar");
 		
-		
-		btnCesta = new JButton("Cesta");
+		btnCesta = new JButton("CESTA");
 		btnCesta.addActionListener(this);
 		btnCesta.setForeground(Color.WHITE);
 		btnCesta.setFont(dynamicFont32Pt);

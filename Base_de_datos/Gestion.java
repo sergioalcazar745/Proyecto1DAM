@@ -305,6 +305,63 @@ public class Gestion  {
 		}
 	}
 	
+	public void eliminarArticuloCategoria(String nombre_articulo, String nombre_categoria) throws SQLException{		
+		boolean insertado = true;
+		String id_generico = null, id_categoria = null;
+		
+		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+nombre_articulo+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_generico = resultado.getString("id_generico");
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("No creado");
+		}
+		
+		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();
+			resultado = st.executeQuery(sql2);
+			if(resultado.next()) {
+				id_categoria = resultado.getString("id_categoria");
+			}			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		String buscar = "SELECT * FROM pertenece WHERE id_articulogenerico_aux='"+id_generico+"' and id_categoria_aux='"+id_categoria+"'";
+		
+		try {
+			con=cx.getConexion();
+			st= (Statement) con.createStatement();			
+			resultado2 = st.executeQuery(buscar);
+			if(resultado2.next()) {
+				JOptionPane.showMessageDialog(null, "No esta asignado");
+			}else {
+				
+				String sql3 = "DELETE FROM pertenece WHERE id_articulogenerico_aux = '"+id_generico+"' and id_categoria_aux = '"+id_categoria+"'";
+				try {
+					st2= (Statement) con.createStatement();
+					st2.executeUpdate(sql3);
+					JOptionPane.showMessageDialog(null, "Eliminado");
+				}catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+				
+		}catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("no creado");
+		}
+	}
+	
 	public boolean actualizarCampos (String nombre, String apellidos, String fecha_nacimiento, String telefono, String correo, String contraseña) throws SQLException{
 		boolean actualizado = false;
 		String id = null;

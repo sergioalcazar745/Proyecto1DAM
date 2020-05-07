@@ -41,6 +41,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private JComboBox comboBox_Nombres;
 	private JComboBox comboBox_Categoria;
 	private JComboBox comboBox_Pertenece;
+	private JButton btnMenos;
 	
 	public panelAsignarCategoria() throws SQLException {
 		setBackground(Color.WHITE);
@@ -90,7 +91,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		add(btnAñadirCategoriaArticulo);
 		
 		comboBox_Categoria = new JComboBox();
-		comboBox_Categoria.setBounds(512, 42, 147, 25);
+		comboBox_Categoria.setBounds(515, 42, 147, 25);
 		add(comboBox_Categoria);
 		
 		JLabel lblAadirCategoria = new JLabel("Categoria");
@@ -115,9 +116,19 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		btnEliminar.setBounds(628, 469, 97, 25);
 		add(btnEliminar);
 		
+		btnMenos = new JButton("");
+		btnMenos.addActionListener(this);
+		btnMenos.setIcon(new ImageIcon(panelAsignarCategoria.class.getResource("/Imagenes/menos.png")));
+		btnMenos.setOpaque(false);
+		btnMenos.setFocusPainted(false);
+		btnMenos.setContentAreaFilled(false);
+		btnMenos.setBorderPainted(false);
+		btnMenos.setBounds(465, 28, 32, 50);
+		add(btnMenos);
+		
 		introducirDatos();
 		insertarArticulos();
-		insertarCatergoria();
+		insertarCategoria();
 	}
 
 	@Override
@@ -134,6 +145,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 				gdb = new Gestion();
 				if(gdb.insertarCategoria(tfInsertar.getText()) == true) {
 					JOptionPane.showMessageDialog(null, "Categoria insertada");
+					comboBox_Categoria.addItem(tfInsertar.getText());
 					tfInsertar.setText("");
 				}else{
 					JOptionPane.showMessageDialog(null, "Categoria no insertada");
@@ -157,6 +169,18 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		}else if(evento.equals(comboBox_Nombres)) {
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();
+		}else if(evento.equals(btnMenos)) {
+			if(comboBox_Categoria.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
+				
+			}else {
+				try {
+					gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+			comboBox_Pertenece.removeAllItems();
+			updateComboBoxPertenece();		
 		}
 	}
 	
@@ -205,7 +229,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		}		
 	}
 	
-	private void insertarCatergoria() {
+	private void insertarCategoria() {
 		try {
 			con = (Connection) cx.getConexion();
 			gdb = new Gestion();
@@ -236,5 +260,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	}
 	protected JComboBox getComboBox__Pertenece() {
 		return comboBox_Pertenece;
+	}
+	protected JButton getBtnMenos() {
+		return btnMenos;
 	}
 }
