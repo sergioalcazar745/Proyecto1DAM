@@ -18,6 +18,8 @@ import java.awt.GridLayout;
 public class panelCesta extends JPanel {
 
 	public panelCesta(Gestion gdb, conexion conx) {
+		/*IMPORTANTE CAMBIAR EL METODO DE GESTION PUESTO QUE TENFRA QUE GUARDAR EN EL CARRO 
+		 * NO SOLO EL NOMBRE SI NO TAMBIEN LA TALLA Y LA CANTIDAD DE ESA FORMA EN ESTE METODO NOS AHORRAREMOS PANELES*/
 		setBounds(0, 0, 853, 496);
 		setLayout(new GridLayout(1, 1, 0, 0));
 		ArrayList<String> array_articulos=new ArrayList<String>();
