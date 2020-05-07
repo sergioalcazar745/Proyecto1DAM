@@ -16,6 +16,7 @@ import Base_de_datos.Gestion;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionEvent;
@@ -70,6 +71,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
 		add(btnComprar);
+		btnComprar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 
 		btnCesta.setBackground(Color.WHITE);
@@ -81,6 +83,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnCesta.setFocusPainted(false);
 		btnCesta.addActionListener(this);
 		add(btnCesta);
+		btnCesta.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		
 	}
