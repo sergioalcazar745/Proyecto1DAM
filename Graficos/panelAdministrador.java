@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JToggleButton;
@@ -44,7 +45,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class panelAdministrador extends JPanel implements ActionListener{
-	private JTextField textField;
+	private JTextField tfPrecioFinal;
 	private JTextField tfDinero;
 	JComboBox comboBox_Nombres = new JComboBox();
 	private conexion cx = new conexion();
@@ -103,12 +104,13 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_3.setBounds(654, 217, 99, 16);
 		add(lblNewLabel_3);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		textField.setBounds(593, 246, 211, 47);
-		add(textField);
-		textField.setColumns(10);
+		tfPrecioFinal = new JTextField();
+		tfPrecioFinal.setEnabled(false);
+		tfPrecioFinal.setEditable(false);
+		tfPrecioFinal.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		tfPrecioFinal.setBounds(593, 246, 211, 47);
+		add(tfPrecioFinal);
+		tfPrecioFinal.setColumns(10);
 		
 		
 		btnComprar.addActionListener(this);
@@ -167,6 +169,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblFalloCompra.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFalloCompra.setBounds(183, 388, 467, 14);
 		add(lblFalloCompra);
+		
+		UIManager.put("TextField.disabledBackground",Color.WHITE);
 		
 		insertarArticulos();
 		insertarProveedores();

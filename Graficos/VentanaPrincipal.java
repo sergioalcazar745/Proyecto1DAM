@@ -93,6 +93,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel_3;
 	private JPanel panelCesta= new panelCesta(gdb,cnx);
 	private JScrollPane scrollPane_Cesta;
+	private panelCesta panelCesta_1;
 	public VentanaPrincipal() throws Exception{
 		gdb.stock("Bermuda Denim Mom Fit", "M");
 		//creacion tipo de fuentee
@@ -188,6 +189,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		panelAsignarCategoria panelAsignarCategoria_ = new panelAsignarCategoria();
 		tabbedPane.addTab("Categoria", null, panelAsignarCategoria_, null);
+		
+		panelOferta panelOferta = new panelOferta();
+		tabbedPane.addTab("Oferta", null, panelOferta, null);
+		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
