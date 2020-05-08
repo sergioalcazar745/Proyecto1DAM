@@ -40,6 +40,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JComboBox comboBox_Tallas = new JComboBox();
 	JLabel lblNumeroStock = new JLabel("0");
 	private JLabel lblTalla;
+	private JSpinner spinner;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -105,7 +106,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnVolver.addActionListener(this);
 		add(btnVolver);
 		
-		JSpinner spinner = new JSpinner();
+		spinner = new JSpinner();
 		spinner.setBounds(470, 274, 80, 22);
 		add(spinner);
 		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
@@ -167,7 +168,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		// TODO Auto-generated method stub
 		Object evento=e.getSource();
 		if(evento.equals(btnCesta)) {
-			gdb.añadirCesta(lblNewLabel_1.getText(), lblTalla.getText());
+			System.out.println((int) spinner.getValue());
+			gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
 			//Buscamos si ya existe el objeto con los mismos valores y si lo encuentra que llame al setCantidad.
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
@@ -178,5 +180,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	}
 	protected JLabel getLblTalla() {
 		return lblTalla;
+	}
+	protected JSpinner getSpinner() {
+		return spinner;
 	}
 }
