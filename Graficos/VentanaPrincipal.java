@@ -57,6 +57,7 @@ import java.util.Arrays;
 import javax.swing.JComboBox;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -72,6 +73,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	String correo = "";
 	private JPanel panelCuenta = new panelCuenta(gdb, cnx);
 	private JPanel panelInicioSesion = new panelInicioSesion(gdb, cnx);
+	ComponentListener[] array_listeners = panelInicioSesion.getComponentListeners();
 	
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
@@ -304,6 +306,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //				textField_filtro.setVisible(false);
 //			}
 //		});
+		
 	}
 	protected JButton getBtnHome() {
 		return btnHome;
