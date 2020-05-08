@@ -139,11 +139,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(lblTalla);
 		
 		JLabel lblStock = new JLabel("En Stock:");
+		lblStock.setName("lblStock");
 		lblStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblStock.setBounds(372, 359, 75, 23);
 		add(lblStock);
 		
 		//JLabel lblNumeroStock = new JLabel("0");
+		lblNumeroStock.setName("lblNumeroStock");
 		lblNumeroStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumeroStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNumeroStock.setBounds(470, 359, 80, 23);
@@ -158,8 +160,24 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			}
 		});
 		lblEliminar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/eliminar.png")));
-		lblEliminar.setBounds(821, 0, 32, 29);
+		lblEliminar.setBounds(694, 105, 32, 29);
+		lblEliminar.setName("lblEliminar");
+		lblEliminar.setVisible(false);
 		add(lblEliminar);
+		
+		JLabel lblCantidad = new JLabel("New label");
+		lblCantidad.setName("lblCantidad");
+		lblCantidad.setBounds(470, 274, 80, 22);
+		add(lblCantidad);
+		lblCantidad.setVisible(false);
+		
+		JLabel lblTalla_comprada = new JLabel("New label");
+		lblTalla_comprada.setName("lblTalla_comprada");
+		lblTalla_comprada.setBounds(471, 326, 79, 22);
+		add(lblTalla_comprada);
+		lblTalla_comprada.setVisible(false);
+		
+		//System.out.println("hitles aprueba"+lblStock);
 		
 		
 	}
