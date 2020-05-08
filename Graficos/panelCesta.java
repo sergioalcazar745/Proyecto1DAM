@@ -3,14 +3,17 @@ package Graficos;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.SwingConstants;
 
 import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 import Clases.Articulos;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
@@ -34,6 +37,7 @@ public class panelCesta extends JPanel {
 		/*IMPORTANTE CAMBIAR EL METODO DE GESTION PUESTO QUE TENFRA QUE GUARDAR EN EL CARRO 
 		 * NO SOLO EL NOMBRE SI NO TAMBIEN LA TALLA Y LA CANTIDAD DE ESA FORMA EN ESTE METODO NOS AHORRAREMOS PANELES*/
 		setBounds(0, 0, 853, 496);
+		setBackground(Color.WHITE);
 		setLayout(new GridLayout(1, 1, 0, 0));
 		array_articulos=gdb.getArray_articulosCesta();
 		fila=array_articulos.size();
@@ -94,6 +98,14 @@ public class panelCesta extends JPanel {
 					}
 				}
 			});
+		}
+		if(fila==0) {
+			JLabel lblNewLabel = new JLabel("No hay articulos en la cesta");
+	        lblNewLabel.setForeground(Color.GRAY);
+	        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
+	        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	        lblNewLabel.setBounds(0, 0, 853, 496);
+	        add(lblNewLabel);
 		}
 		setPreferredSize(new Dimension(825, 496*array_articulos.size()));
 		
