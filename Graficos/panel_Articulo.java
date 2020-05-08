@@ -39,6 +39,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	private JButton btnVolver;
 	JComboBox comboBox_Tallas = new JComboBox();
 	JLabel lblNumeroStock = new JLabel("0");
+	private JLabel lblTalla;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -131,7 +132,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNewLabel_3.setBounds(370, 276, 74, 16);
 		add(lblNewLabel_3);
 		
-		JLabel lblTalla = new JLabel("Talla:");
+		lblTalla = new JLabel("Talla:");
 		lblTalla.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblTalla.setBounds(370, 328, 74, 16);
 		add(lblTalla);
@@ -154,12 +155,16 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		// TODO Auto-generated method stub
 		Object evento=e.getSource();
 		if(evento.equals(btnCesta)) {
-			gdb.añadirCesta(lblNewLabel_1.getText());
+			gdb.añadirCesta(lblNewLabel_1.getText(), lblTalla.getText());
+			//Buscamos si ya existe el objeto con los mismos valores y si lo encuentra que llame al setCantidad.
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
 		}
 	}
 	public JButton getBtnVolver() {
 		return btnVolver;
+	}
+	protected JLabel getLblTalla() {
+		return lblTalla;
 	}
 }

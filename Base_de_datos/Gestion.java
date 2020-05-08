@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
-
+import Clases.Articulos;
 
 public class Gestion  {
 	private Connection con;//objeto conexion
@@ -18,7 +18,7 @@ public class Gestion  {
 	private ResultSet resultado, resultado2; //recibe consulta
 	private String id;
 	ArrayList<String> array_datos=new ArrayList<String>();
-	ArrayList<String> array_articulosCesta=new ArrayList<String>();
+	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
 	boolean sesionIniciada=false;
 	
 	public boolean getSesionIniciada() {
@@ -46,14 +46,13 @@ public class Gestion  {
 		
 		return resultado;
 	}	
-	public void añadirCesta(String nombre) {
-		array_articulosCesta.add(nombre);
-		//System.out.println("articulo añadido: "+array_articulosCesta.size());
+	public void añadirCesta(String nombre, String talla) {
+		 array_articulosCesta.add(new Articulos(nombre, talla));
 	}
-	public ArrayList<String> getArray_articulosCesta() {
+	public ArrayList<Articulos> getArray_articulosCesta() {
 		return array_articulosCesta;
 	}
-	public void setArray_articulosCesta(ArrayList<String> array_articulosCesta) {
+	public void setArray_articulosCesta(ArrayList<Articulos> array_articulosCesta) {
 		this.array_articulosCesta = array_articulosCesta;
 	}
 	public void guardarDatos(String correo) throws SQLException {	

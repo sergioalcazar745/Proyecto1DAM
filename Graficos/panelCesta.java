@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 
 import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
+import Clases.Articulos;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import Clases.Articulos;
 
 public class panelCesta extends JPanel {
 
@@ -22,15 +24,15 @@ public class panelCesta extends JPanel {
 		 * NO SOLO EL NOMBRE SI NO TAMBIEN LA TALLA Y LA CANTIDAD DE ESA FORMA EN ESTE METODO NOS AHORRAREMOS PANELES*/
 		setBounds(0, 0, 853, 496);
 		setLayout(new GridLayout(1, 1, 0, 0));
-		ArrayList<String> array_articulos=new ArrayList<String>();
+		ArrayList<Articulos> array_articulos=new ArrayList<Articulos>();
 		array_articulos=gdb.getArray_articulosCesta();
 		
 		setLayout(new GridLayout(array_articulos.size(), 1, 0, 0));
 		
 		ArrayList<JPanel> array_paneles=new ArrayList<JPanel>();
-		
-		for (String nombre_articulo: array_articulos) {
-			JPanel panel_Articulo=new panel_Articulo(nombre_articulo, gdb);
+
+		for (Articulos nombre_articulo: array_articulos) {
+			JPanel panel_Articulo=new panel_Articulo(nombre_articulo.getNombre(), gdb);
 			desactivarBotones(panel_Articulo);
 			array_paneles.add(panel_Articulo);
 		}
