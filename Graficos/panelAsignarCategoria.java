@@ -44,6 +44,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private JComboBox comboBox_Categoria;
 	private JComboBox comboBox_Pertenece;
 	JButton btnMenos = new JButton("");
+	private JButton btnEliminar;
 	
 	public panelAsignarCategoria() throws SQLException {
 		setBackground(Color.WHITE);
@@ -102,7 +103,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		comboBox_Pertenece.setBounds(297, 42, 141, 25);
 		add(comboBox_Pertenece);
 		
-		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
 		btnEliminar.setEnabled(false);
 		btnEliminar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnEliminar.setBounds(628, 469, 97, 25);
@@ -116,7 +118,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				btnEliminar.setEnabled(true);
 			}
 		});
 		table.setShowGrid(false);
@@ -198,6 +200,18 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			}
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();		
+		}else if(evento.equals(btnEliminar)) {
+			int row = table.getSelectedRow();
+			String value = table.getModel().getValueAt(row, 0).toString();
+			try {
+				gdb.eliminarCategorias(value);
+				btnEliminar.setEnabled(false);
+				modelo.removeRow(row);
+				comboBox_Categoria.removeAllItems();
+				insertarCategoria();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -280,5 +294,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	}
 	protected JTable getTable() {
 		return table;
+	}
+	protected JButton getBtnEliminar() {
+		return btnEliminar;
 	}
 }

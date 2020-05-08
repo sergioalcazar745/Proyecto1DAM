@@ -137,6 +137,52 @@ public class Gestion  {
 		return resultado;
 	}
 	
+	public void eliminarCategorias(String nombre) throws SQLException {				
+		String id_categoria = null;
+		
+		String sql = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre+"'";
+		
+		try {
+			con = cx.getConexion();
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_categoria = resultado.getString("id_categoria");
+			}						
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar1");
+			e.printStackTrace();
+		}
+		
+		String sql2 = "DELETE FROM categoria WHERE id_categoria='"+id_categoria+"'";
+		
+		try {
+			con = cx.getConexion();
+			st=(Statement) con.createStatement();
+			int confirmar = st.executeUpdate(sql2);
+			if(confirmar > 0) {
+				System.out.println("Bien");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar2");
+			e.printStackTrace();
+		}
+		
+		String sql3 = "DELETE FROM pertenece WHERE id_categoria_aux='"+id_categoria+"'";
+		System.out.println(id_categoria);
+		try {
+			con = cx.getConexion();
+			st=(Statement) con.createStatement();
+			int confirmar = st.executeUpdate(sql3);
+			if(confirmar > 0) {
+				JOptionPane.showMessageDialog(null, "Categoria eliminada");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar3");
+			e.printStackTrace();
+		}
+	}
+	
 	public ResultSet recorrerArticuloGenerico() throws SQLException {		
 		int confirmar = 0;
 		
