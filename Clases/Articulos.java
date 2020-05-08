@@ -11,11 +11,11 @@ public class Articulos {
 		this.cantidad = cantidad;
 	}
 	
-	protected int getCantidad() {
+	public int getCantidad() {
 		return cantidad;
 	}
 
-	protected void setCantidad(int cantidad) {
+	public void setCantidad(int cantidad) {
 		this.cantidad += cantidad;
 	}
 

@@ -3,6 +3,7 @@ package Base_de_datos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -10,6 +11,8 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 import Clases.Articulos;
+
+
 
 public class Gestion  {
 	private Connection con;//objeto conexion
@@ -46,8 +49,31 @@ public class Gestion  {
 		
 		return resultado;
 	}	
-	public void añadirCesta(String nombre, String talla) {
-		 array_articulosCesta.add(new Articulos(nombre, talla));
+	public void añadirCesta(String nombre, String talla, int cantidad) {
+		boolean existe = false;
+		for (Articulos articulos : array_articulosCesta) {
+			System.out.println(nombre + "\n" + cantidad);
+			System.out.println(articulos.getNombre() + "\n" + articulos.getTalla());
+			if(nombre.equals(articulos.getNombre()) && articulos.getTalla().equals(talla)) {
+				existe = true;
+				articulos.setCantidad(cantidad);				
+			}
+		}
+
+		if(existe == false) {
+			array_articulosCesta.add(new Articulos(nombre, talla, cantidad));
+		}
+	}
+	public void eliminarCesta(String nombre_buscar) {
+		Articulos nombre_eliminar;
+		Iterator<Articulos> it = array_articulosCesta.iterator(); 
+			while(it.hasNext()) {				 
+				 nombre_eliminar= it.next();
+				if (nombre_buscar.equals(nombre_eliminar.getNombre())) {				 
+					it.remove();
+				}
+			}
+		//System.out.println("articulo añadido: "+array_articulosCesta.size());
 	}
 	public ArrayList<Articulos> getArray_articulosCesta() {
 		return array_articulosCesta;

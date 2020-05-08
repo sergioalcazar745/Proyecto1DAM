@@ -35,6 +35,7 @@ public class panelCesta extends JPanel {
 			JPanel panel_Articulo=new panel_Articulo(nombre_articulo.getNombre(), gdb);
 			desactivarBotones(panel_Articulo);
 			array_paneles.add(panel_Articulo);
+			System.out.println("Cantidad22: "+nombre_articulo.getCantidad());
 		}
 		//System.out.println("abse_datos: "+array_paneles.size());
 		for(int i=0; i<array_paneles.size(); i++) {
