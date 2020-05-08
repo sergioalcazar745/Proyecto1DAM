@@ -1,26 +1,34 @@
 package Clases;
 
 public class Articulos {
-	protected int id_articulo;
-	protected String talla;
-	protected double precio;
+	public String nombre;
+	public String talla;
+	public int cantidad;
 	
-	protected int getId_articulo() {
-		return id_articulo;
+	public Articulos(String nombre, String talla, int cantidad) {
+		this.nombre = nombre;
+		this.talla = talla;
+		this.cantidad = cantidad;
 	}
-	protected void setId_articulo(int id_articulo) {
-		this.id_articulo = id_articulo;
+	
+	protected int getCantidad() {
+		return cantidad;
 	}
-	protected String getTalla() {
+
+	protected void setCantidad(int cantidad) {
+		this.cantidad += cantidad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}	
+	public String getTalla() {
 		return talla;
 	}
-	protected void setTalla(String talla) {
+	public void setTalla(String talla) {
 		this.talla = talla;
-	}
-	protected double getPrecio() {
-		return precio;
-	}
-	protected void setPrecio(double precio) {
-		this.precio = precio;
 	}	
 }
