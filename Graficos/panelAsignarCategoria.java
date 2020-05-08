@@ -43,29 +43,11 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private JComboBox comboBox_Nombres;
 	private JComboBox comboBox_Categoria;
 	private JComboBox comboBox_Pertenece;
-	private JButton btnMenos;
+	JButton btnMenos = new JButton("");
 	
 	public panelAsignarCategoria() throws SQLException {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
-		
-		table = new JTable(){//esto desactiva que podamos editar la tabla
-	         public boolean editCellAt(int row, int column, java.util.EventObject e) {
-	             return false;
-	          }
-	       };
-		table.setShowGrid(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-
-		modelo.addColumn("Categoria");
-		setLayout(null);
-		table.setModel(modelo);
-		table.setRowHeight(25);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(118, 136, 607, 320);
-		add(scrollPane);
-		scrollPane.setViewportView(table);
 		
 		tfInsertar = new JTextField();
 		tfInsertar.setBounds(118, 101, 498, 22);
@@ -126,15 +108,38 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		btnEliminar.setBounds(628, 469, 97, 25);
 		add(btnEliminar);
 		
-		btnMenos = new JButton("");
+		table = new JTable(){//esto desactiva que podamos editar la tabla
+	         public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	             return false;
+	          }
+	       };
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
+		table.setShowGrid(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
+		modelo.addColumn("Categoria");
+		setLayout(null);
+		table.setModel(modelo);
+		table.setRowHeight(25);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(118, 136, 607, 320);
+		add(scrollPane);
+		scrollPane.setViewportView(table);
+		
 		btnMenos.setForeground(Color.RED);
 		btnMenos.addActionListener(this);
-		btnMenos.setIcon(new ImageIcon(panelAsignarCategoria.class.getResource("/Imagenes/menos.png")));
+		btnMenos.setIcon(new ImageIcon(panelAsignarCategoria.class.getResource("/Imagenes/eliminar.png")));
 		btnMenos.setOpaque(false);
 		btnMenos.setFocusPainted(false);
 		btnMenos.setContentAreaFilled(false);
 		btnMenos.setBorderPainted(false);
-		btnMenos.setBounds(462, 28, 32, 50);
+		btnMenos.setBounds(450, 37, 53, 33);
 		add(btnMenos);
 		
 		introducirDatos();
@@ -181,11 +186,12 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();
 		}else if(evento.equals(btnMenos)) {
-			if(comboBox_Categoria.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
+			System.out.println("BotonMenos");
+			if(comboBox_Pertenece.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 				
 			}else {
 				try {
-					gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
+					gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Pertenece.getSelectedItem().toString());
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -272,7 +278,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	protected JComboBox getComboBox__Pertenece() {
 		return comboBox_Pertenece;
 	}
-	protected JButton getBtnMenos() {
-		return btnMenos;
+	protected JTable getTable() {
+		return table;
 	}
 }
