@@ -38,6 +38,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblNewLabel_1 = new JLabel();
 	private JButton btnVolver;
 	JComboBox comboBox_Tallas = new JComboBox();
+	JLabel lblNumeroStock = new JLabel("0");
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -106,8 +107,21 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		JSpinner spinner = new JSpinner();
 		spinner.setBounds(470, 274, 80, 22);
 		add(spinner);
+		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
+			public void actionPerformed(ActionEvent arg0) {
+				//Aqui que recoger el numero de tallas.
+				if(!comboBox_Tallas.getSelectedItem().equals("")) {
+					try {
+						lblNumeroStock.setText(String.valueOf(gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())));
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
-		comboBox_Tallas.addActionListener(this);
+		
 		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
 		comboBox_Tallas.setBounds(470, 326, 80, 22);
 		add(comboBox_Tallas);
@@ -127,11 +141,11 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblStock.setBounds(372, 359, 75, 23);
 		add(lblStock);
 		
-		JLabel lblNewLabel_2 = new JLabel("0");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_2.setBounds(470, 359, 80, 23);
-		add(lblNewLabel_2);
+		//JLabel lblNumeroStock = new JLabel("0");
+		lblNumeroStock.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNumeroStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNumeroStock.setBounds(470, 359, 80, 23);
+		add(lblNumeroStock);
 		
 		
 	}
@@ -143,9 +157,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			gdb.añadirCesta(lblNewLabel_1.getText());
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
-		}else if(evento.equals(comboBox_Tallas)) {
-			//Aqui que recoger el numero de tallas.
-			
 		}
 	}
 	public JButton getBtnVolver() {

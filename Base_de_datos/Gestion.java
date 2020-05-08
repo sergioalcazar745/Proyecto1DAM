@@ -546,7 +546,34 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
+		System.out.println("stock: "+numero);
 		return numero;
+	}
+	
+	public void comprarSuministros(String nombre, String talla, int cantidad) throws SQLException {
+		//se debe buscar el id del articulo_generico con el nombre.
+		String id_articulo = "";
+		con = cx.getConexion();		
+		//System.out.println("nombre insertar: "+nombre);
+		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_articulo = resultado.getString("id_generico");
+			}
+			
+			String insertar = "INSERT INTO articulos(talla, id_articulogenerico_aux) VALUES ('"+talla+"','"+id_articulo+"')";
+			for(int i=0; i< cantidad; i++) {
+				st.executeUpdate(insertar);
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	//------------------------------------------------------------------------------------------------------------------------------------//	

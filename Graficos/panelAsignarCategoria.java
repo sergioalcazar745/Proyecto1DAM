@@ -49,16 +49,18 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-			}
-		});
+		table = new JTable(){//esto desactiva que podamos editar la tabla
+	         public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	             return false;
+	          }
+	       };
+		table.setShowGrid(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
 		modelo.addColumn("Categoria");
 		setLayout(null);
 		table.setModel(modelo);
+		table.setRowHeight(25);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(118, 136, 607, 320);
@@ -125,6 +127,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		add(btnEliminar);
 		
 		btnMenos = new JButton("");
+		btnMenos.setForeground(Color.RED);
 		btnMenos.addActionListener(this);
 		btnMenos.setIcon(new ImageIcon(panelAsignarCategoria.class.getResource("/Imagenes/menos.png")));
 		btnMenos.setOpaque(false);

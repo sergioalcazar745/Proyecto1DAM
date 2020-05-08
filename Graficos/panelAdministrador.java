@@ -37,6 +37,11 @@ import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.AncestorListener;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField textField;
@@ -47,6 +52,10 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private ResultSet resultado;
 	private Gestion gdb;
 	private JComboBox comboBox_proveedor_1;
+	JSpinner spinner = new JSpinner();
+	JButton btnComprar = new JButton("COMPRAR");
+	JComboBox comboBox_Tallas = new JComboBox();
+	JLabel lblFalloCompra = new JLabel("");
 	
 	public panelAdministrador() throws SQLException {
 				
@@ -68,6 +77,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		add(comboBox_Nombres);
 		
 		comboBox_proveedor_1 = new JComboBox();
+		comboBox_proveedor_1.addActionListener(this);
 		comboBox_proveedor_1.setBounds(593, 86, 211, 29);
 		add(comboBox_proveedor_1);
 		
@@ -75,8 +85,15 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel_2.setBounds(94, 217, 75, 16);
 		add(lblNewLabel_2);
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				lblFalloCompra.setText("");
+			}
+		});
+
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		
-		JSpinner spinner = new JSpinner();
+		
 		spinner.setEnabled(true);
 		spinner.setBounds(32, 246, 220, 29);
 		add(spinner);
@@ -93,7 +110,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		add(textField);
 		textField.setColumns(10);
 		
-		JButton btnComprar = new JButton("COMPRAR");
+		
+		btnComprar.addActionListener(this);
 		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/shopping_bag.png")));
 		btnComprar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnComprar.setBounds(183, 322, 154, 40);
@@ -132,16 +150,23 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnComprar.setOpaque(false);
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
+		comboBox_Tallas.addActionListener(this);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
-		comboBox.setBounds(330, 87, 178, 26);
-		add(comboBox);
+		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
+		comboBox_Tallas.setBounds(330, 87, 178, 26);
+		add(comboBox_Tallas);
 		
 		JLabel lblNewLabel_6 = new JLabel("Talla");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel_6.setBounds(398, 57, 56, 16);
 		add(lblNewLabel_6);
+		
+		
+		lblFalloCompra.setForeground(Color.RED);
+		lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 12));
+		lblFalloCompra.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFalloCompra.setBounds(183, 388, 467, 14);
+		add(lblFalloCompra);
 		
 		insertarArticulos();
 		insertarProveedores();
@@ -177,6 +202,35 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evento = e.getSource();
-	
+		if(evento.equals(btnComprar)) {
+			//primero comprobamos que todos los campos tienen un valor seleccionado.
+			//IMPORTANTE AHORA NO ESTA LA CONDICION DE COMPROBAR EL DINERO PERO SE DEBERA AÑADIR MAS ADELANTE
+			if(comboBox_Nombres.getSelectedItem().equals("") ) {
+				//System.out.println("rellene todos los campos");
+				lblFalloCompra.setForeground(Color.RED);
+				lblFalloCompra.setText("*Debe seleccionar un articulo");
+			}else if(comboBox_Tallas.getSelectedItem().equals("")) {
+				lblFalloCompra.setText("*Debe seleccionar una talla");
+				lblFalloCompra.setForeground(Color.RED);
+			}else if(comboBox_proveedor_1.getSelectedItem().equals("")) {
+				lblFalloCompra.setText("*Debe seleccionar un proovedor");
+				lblFalloCompra.setForeground(Color.RED);
+			}else if(((Integer) spinner.getValue())<=0) {
+				lblFalloCompra.setText("*La cantidad debe ser mayor que 0");
+				lblFalloCompra.setForeground(Color.RED);
+			}else {
+				try {
+					gdb.comprarSuministros(comboBox_Nombres.getSelectedItem().toString(), comboBox_Tallas.getSelectedItem().toString(), (Integer) spinner.getValue());
+					lblFalloCompra.setText("*COMPRA REALIZADA");
+					lblFalloCompra.setForeground(Color.GREEN);
+					lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 14));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor_1) ) {
+			lblFalloCompra.setText("");
+		}
 	}
 }
