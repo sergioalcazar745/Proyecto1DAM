@@ -3,6 +3,7 @@ package Base_de_datos;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -48,6 +49,18 @@ public class Gestion  {
 	}	
 	public void añadirCesta(String nombre) {
 		array_articulosCesta.add(nombre);
+		//System.out.println("articulo añadido: "+array_articulosCesta.size());
+	}
+	public void eliminarCesta(String nombre_buscar) {
+		String nombre_eliminar;
+		Iterator<String> it = array_articulosCesta.iterator(); 
+			while(it.hasNext()) {				 
+				 nombre_eliminar= it.next();
+				if (nombre_buscar.equals(nombre_eliminar)) {
+				 
+				it.remove();
+				}
+			}
 		//System.out.println("articulo añadido: "+array_articulosCesta.size());
 	}
 	public ArrayList<String> getArray_articulosCesta() {

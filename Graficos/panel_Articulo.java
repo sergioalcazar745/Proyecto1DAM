@@ -147,6 +147,18 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNumeroStock.setBounds(470, 359, 80, 23);
 		add(lblNumeroStock);
 		
+		JLabel lblEliminar = new JLabel("");
+		lblEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gdb.eliminarCesta(nombre_articulo);
+				setVisible(false);
+			}
+		});
+		lblEliminar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/eliminar.png")));
+		lblEliminar.setBounds(821, 0, 32, 29);
+		add(lblEliminar);
+		
 		
 	}
 	@Override
