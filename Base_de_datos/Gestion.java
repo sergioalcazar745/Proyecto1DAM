@@ -588,7 +588,7 @@ public class Gestion  {
 		int numero=0;
 		String id_articulo = "";
 		con = cx.getConexion();		
-		String sql = "SELECT talla FROM articulos inner join articulogenerico on articulos.id_articulogenerico_aux=articulogenerico.id_generico WHERE nombre='"+nombre+"' and talla='"+talla+"'";
+		String sql = "SELECT talla FROM articulos inner join articulogenerico on articulos.id_articulogenerico_aux=articulogenerico.id_generico WHERE nombre='"+nombre+"' and talla='"+talla+"' and Disponible=1";
 		
 		try {
 			st=(Statement) con.createStatement();
@@ -639,4 +639,39 @@ public class Gestion  {
 			JOptionPane.showMessageDialog(null, "Escribe algo");
 		}
 	}
+	
+	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {
+		//se debe buscar el id del articulo_generico con el nombre.
+		String id_articulo = "";
+		con = cx.getConexion();		
+		//System.out.println("nombre insertar: "+nombre);
+		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";//sacamos el id generico y lo buscamos en la siguiente consulta con el id y talla
+		 //SELECT id_articulo FROM articulos WHERE id_articulo=1 and Disponible=1;
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+				if(resultado.next()) {
+					id_articulo = resultado.getString("id_generico");
+				}
+			
+			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_articulo+"' and talla='"+talla+"' and Disponible=1";
+			resultado=st.executeQuery(sql);
+			//resultado.last();
+			//System.out.println(resultado.getRow()+"/resultados");
+			st2=(Statement) con.createStatement();
+				while(resultado.next() && cantidad>0) {
+					id_articulo = resultado.getString("id_articulo");
+					sql = "UPDATE articulos SET Disponible=0 WHERE id_articulo='"+id_articulo+"'";
+					st2.executeUpdate(sql);
+					System.out.println("hola: "+id_articulo+"/"+cantidad);
+					cantidad--;
+				}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 }

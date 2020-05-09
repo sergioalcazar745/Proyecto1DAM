@@ -44,7 +44,10 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	private JLabel lblTalla;
 	private JSpinner spinner;
 	JLabel lblNewLabel_2 = new JLabel("");
+	JButton btnComprar = new JButton("");
+	String nombre_articulo;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
+		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
 		setName("laura callate");
 		setBackground(Color.WHITE);
@@ -75,7 +78,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		textArea.setBounds(372, 154, 284, 99);
 		add(textArea);
 		
-		JButton btnComprar = new JButton("");
+		
+		btnComprar.addActionListener(this);
 		btnComprar.setBackground(Color.WHITE);
 		btnComprar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/comprar_boton.png")));
 		btnComprar.setBounds(455, 423, 168, 49);
@@ -119,15 +123,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(spinner);
 		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
 			public void actionPerformed(ActionEvent arg0) {
-				//Aqui que recoger el numero de tallas.
-				if(!comboBox_Tallas.getSelectedItem().equals("")) {
-					try {
-						lblNumeroStock.setText(String.valueOf(gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())));
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+				actualizarTallas();
 			}
 		});
 		
@@ -214,19 +210,60 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
 				lblNewLabel_2.setForeground(Color.RED);
 			}else {
-				lblNewLabel_2.setText("*Compra Realizada");
+				lblNewLabel_2.setText("*Añadido a la cesta");
 				lblNewLabel_2.setForeground(Color.GREEN);
 				gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+				actualizarTallas();
 			}
 			//Buscamos si ya existe el objeto con los mismos valores y si lo encuentra que llame al setCantidad.
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
 		}else if(evento.equals(comboBox_Tallas)) {
 			lblNewLabel_2.setText("");
+		}else if(evento.equals(btnComprar)) {
+			//quitar los objetos y comprobar que has iniciado sesion
+			if(gdb.getSesionIniciada()==false) {
+				lblNewLabel_2.setText("*Debes iniciar sesión para esta acción");
+			}else {
+				lblNewLabel_2.setText("*Compra realizada");
+				lblNewLabel_2.setForeground(Color.GREEN);
+				try {
+					if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
+						if(comboBox_Tallas.getSelectedItem().equals("")) {
+							lblNewLabel_2.setText("*Seleccione una talla");
+							lblNewLabel_2.setForeground(Color.RED);
+						}else {
+							lblNewLabel_2.setText("*Seleccione minimo una unidad");
+						}
+					}else if((int) spinner.getValue()>Integer.parseInt(lblNumeroStock.getText())) {
+						lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
+						lblNewLabel_2.setForeground(Color.RED);
+					}else {
+						lblNewLabel_2.setText("*Añadido a la cesta");
+						lblNewLabel_2.setForeground(Color.GREEN);
+						gdb.comprarArticulos(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+						actualizarTallas();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
 	public JButton getBtnVolver() {
 		return btnVolver;
+	}
+	public void actualizarTallas() {
+		//Aqui que recoger el numero de tallas.
+		if(!comboBox_Tallas.getSelectedItem().equals("")) {
+			try {
+				lblNumeroStock.setText(String.valueOf(gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	protected JLabel getLblTalla() {
 		return lblTalla;
