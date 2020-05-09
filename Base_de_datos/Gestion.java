@@ -631,12 +631,10 @@ public class Gestion  {
 	}
 	
 	public void crearOfertas(String articulo, String categoria, String valor) {
-		if(articulo.isEmpty() && !categoria.isEmpty() && !valor.isEmpty()) {
-			System.out.println("Primero");
-		}else if(!articulo.isEmpty() && !categoria.isEmpty() && !valor.isEmpty()) {
-			System.out.println("Segunda");
+		if(articulo.isEmpty()) {
+
 		}else {
-			JOptionPane.showMessageDialog(null, "Escribe algo");
+			
 		}
 	}
 	
