@@ -17,7 +17,7 @@ import Clases.Articulos;
 public class Gestion  {
 	private Connection con;//objeto conexion
 	private conexion cx= new conexion();
-	private Statement st, st2;//realiza consulta
+	private Statement st, st2, st3;//realiza consulta
 	private ResultSet resultado, resultado2; //recibe consulta
 	private String id;
 	ArrayList<String> array_datos=new ArrayList<String>();
@@ -628,9 +628,9 @@ public class Gestion  {
 		}		
 	}
 	
-	public boolean crearOfertas(String articulo, String categoria, String valor) throws SQLException {
+	public ArrayList<String> crearOfertas(String articulo, String categoria, String valor) throws SQLException {
 		String id_articulo = null, id_categoria = null;
-		boolean correcto = false;
+		String correcto = null;
 		int confirmar;
 		ArrayList <String> ofertas = new ArrayList <String> ();
 		
@@ -659,7 +659,19 @@ public class Gestion  {
 							st2=(Statement) con.createStatement();
 							confirmar = st2.executeUpdate(sql2);
 							if(confirmar > 0) {
-								System.out.println("bieeeeeeeeeeeeeeeeeen");
+								String sql4 = "SELECT nombre FROM articulogenerico WHERE id_generico = '"+resultado.getString("id_articulogenerico_aux")+"'";
+								try {
+									st3=(Statement) con.createStatement();
+									resultado2 = st3.executeQuery(sql4);
+									while(resultado2.next()) {
+										ofertas.add(resultado2.getString("nombre"));
+										ofertas.add(categoria);
+										ofertas.add(valor);
+									}
+								} catch (SQLException e) {
+									System.out.println("Fallo al buscar");
+									e.printStackTrace();
+								}								
 							}
 						} catch (SQLException e) {
 							System.out.println("Fallo al buscar");
@@ -688,16 +700,12 @@ public class Gestion  {
 			try {
 				st=(Statement) con.createStatement();
 				 confirmar = st.executeUpdate(sql2);
-				if(confirmar > 0) {
-					System.out.println("Correcto");
-					correcto = true;
-				}
 			} catch (SQLException e) {
 				System.out.println("Fallo al buscar");
 				e.printStackTrace();
 			}
 		}
-		return correcto;
+		return ofertas;
 	}
 	
 	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {

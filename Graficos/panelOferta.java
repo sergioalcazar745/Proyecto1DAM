@@ -48,7 +48,7 @@ public class panelOferta extends JPanel implements ActionListener{
 	private JComboBox comboBox_Nombres;
 	private JComboBox comboBox_Categoria;
 	private JButton btnAñadir;
-	private boolean oferta = false;
+	private ArrayList<String> oferta = new ArrayList<String>();
 
 	public panelOferta() {
 		setBackground(Color.WHITE);
@@ -180,11 +180,21 @@ public class panelOferta extends JPanel implements ActionListener{
 				}else {					
 					oferta = gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
 					
-					if(oferta == true) {
+					if(oferta.size() == 0) {
 						Datos[0] = comboBox_Nombres.getSelectedItem().toString();
 						Datos[1] = comboBox_Categoria.getSelectedItem().toString();
 						Datos[2] = tfPorcentaje.getText();
 						modelo.addRow(Datos);
+					}else {
+						int j = 0;
+						for(int i = 0; i<oferta.size(); i++) {
+							Datos[j] = oferta.get(j);
+							modelo.addRow(Datos);
+							j++;
+							if(j==3) {
+								j = 0;
+							}
+						}
 					}
 				}				
 			} catch (SQLException e1) {
