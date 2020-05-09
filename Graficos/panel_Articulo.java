@@ -225,8 +225,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			if(gdb.getSesionIniciada()==false) {
 				lblNewLabel_2.setText("*Debes iniciar sesión para esta acción");
 			}else {
-				lblNewLabel_2.setText("*Compra realizada");
-				lblNewLabel_2.setForeground(Color.GREEN);
 				try {
 					if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 						if(comboBox_Tallas.getSelectedItem().equals("")) {
@@ -239,7 +237,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 						lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
 						lblNewLabel_2.setForeground(Color.RED);
 					}else {
-						lblNewLabel_2.setText("*Añadido a la cesta");
+						lblNewLabel_2.setText("*Compra realizada");
 						lblNewLabel_2.setForeground(Color.GREEN);
 						gdb.comprarArticulos(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
 						actualizarTallas();
