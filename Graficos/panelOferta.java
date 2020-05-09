@@ -126,6 +126,8 @@ public class panelOferta extends JPanel implements ActionListener{
             	comboBox_Nombres.setSelectedIndex(0);
             }
         });;
+        
+        //Metodos
 		
 		insertarArticulos();
 		insertarCategoria();
