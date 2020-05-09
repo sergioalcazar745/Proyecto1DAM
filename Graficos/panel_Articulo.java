@@ -75,7 +75,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			e.printStackTrace();
 		}
 		textArea.setText(descripcion);
-		textArea.setBounds(372, 154, 284, 99);
+		textArea.setBounds(372, 154, 284, 80);
 		add(textArea);
 		
 		
@@ -119,7 +119,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				lblNewLabel_2.setText("");
 			}
 		});
-		spinner.setBounds(470, 274, 80, 22);
+		spinner.setBounds(470, 254, 80, 22);
 		add(spinner);
 		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
 			public void actionPerformed(ActionEvent arg0) {
@@ -129,31 +129,31 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		
 		
 		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
-		comboBox_Tallas.setBounds(470, 326, 80, 22);
+		comboBox_Tallas.setBounds(470, 283, 80, 22);
 		add(comboBox_Tallas);
 		comboBox_Tallas.addActionListener(this);
 		
 		JLabel lblNewLabel_3 = new JLabel("Cantidad:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNewLabel_3.setBounds(370, 276, 74, 16);
+		lblNewLabel_3.setBounds(370, 256, 74, 16);
 		add(lblNewLabel_3);
 		
 		lblTalla = new JLabel("Talla:");
-		lblTalla.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblTalla.setBounds(370, 328, 74, 16);
+		lblTalla.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblTalla.setBounds(370, 283, 74, 16);
 		add(lblTalla);
 		
 		JLabel lblStock = new JLabel("En Stock:");
 		lblStock.setName("lblStock");
 		lblStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblStock.setBounds(372, 359, 75, 23);
+		lblStock.setBounds(370, 334, 75, 23);
 		add(lblStock);
 		
 		//JLabel lblNumeroStock = new JLabel("0");
 		lblNumeroStock.setName("lblNumeroStock");
 		lblNumeroStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumeroStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNumeroStock.setBounds(470, 359, 80, 23);
+		lblNumeroStock.setBounds(470, 334, 80, 23);
 		add(lblNumeroStock);
 		
 		JLabel lblEliminar = new JLabel("");
@@ -172,13 +172,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		
 		JLabel lblCantidad = new JLabel("New label");
 		lblCantidad.setName("lblCantidad");
-		lblCantidad.setBounds(470, 274, 80, 22);
+		lblCantidad.setBounds(470, 254, 80, 22);
 		add(lblCantidad);
 		lblCantidad.setVisible(false);
 		
 		JLabel lblTalla_comprada = new JLabel("New label");
 		lblTalla_comprada.setName("lblTalla_comprada");
-		lblTalla_comprada.setBounds(471, 326, 79, 22);
+		lblTalla_comprada.setBounds(471, 283, 79, 22);
 		add(lblTalla_comprada);
 		
 		
@@ -187,6 +187,27 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(372, 393, 189, 16);
 		add(lblNewLabel_2);
+		
+		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPrecio.setBounds(370, 308, 74, 23);/*setBounds(370, 283, 74, 23);*/
+		add(lblPrecio);
+		
+		JLabel lblValorPrecio = new JLabel("-");
+		lblValorPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblValorPrecio.setBounds(470, 308, 80, 23);/*setBounds(370, 283, 74, 23);*/
+		lblValorPrecio.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblValorPrecio);
+		
+		JLabel lblDescuento = new JLabel("Descuento:");
+		lblDescuento.setVisible(false);
+		lblDescuento.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblDescuento.setBounds(370, 362, 75, 16);
+		add(lblDescuento);
+		
+		JLabel lblValorDescuento = new JLabel("");
+		lblValorDescuento.setBounds(470, 363, 80, 23);
+		add(lblValorDescuento);
 		lblTalla_comprada.setVisible(false);
 		
 		//System.out.println("hitles aprueba"+lblStock);
