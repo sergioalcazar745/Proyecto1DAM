@@ -190,8 +190,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelAsignarCategoria panelAsignarCategoria_ = new panelAsignarCategoria();
 		tabbedPane.addTab("Categoria", null, panelAsignarCategoria_, null);
 		
-		panelOferta panelOferta = new panelOferta();
-		tabbedPane.addTab("Oferta", null, panelOferta, null);
+		//panelOferta panelOferta = new panelOferta();
+		//tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {

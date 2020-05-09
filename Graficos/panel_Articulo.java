@@ -27,6 +27,8 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class panel_Articulo extends JPanel  implements ActionListener{
 
@@ -41,6 +43,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblNumeroStock = new JLabel("0");
 	private JLabel lblTalla;
 	private JSpinner spinner;
+	JLabel lblNewLabel_2 = new JLabel("");
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.gdb=gdb;
 		setName("laura callate");
@@ -107,6 +110,11 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(btnVolver);
 		
 		spinner = new JSpinner();
+		spinner.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				lblNewLabel_2.setText("");
+			}
+		});
 		spinner.setBounds(470, 274, 80, 22);
 		add(spinner);
 		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
@@ -127,6 +135,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
 		comboBox_Tallas.setBounds(470, 326, 80, 22);
 		add(comboBox_Tallas);
+		comboBox_Tallas.addActionListener(this);
 		
 		JLabel lblNewLabel_3 = new JLabel("Cantidad:");
 		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -175,6 +184,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblTalla_comprada.setName("lblTalla_comprada");
 		lblTalla_comprada.setBounds(471, 326, 79, 22);
 		add(lblTalla_comprada);
+		
+		
+		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(372, 393, 189, 16);
+		add(lblNewLabel_2);
 		lblTalla_comprada.setVisible(false);
 		
 		//System.out.println("hitles aprueba"+lblStock);
@@ -186,11 +202,27 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		// TODO Auto-generated method stub
 		Object evento=e.getSource();
 		if(evento.equals(btnCesta)) {
-			System.out.println((int) spinner.getValue());
-			gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+			//System.out.println((int) spinner.getValue());
+			if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
+				if(comboBox_Tallas.getSelectedItem().equals("")) {
+					lblNewLabel_2.setText("*Seleccione una talla");
+					lblNewLabel_2.setForeground(Color.RED);
+				}else {
+					lblNewLabel_2.setText("*Seleccione minimo una unidad");
+				}
+			}else if((int) spinner.getValue()>Integer.parseInt(lblNumeroStock.getText())) {
+				lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
+				lblNewLabel_2.setForeground(Color.RED);
+			}else {
+				lblNewLabel_2.setText("*Compra Realizada");
+				lblNewLabel_2.setForeground(Color.GREEN);
+				gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+			}
 			//Buscamos si ya existe el objeto con los mismos valores y si lo encuentra que llame al setCantidad.
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
+		}else if(evento.equals(comboBox_Tallas)) {
+			lblNewLabel_2.setText("");
 		}
 	}
 	public JButton getBtnVolver() {
