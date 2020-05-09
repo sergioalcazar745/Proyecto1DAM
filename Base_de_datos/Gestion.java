@@ -625,17 +625,79 @@ public class Gestion  {
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
 	
-	public void crearOfertas(String articulo, String categoria, String valor) {
-		if(articulo.isEmpty()) {
-
-		}else {
+	public boolean crearOfertas(String articulo, String categoria, String valor) throws SQLException {
+		String id_articulo = null, id_categoria = null;
+		boolean correcto = false;
+		int confirmar;
+		ArrayList <String> ofertas = new ArrayList <String> ();
+		
+		con = cx.getConexion();		
+		if(articulo.equals("")) {
+			String sql = "SELECT id_categoria FROM categoria WHERE nombre = '"+categoria+"'";
+			try {
+				st=(Statement) con.createStatement();
+				resultado = st.executeQuery(sql);
+				if(resultado.next()) {
+					id_categoria = resultado.getString("id_categoria");
+				}
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
 			
+			String sql3 = "SELECT id_articulogenerico_aux FROM pertenece WHERE id_categoria_aux = '"+id_categoria+"'";
+			try {
+				st=(Statement) con.createStatement();
+				 resultado = st.executeQuery(sql3);
+				 while (resultado.next()) {
+					 id_articulo = resultado.getString("id_articulogenerico_aux");
+					 String sql2 = "INSERT INTO oferta (descuento, id_articulogenerico_aux) values ('"+valor+"', '"+id_articulo+"')";
+						try {
+							st2=(Statement) con.createStatement();
+							confirmar = st2.executeUpdate(sql2);
+							if(confirmar > 0) {
+								System.out.println("bieeeeeeeeeeeeeeeeeen");
+							}
+						} catch (SQLException e) {
+							System.out.println("Fallo al buscar");
+							e.printStackTrace();
+						}
+				 }
+			
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
+		}else {
+			String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+articulo+"'";
+			try {
+				st=(Statement) con.createStatement();
+				resultado = st.executeQuery(sql);
+				if(resultado.next()) {
+					id_articulo = resultado.getString("id_generico");
+				}
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
+			
+			String sql2 = "INSERT INTO oferta (descuento, id_articulogenerico_aux) values ('"+valor+"', '"+id_articulo+"')";
+			try {
+				st=(Statement) con.createStatement();
+				 confirmar = st.executeUpdate(sql2);
+				if(confirmar > 0) {
+					System.out.println("Correcto");
+					correcto = true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
 		}
+		return correcto;
 	}
 	
 	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {

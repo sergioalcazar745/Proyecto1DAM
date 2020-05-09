@@ -1,6 +1,7 @@
 package Graficos;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,17 +22,24 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class panelOferta extends JPanel implements ActionListener{
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private String [] Datos = new String [1];
+	private String [] Datos = new String [3];
 	private JTextField tfPorcentaje;
 	private ResultSet resultado;
 	private Connection con;
@@ -40,6 +48,7 @@ public class panelOferta extends JPanel implements ActionListener{
 	private JComboBox comboBox_Nombres;
 	private JComboBox comboBox_Categoria;
 	private JButton btnAñadir;
+	private boolean oferta = false;
 
 	public panelOferta() {
 		setBackground(Color.WHITE);
@@ -59,8 +68,7 @@ public class panelOferta extends JPanel implements ActionListener{
 		scrollPane.setViewportView(table);
 		
 		comboBox_Nombres = new JComboBox();
-		comboBox_Nombres.addActionListener(this);
-		comboBox_Nombres.setBounds(197, 29, 146, 22);
+		comboBox_Nombres.setBounds(230, 29, 146, 22);
 		add(comboBox_Nombres);
 		
 		comboBox_Categoria = new JComboBox();
@@ -69,23 +77,23 @@ public class panelOferta extends JPanel implements ActionListener{
 		
 		tfPorcentaje = new JTextField();
 		tfPorcentaje.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tfPorcentaje.setBounds(291, 105, 192, 22);
+		tfPorcentaje.setBounds(301, 105, 192, 22);
 		add(tfPorcentaje);
 		tfPorcentaje.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("%");
-		lblNewLabel.setBounds(489, 106, 12, 22);
+		lblNewLabel.setBounds(496, 105, 12, 22);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Porcentaje de descuento");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(291, 76, 192, 16);
+		lblNewLabel_1.setBounds(301, 76, 192, 16);
 		add(lblNewLabel_1);
 		
 		JLabel lblArticulo = new JLabel("Articulo");
 		lblArticulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArticulo.setFont(new Font("Arial", Font.BOLD, 16));
-		lblArticulo.setBounds(197, -4, 146, 38);
+		lblArticulo.setBounds(230, -4, 146, 38);
 		add(lblArticulo);
 		
 		JLabel lblCategoria = new JLabel("Categoria");
@@ -97,12 +105,27 @@ public class panelOferta extends JPanel implements ActionListener{
 		btnAñadir = new JButton("");
 		btnAñadir.addActionListener(this);
 		btnAñadir.setIcon(new ImageIcon(panelOferta.class.getResource("/Imagenes/plus.png")));
-		btnAñadir.setBounds(660, 13, 62, 38);
+		btnAñadir.setBounds(604, 13, 62, 48);
 		btnAñadir.setBorderPainted(false);
 		btnAñadir.setOpaque(false);
 		btnAñadir.setContentAreaFilled(false);
 		btnAñadir.setFocusPainted(false);
 		add(btnAñadir);
+		
+		JButton btnNewButton = new JButton("ExplicacionOfertas");
+		btnNewButton.setBounds(96, 28, 85, 25);
+		add(btnNewButton);
+		
+		comboBox_Nombres.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+            	comboBox_Categoria.setSelectedIndex(0);
+            }
+        });
+		comboBox_Categoria.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+            	comboBox_Nombres.setSelectedIndex(0);
+            }
+        });;
 		
 		insertarArticulos();
 		insertarCategoria();
@@ -148,7 +171,23 @@ public class panelOferta extends JPanel implements ActionListener{
 		Object evento = e.getSource();
 		
 		if(evento.equals(btnAñadir)) {
-			gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
+			try {
+				if((comboBox_Nombres.getSelectedItem().toString().equals("") && comboBox_Categoria.getSelectedItem().toString().equals("")) || tfPorcentaje.getText().equals("")){
+					//Compruebo para que los valores que le pasamos sean los correctos
+					JOptionPane.showMessageDialog(null, "Escribe algo");
+				}else {					
+					oferta = gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
+					
+					if(oferta == true) {
+						Datos[0] = comboBox_Nombres.getSelectedItem().toString();
+						Datos[1] = comboBox_Categoria.getSelectedItem().toString();
+						Datos[2] = tfPorcentaje.getText();
+						modelo.addRow(Datos);
+					}
+				}				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	protected JComboBox getComboBox_Nombres() {
