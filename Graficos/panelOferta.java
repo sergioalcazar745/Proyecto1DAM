@@ -59,44 +59,45 @@ public class panelOferta extends JPanel implements ActionListener{
 		scrollPane.setViewportView(table);
 		
 		comboBox_Nombres = new JComboBox();
-		comboBox_Nombres.setBounds(175, 93, 146, 22);
+		comboBox_Nombres.addActionListener(this);
+		comboBox_Nombres.setBounds(197, 29, 146, 22);
 		add(comboBox_Nombres);
 		
 		comboBox_Categoria = new JComboBox();
-		comboBox_Categoria.setBounds(175, 40, 146, 22);
+		comboBox_Categoria.setBounds(422, 29, 146, 22);
 		add(comboBox_Categoria);
 		
 		tfPorcentaje = new JTextField();
 		tfPorcentaje.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		tfPorcentaje.setBounds(449, 71, 192, 22);
+		tfPorcentaje.setBounds(291, 105, 192, 22);
 		add(tfPorcentaje);
 		tfPorcentaje.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("%");
-		lblNewLabel.setBounds(644, 71, 17, 22);
+		lblNewLabel.setBounds(489, 106, 12, 22);
 		add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Porcentaje de descuento");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(449, 46, 192, 16);
+		lblNewLabel_1.setBounds(291, 76, 192, 16);
 		add(lblNewLabel_1);
 		
 		JLabel lblArticulo = new JLabel("Articulo");
 		lblArticulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArticulo.setFont(new Font("Arial", Font.BOLD, 16));
-		lblArticulo.setBounds(175, 67, 146, 27);
+		lblArticulo.setBounds(197, -4, 146, 38);
 		add(lblArticulo);
 		
 		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 16));
-		lblCategoria.setBounds(175, 13, 146, 27);
+		lblCategoria.setBounds(422, 2, 146, 27);
 		add(lblCategoria);
 		
 		btnAñadir = new JButton("");
 		btnAñadir.addActionListener(this);
 		btnAñadir.setIcon(new ImageIcon(panelOferta.class.getResource("/Imagenes/plus.png")));
-		btnAñadir.setBounds(354, 56, 62, 38);
+		btnAñadir.setBounds(660, 13, 62, 38);
 		btnAñadir.setBorderPainted(false);
 		btnAñadir.setOpaque(false);
 		btnAñadir.setContentAreaFilled(false);
@@ -107,7 +108,7 @@ public class panelOferta extends JPanel implements ActionListener{
 		insertarCategoria();
 	}
 	
-	private void insertarArticulos(){
+	protected void insertarArticulos(){
 		
 		try {
 			con = (Connection) cx.getConexion();
@@ -125,7 +126,7 @@ public class panelOferta extends JPanel implements ActionListener{
 		}		
 	}
 	
-	private void insertarCategoria() {
+	protected void insertarCategoria() {
 		try {
 			con = (Connection) cx.getConexion();
 			gdb = new Gestion();

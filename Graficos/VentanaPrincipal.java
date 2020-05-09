@@ -60,6 +60,10 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel contentPane;
@@ -94,6 +98,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panelCesta= new panelCesta(gdb,cnx);
 	private JScrollPane scrollPane_Cesta;
 	private panelCesta panelCesta_1;
+	private JPanel panelOferta = new panelOferta();
 	public VentanaPrincipal() throws Exception{
 		gdb.stock("Bermuda Denim Mom Fit", "M");
 		//creacion tipo de fuentee
@@ -181,17 +186,53 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setName("Tabbed");
+		tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				Component evento = (Component) e.getSource();
+				if(tabbedPane.getSelectedIndex() == 2) {
+					tabbedPane.repaint();
+					tabbedPane.revalidate();
+				}
+			}
+		});
 		tabbedPane.setBackground(Color.WHITE);
 		panel_3.add(tabbedPane);
 		
-		panelAdministrador panelAdministrador_ = new panelAdministrador();
-		tabbedPane.addTab("Suministros", null, panelAdministrador_, null);
+		JPanel panelAdministrador = new panelAdministrador();
+		tabbedPane.addTab("Suministros", null, panelAdministrador, null);
 		
-		panelAsignarCategoria panelAsignarCategoria_ = new panelAsignarCategoria();
-		tabbedPane.addTab("Categoria", null, panelAsignarCategoria_, null);
+		JPanel panelAsignarCategoria = new panelAsignarCategoria();
+		tabbedPane.addTab("Categoria", null, panelAsignarCategoria, null);
 		
-		//panelOferta panelOferta = new panelOferta();
-		//tabbedPane.addTab("Oferta", null, panelOferta, null);
+		((Graficos.panelAsignarCategoria) panelAsignarCategoria).getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				((Graficos.panelAsignarCategoria) panelAsignarCategoria).eliminarCategorias();
+				((Graficos.panelAsignarCategoria) panelAsignarCategoria).insertarCategoria();				
+				tabbedPane.remove(2);
+				JPanel panelOferta = new panelOferta();
+				tabbedPane.addTab("Oferta", null, panelOferta, null);
+				tabbedPane.repaint();
+				tabbedPane.revalidate();
+			}});
+		
+		((Graficos.panelAsignarCategoria) panelAsignarCategoria).getBtnAñadir().addActionListener(new java.awt.event.ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				((Graficos.panelAsignarCategoria) panelAsignarCategoria).añadirCategoria();			
+				tabbedPane.remove(2);
+				JPanel panelOferta = new panelOferta();
+				tabbedPane.addTab("Oferta", null, panelOferta, null);
+				tabbedPane.repaint();
+				tabbedPane.revalidate();
+			}});
+				
+		panelOferta = new panelOferta();
+		panelOferta.setName("panelOferta");
+		tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
@@ -313,6 +354,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //		});
 		
 	}
+	private void addTab(String string, Object object, JPanel panelAdministrador, Object object2) {
+		// TODO Auto-generated method stub
+		
+	}
 	protected JButton getBtnHome() {
 		return btnHome;
 	}
@@ -417,4 +462,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	protected JPanel getPanel_3() {
 		return panel_3;
 	}	
+	protected JPanel getPanelOferta() {
+		return panelOferta;
+	}
 }

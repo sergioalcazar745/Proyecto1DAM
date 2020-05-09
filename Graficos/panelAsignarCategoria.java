@@ -154,21 +154,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		Object evento = e.getSource();
 		
 		if(evento.equals(btnAñadir)) {
-			if(tfInsertar.getText().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Si escribes algo mejor bro.");
-			}else {
-				Datos [0] = tfInsertar.getText();
-				modelo.addRow(Datos);
-				
-				gdb = new Gestion();
-				if(gdb.insertarCategoria(tfInsertar.getText()) == true) {
-					JOptionPane.showMessageDialog(null, "Categoria insertada");
-					comboBox_Categoria.addItem(tfInsertar.getText());
-					tfInsertar.setText("");
-				}else{
-					JOptionPane.showMessageDialog(null, "Categoria no insertada");
-				}
-			}
+			añadirCategoria();
 		}else if(evento.equals(btnAñadirCategoriaArticulo)) {
 			//creamos el objeto de que el articulo pertenece una categoria.
 			//seleccionamoss el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
@@ -201,20 +187,40 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();		
 		}else if(evento.equals(btnEliminar)) {
-			int row = table.getSelectedRow();
-			String value = table.getModel().getValueAt(row, 0).toString();
-			try {
-				gdb.eliminarCategorias(value);
-				btnEliminar.setEnabled(false);
-				modelo.removeRow(row);
-				comboBox_Categoria.removeAllItems();
-				insertarCategoria();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 	
+	public void eliminarCategorias() {
+		int row = table.getSelectedRow();
+		String value = table.getModel().getValueAt(row, 0).toString();
+		try {
+			gdb.eliminarCategorias(value);
+			btnEliminar.setEnabled(false);
+			modelo.removeRow(row);
+			comboBox_Categoria.removeAllItems();
+			insertarCategoria();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void añadirCategoria() {
+		if(tfInsertar.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Si escribes algo mejor bro.");
+		}else {
+			Datos [0] = tfInsertar.getText();
+			modelo.addRow(Datos);
+			
+			gdb = new Gestion();
+			if(gdb.insertarCategoria(tfInsertar.getText()) == true) {
+				JOptionPane.showMessageDialog(null, "Categoria insertada");
+				comboBox_Categoria.addItem(tfInsertar.getText());
+				tfInsertar.setText("");
+			}else{
+				JOptionPane.showMessageDialog(null, "Categoria no insertada");
+			}
+		}
+	}
 	private void introducirDatos() throws SQLException {
 		con = cx.getConexion();
 		
@@ -260,7 +266,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		}		
 	}
 	
-	private void insertarCategoria() {
+	protected void insertarCategoria() {
+		comboBox_Categoria.removeAllItems();
 		try {
 			con = (Connection) cx.getConexion();
 			gdb = new Gestion();
@@ -276,7 +283,6 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			e1.printStackTrace();
 		}
 	}
-	
 	protected JButton getBtnAñadir() {
 		return btnAñadir;
 	}
