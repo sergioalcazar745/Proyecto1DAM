@@ -702,38 +702,48 @@ public class Gestion  {
 //	}
 	
 	public boolean crearOfertas (String articulo, String categoria, String valor) throws SQLException {
-		boolean oferta = false;
+		boolean oferta = false, existe = false;
+		int num = 0;
 		String id_oferta = null, id_categoria = null, id_articulo = null;
 		con = cx.getConexion();
-		String sql = "SELECT * FROM oferta";
 		
+		String sql = "SELECT * FROM oferta";		
 		try {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
 			while(resultado.next()) {
-				if(resultado.getString("descuento").equals(valor)) {
+				System.out.println(resultado.getString("descuento"));
+				System.out.println(valor);
+				if(Double.parseDouble(resultado.getString("descuento")) == Double.parseDouble(valor)) {
 					id_oferta=resultado.getString("id_oferta");
-				}else {
-					String sql2 = "INSERT INTO oferta (descuento) values ('"+valor+"')";
-					try {
-						st2=(Statement) con.createStatement();
-						st2.executeUpdate(sql2);
-						resultado2 = st.executeQuery(sql);
-						while(resultado2.next()) {
-							id_oferta = resultado2.getString("id_oferta");
-						}
-					} catch (SQLException e) {
-						System.out.println("Fallo al buscar1");
-						e.printStackTrace();
-					}
-				}			
+					existe = true;
+				}
 			}
+			
+			if(existe == false) {
+				String sql2 = "INSERT INTO oferta (descuento) values ('"+valor+"')";
+				try {
+					st2=(Statement) con.createStatement();
+					st2.executeUpdate(sql2);
+					resultado2 = st2.executeQuery(sql);
+					while(resultado2.next()) {
+						id_oferta = resultado2.getString("id_oferta");
+						System.out.println("Hola");
+						num ++;
+					}
+				} catch (SQLException e) {
+					System.out.println("Fallo al buscar1");
+					e.printStackTrace();
+				}
+			}
+			System.out.println(valor);
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar2");
+			System.out.println("Fallo al buscar222222222222");
 		}
+		System.out.println(id_oferta);
 		//Obtener id de los articulos
 		if(articulo.equals("")) {
-//			//Tenemos que comprobar que el descuento existe y si es asi se reutiliza la id. Si es una categoria hay que sacar todo los id_articulo.			
+			//Tenemos que comprobar que el descuento existe y si es asi se reutiliza la id. Si es una categoria hay que sacar todo los id_articulo.			
 			String sql4 = "SELECT id_categoria FROM categoria WHERE nombre = '"+categoria+"'";
 			try {
 				st=(Statement) con.createStatement();
@@ -758,6 +768,7 @@ public class Gestion  {
 							st2.executeUpdate(sql2);
 						} catch (SQLException e) {
 							System.out.println("Fallo al buscar4");
+							System.out.println(id_oferta +"/"+ id_articulo);
 							e.printStackTrace();
 						}									
 				 }
@@ -782,7 +793,7 @@ public class Gestion  {
 	}
 	
 	public ArrayList<String> recorrerOferta() throws SQLException {
-		String id_articulo;
+		String id_oferta;
 		ArrayList<String> ofertas = new ArrayList<String>();
 		
 		con = cx.getConexion();
@@ -792,15 +803,17 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
 			while(resultado.next()) {
-				id_articulo = resultado.getString("id_articulogenerico_aux");
-				String sql2 = "SELECT nombre FROM articulogenerico WHERE id_generico = '"+id_articulo+"'";
+				id_oferta = resultado.getString("id_oferta");
+				String sql2 = "SELECT nombre FROM articulogenerico WHERE id_oferta_aux = '"+id_oferta+"'";
 				
 				try {
 					st2=(Statement) con.createStatement();
 					resultado2 = st2.executeQuery(sql2);
 					while(resultado2.next()) {
-						ofertas.add(resultado2.getString("nombre"));
-						ofertas.add(resultado.getString("descuento"));
+						if(!resultado.getString("descuento").equals("0.000")) {
+							ofertas.add(resultado2.getString("nombre"));
+							ofertas.add(resultado.getString("descuento"));
+						}						
 					}
 				} catch (SQLException e) {
 					System.out.println("Fallo al buscarPrimoooooooooooo");

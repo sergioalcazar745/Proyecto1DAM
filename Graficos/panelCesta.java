@@ -80,7 +80,6 @@ public class panelCesta extends JPanel {
 				@Override
 				public void componentHidden(ComponentEvent evento) {
 					Object name=evento.getComponent().getName();
-					System.out.println("NAME: "+name);
 					Component[] array_componentes=getComponents();
 					for(int i=0; i<array_componentes.length; i++) {
 						if(array_componentes[i] instanceof JPanel) {
