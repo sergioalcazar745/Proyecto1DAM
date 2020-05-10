@@ -100,7 +100,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
 	public VentanaPrincipal() throws Exception{
-		gdb.stock("Bermuda Denim Mom Fit", "M");
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
 	    FileInputStream in = new FileInputStream(f);

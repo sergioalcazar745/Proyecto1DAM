@@ -822,10 +822,35 @@ public class Gestion  {
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscarSus muertoooooooooos");
 		}
-		for(String n : ofertas) {
-			System.out.println("Sergio" + n);
-		}
 		return ofertas;
+	}
+	
+	public String buscarOfertaArticulo(String nombre) throws SQLException {
+		String id_oferta = null, descuento = null;
+		con = cx.getConexion();		
+		String sql = "SELECT id_oferta_aux FROM articulogenerico WHERE nombre = '"+nombre+"'";
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_oferta = resultado.getString("id_oferta_aux");
+			}
+			String sql2 = "SELECT descuento FROM oferta WHERE id_oferta = '"+id_oferta+"'";
+			try {
+				st2=(Statement) con.createStatement();
+				resultado2=st2.executeQuery(sql2);
+				if(resultado2.next()) {
+					descuento = resultado2.getString("descuento");
+				}
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar666666666666666666666666666666666666");
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar64");
+			e.printStackTrace();
+		}
+		return descuento;
 	}
 	
 	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {
@@ -857,9 +882,6 @@ public class Gestion  {
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
-	
 }
