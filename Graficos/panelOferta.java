@@ -14,6 +14,7 @@ import Base_de_datos.Gestion;
 import Base_de_datos.conexion;
 
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -39,7 +40,7 @@ import java.beans.PropertyChangeListener;
 public class panelOferta extends JPanel implements ActionListener{
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private String [] Datos = new String [3];
+	private String [] Datos = new String [2];
 	private JTextField tfPorcentaje;
 	private ResultSet resultado;
 	private Connection con;
@@ -49,15 +50,15 @@ public class panelOferta extends JPanel implements ActionListener{
 	private JComboBox comboBox_Categoria;
 	private JButton btnAñadir;
 	private ArrayList<String> oferta = new ArrayList<String>();
+	private JButton btnInfo;
 
-	public panelOferta() {
+	public panelOferta() throws SQLException {
 		setBackground(Color.WHITE);
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
 		
 		table = new JTable();
 		modelo.addColumn("Articulo");
-		modelo.addColumn("Categoria");
 		modelo.addColumn("Porcentaje");
 		table.setModel(modelo);
 		
@@ -112,25 +113,33 @@ public class panelOferta extends JPanel implements ActionListener{
 		btnAñadir.setFocusPainted(false);
 		add(btnAñadir);
 		
-		JButton btnNewButton = new JButton("ExplicacionOfertas");
-		btnNewButton.setBounds(96, 28, 85, 25);
-		add(btnNewButton);
+		btnInfo = new JButton("");
+		btnInfo.setIcon(new ImageIcon(panelOferta.class.getResource("/Imagenes/exclamacion_azul.png")));
+		btnInfo.addActionListener(this);
+		btnInfo.setBorderPainted(false);
+		btnInfo.setOpaque(false);
+		btnInfo.setContentAreaFilled(false);
+		btnInfo.setFocusPainted(false);
+		btnInfo.setBounds(516, 93, 37, 38);
+		add(btnInfo);
 		
-		comboBox_Nombres.addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-            	comboBox_Categoria.setSelectedIndex(0);
-            }
-        });
-		comboBox_Categoria.addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(PropertyChangeEvent evt) {
-            	comboBox_Nombres.setSelectedIndex(0);
-            }
-        });;
+		comboBox_Nombres.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				comboBox_Categoria.setSelectedIndex(0);
+			}
+		});
+		comboBox_Categoria.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				comboBox_Nombres.setSelectedIndex(0);
+			}
+		});
         
-        //Metodos
-		
+        //Metodos		
 		insertarArticulos();
 		insertarCategoria();
+//		insertarOfertas();
 	}
 	
 	protected void insertarArticulos(){
@@ -168,6 +177,36 @@ public class panelOferta extends JPanel implements ActionListener{
 		}
 	}
 	
+	protected void insertarOfertas() throws SQLException {
+		ArrayList<String> oferta = new ArrayList<String>();
+		oferta = gdb.recorrerOferta();
+		//System.out.println("Por dios illo" + oferta.size());
+		int j = 0;
+		for(int i = 0; i<oferta.size(); i++) {
+			Datos[j] = oferta.get(i);
+			System.out.println("Fila: " + Datos[j]);
+			j++;
+			if(j==2) {
+				j = 0;
+				modelo.addRow(Datos);
+			}
+		}
+
+	}
+	
+//	protected void eliminarTabla() {
+//	int filas=table.getRowCount();
+//	
+//	    try {
+//	        filas=table.getRowCount();
+//	        for (int i = 0;filas>i; i++) {
+//	            modelo.removeRow(0);
+//	        }
+//	    } catch (Exception e) {
+//	        JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+//	    }        
+//	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object evento = e.getSource();
@@ -178,28 +217,33 @@ public class panelOferta extends JPanel implements ActionListener{
 					//Compruebo para que los valores que le pasamos sean los correctos
 					JOptionPane.showMessageDialog(null, "Escribe algo");
 				}else {					
-					oferta = gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
-					
-					if(oferta.size() == 0) {
-						Datos[0] = comboBox_Nombres.getSelectedItem().toString();
-						Datos[1] = comboBox_Categoria.getSelectedItem().toString();
-						Datos[2] = tfPorcentaje.getText();
-						modelo.addRow(Datos);
-					}else {
-						int j = 0;
-						for(int i = 0; i<oferta.size(); i++) {
-							Datos[j] = oferta.get(j);
-							modelo.addRow(Datos);
-							j++;
-							if(j==3) {
-								j = 0;
-							}
-						}
-					}
+					gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
+					modelo.getDataVector().removeAllElements();
+					insertarOfertas();
+//					if(oferta.size() == 0) {
+//						Datos[0] = comboBox_Nombres.getSelectedItem().toString();
+//						Datos[1] = comboBox_Categoria.getSelectedItem().toString();
+//						Datos[2] = tfPorcentaje.getText();
+//						modelo.addRow(Datos);
+//					}else {
+//						int j = 0;
+//						for(int i = 0; i<oferta.size(); i++) {
+//							Datos[j] = oferta.get(j);
+//							modelo.addRow(Datos);
+//							j++;
+//							if(j==3) {
+//								j = 0;
+//							}
+//						}
+//					}
 				}				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}else if(evento.equals(btnInfo)) {
+			ExplicacionOfertas eo = new ExplicacionOfertas();
+			eo.setModal(true);
+			eo.setVisible(true);
 		}
 	}
 	protected JComboBox getComboBox_Nombres() {
@@ -210,5 +254,8 @@ public class panelOferta extends JPanel implements ActionListener{
 	}
 	protected JButton getBtnAñadir() {
 		return btnAñadir;
+	}
+	protected JButton getBtnInfo() {
+		return btnInfo;
 	}
 }

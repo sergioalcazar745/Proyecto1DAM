@@ -212,7 +212,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				((Graficos.panelAsignarCategoria) panelAsignarCategoria).eliminarCategorias();
 				((Graficos.panelAsignarCategoria) panelAsignarCategoria).insertarCategoria();				
 				tabbedPane.remove(2);
-				JPanel panelOferta = new panelOferta();
+				JPanel panelOferta = null;
+				try {
+					panelOferta = new panelOferta();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				tabbedPane.addTab("Oferta", null, panelOferta, null);
 				tabbedPane.repaint();
 				tabbedPane.revalidate();
@@ -224,7 +230,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent arg0) {
 				((Graficos.panelAsignarCategoria) panelAsignarCategoria).añadirCategoria();			
 				tabbedPane.remove(2);
-				JPanel panelOferta = new panelOferta();
+				JPanel panelOferta = null;
+				try {
+					panelOferta = new panelOferta();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				tabbedPane.addTab("Oferta", null, panelOferta, null);
 				tabbedPane.repaint();
 				tabbedPane.revalidate();
