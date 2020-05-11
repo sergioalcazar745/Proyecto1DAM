@@ -318,7 +318,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			precio=precio_articulo*Double.parseDouble(spinner.getValue().toString());
 		}
 		lblValorPrecio.setText(String.valueOf(precio));
-	//hacer las cuentas
+	//hacer las cueentas
 		
 	}
 	protected JSpinner getSpinner() {
