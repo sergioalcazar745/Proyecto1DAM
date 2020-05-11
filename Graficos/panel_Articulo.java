@@ -255,8 +255,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
 		}else if(evento.equals(comboBox_Tallas)) {
-			calcularPrecio();
 			lblNewLabel_2.setText("");
+			calcularPrecio();
 		}else if(evento.equals(btnComprar)) {
 			//quitar los objetos y comprobar que has iniciado sesion
 			if(gdb.getSesionIniciada()==false) {
