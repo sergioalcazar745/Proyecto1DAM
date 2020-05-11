@@ -826,7 +826,7 @@ public class Gestion  {
 	}
 	
 	public String buscarOfertaArticulo(String nombre) throws SQLException {
-		String id_oferta = null, descuento = null;
+		String id_oferta = "", descuento = "";
 		con = cx.getConexion();		
 		String sql = "SELECT id_oferta_aux FROM articulogenerico WHERE nombre = '"+nombre+"'";
 		try {
@@ -840,7 +840,9 @@ public class Gestion  {
 				st2=(Statement) con.createStatement();
 				resultado2=st2.executeQuery(sql2);
 				if(resultado2.next()) {
-					descuento = resultado2.getString("descuento");
+					if(!resultado2.getString("descuento").equals("0.000")) {
+						descuento = resultado2.getString("descuento");
+					}
 				}
 			} catch (SQLException e) {
 				System.out.println("Fallo al buscar666666666666666666666666666666666666");

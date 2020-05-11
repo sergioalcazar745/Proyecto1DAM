@@ -46,6 +46,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblNewLabel_2 = new JLabel("");
 	JButton btnComprar = new JButton("");
 	String nombre_articulo;
+	JLabel lblValorDescuento = new JLabel("");
+	JLabel lblValorPrecio;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
@@ -117,6 +119,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		spinner.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				lblNewLabel_2.setText("");
+				 calcularPrecio();
 			}
 		});
 		spinner.setBounds(470, 254, 80, 22);
@@ -185,7 +188,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNewLabel_2.setForeground(Color.RED);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(372, 393, 189, 16);
+		lblNewLabel_2.setBounds(372, 403, 189, 16);
 		add(lblNewLabel_2);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
@@ -206,10 +209,22 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(lblDescuento);
 		
 		JLabel lblValorDescuento = new JLabel("");
+		lblValorDescuento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblValorDescuento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValorDescuento.setBounds(470, 363, 80, 23);
 		add(lblValorDescuento);
-		lblTalla_comprada.setVisible(false);
+		lblValorDescuento.setVisible(false);
 		
+		try {
+			if(!gdb.buscarOfertaArticulo(nombre_articulo).equals("")) {
+				lblDescuento.setVisible(true);
+				lblValorDescuento.setVisible(true);
+				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo)+"%");
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//System.out.println("hitles aprueba"+lblStock);
 		
 		
@@ -240,6 +255,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		}else if(evento.equals(btnVolver)) {
 			setVisible(false);
 		}else if(evento.equals(comboBox_Tallas)) {
+			calcularPrecio();
 			lblNewLabel_2.setText("");
 		}else if(evento.equals(btnComprar)) {
 			//quitar los objetos y comprobar que has iniciado sesion
@@ -286,6 +302,10 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	}
 	protected JLabel getLblTalla() {
 		return lblTalla;
+	}
+	public void calcularPrecio() {
+		Double precio=0.0;
+	//hacer las cuentas
 	}
 	protected JSpinner getSpinner() {
 		return spinner;
