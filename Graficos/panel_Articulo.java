@@ -47,7 +47,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JButton btnComprar = new JButton("");
 	String nombre_articulo;
 	JLabel lblValorDescuento = new JLabel("");
-	JLabel lblValorPrecio;
+	JLabel lblValorPrecio = new JLabel("-");
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
@@ -119,16 +119,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		spinner.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				lblNewLabel_2.setText("");
-				 calcularPrecio();
+				if(!lblNumeroStock.equals("0") && Integer.parseInt(spinner.getValue().toString())>0) {
+					 calcularPrecio();
+				}
 			}
 		});
 		spinner.setBounds(470, 254, 80, 22);
 		add(spinner);
-		comboBox_Tallas.addActionListener(new ActionListener() {//este action listener lo metermos dentro puesto que no podemos pasar parametros al action listener
-			public void actionPerformed(ActionEvent arg0) {
-				actualizarTallas();
-			}
-		});
 		
 		
 		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
@@ -196,7 +193,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblPrecio.setBounds(370, 308, 74, 23);/*setBounds(370, 283, 74, 23);*/
 		add(lblPrecio);
 		
-		JLabel lblValorPrecio = new JLabel("-");
 		lblValorPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblValorPrecio.setBounds(470, 308, 80, 23);/*setBounds(370, 283, 74, 23);*/
 		lblValorPrecio.setHorizontalAlignment(SwingConstants.CENTER);
@@ -208,10 +204,10 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblDescuento.setBounds(370, 362, 75, 16);
 		add(lblDescuento);
 		
-		JLabel lblValorDescuento = new JLabel("");
+		//JLabel lblValorDescuento = new JLabel("");
 		lblValorDescuento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblValorDescuento.setHorizontalAlignment(SwingConstants.CENTER);
-		lblValorDescuento.setBounds(470, 363, 80, 23);
+		lblValorDescuento.setBounds(470, 359, 80, 23);
 		add(lblValorDescuento);
 		lblValorDescuento.setVisible(false);
 		
@@ -219,7 +215,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			if(!gdb.buscarOfertaArticulo(nombre_articulo).equals("")) {
 				lblDescuento.setVisible(true);
 				lblValorDescuento.setVisible(true);
-				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo)+"%");
+				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo));
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -256,7 +252,10 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			setVisible(false);
 		}else if(evento.equals(comboBox_Tallas)) {
 			lblNewLabel_2.setText("");
-			calcularPrecio();
+			actualizarTallas();
+			if(Integer.parseInt(spinner.getValue().toString())>0) {
+				calcularPrecio();
+			}
 		}else if(evento.equals(btnComprar)) {
 			//quitar los objetos y comprobar que has iniciado sesion
 			if(gdb.getSesionIniciada()==false) {
@@ -304,8 +303,23 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		return lblTalla;
 	}
 	public void calcularPrecio() {
+		Double precio_articulo=0.0;
+		try {
+			precio_articulo = Double.parseDouble(gdb.devolverPrecioDeCategoria(nombre_articulo));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		Double precio=0.0;
+		System.out.println("descuentO: "+lblValorDescuento.getText()+"/"+"SPINNER: "+spinner.getValue().toString());
+		if(!lblValorDescuento.getText().equals("")) {
+			precio=( ((100-Double.parseDouble(lblValorDescuento.getText()))/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString())  );
+
+		}else {
+			precio=precio_articulo*Double.parseDouble(spinner.getValue().toString());
+		}
+		lblValorPrecio.setText(String.valueOf(precio));
 	//hacer las cuentas
+		
 	}
 	protected JSpinner getSpinner() {
 		return spinner;
