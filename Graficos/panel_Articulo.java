@@ -78,8 +78,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		}
 		textArea.setText(descripcion);
 		textArea.setBounds(372, 154, 284, 80);
-		add(textArea);
-		
+		add(textArea);		
 		
 		btnComprar.addActionListener(this);
 		btnComprar.setBackground(Color.WHITE);
@@ -90,8 +89,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnComprar.setContentAreaFilled(false);
 		btnComprar.setFocusPainted(false);
 		add(btnComprar);
-		btnComprar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+		btnComprar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));		
 
 		btnCesta.setBackground(Color.WHITE);
 		btnCesta.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/boton_cesta.png")));
@@ -193,7 +191,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblPrecio.setBounds(370, 308, 74, 23);/*setBounds(370, 283, 74, 23);*/
 		add(lblPrecio);
 		
-		lblValorPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblValorPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblValorPrecio.setBounds(470, 308, 80, 23);/*setBounds(370, 283, 74, 23);*/
 		lblValorPrecio.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblValorPrecio);
@@ -205,7 +203,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(lblDescuento);
 		
 		//JLabel lblValorDescuento = new JLabel("");
-		lblValorDescuento.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblValorDescuento.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblValorDescuento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValorDescuento.setBounds(470, 359, 80, 23);
 		add(lblValorDescuento);
