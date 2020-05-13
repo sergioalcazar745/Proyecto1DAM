@@ -648,7 +648,7 @@ public class Gestion  {
 			descripcion_aux+=descripcion.charAt(i);
 			salto_linea++;
 			if(salto_linea==42) {
-				descripcion_aux+="n";
+				descripcion_aux+="\n";
 				salto_linea=0;
 			}
 		}
@@ -954,5 +954,23 @@ public class Gestion  {
 				e.printStackTrace();
 			}
 		}
+	}
+	public String devolverPrecioCesta() {
+		double a=0;
+		String precio="";
+		try {
+			for (Articulos art : array_articulosCesta) {
+				a+=art.getCantidad()*Double.parseDouble(devolverPrecioDeCategoria(art.getNombre()));
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		precio=String.valueOf(a);
+		//System.out.println("hitleeeerr: "+precio);
+		return precio;
 	}
 }

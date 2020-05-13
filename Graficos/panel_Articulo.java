@@ -50,6 +50,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblValorPrecio = new JLabel("-");
 	Double entero_descuento;
 	JLabel lblTalla_comprada = new JLabel("New label");
+	private JLabel lblEliminar;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
@@ -156,7 +157,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNumeroStock.setBounds(470, 334, 80, 23);
 		add(lblNumeroStock);
 		
-		JLabel lblEliminar = new JLabel("");
+		lblEliminar = new JLabel("");
 		lblEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -196,6 +197,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblValorPrecio.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblValorPrecio.setBounds(470, 308, 80, 23);/*setBounds(370, 283, 74, 23);*/
 		lblValorPrecio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblValorPrecio.setName("lblValorPrecio");
 		add(lblValorPrecio);
 		
 		JLabel lblDescuento = new JLabel("Descuento:");
@@ -349,5 +351,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	}
 	protected JSpinner getSpinner() {
 		return spinner;
+	}
+	public JLabel getLblEliminar() {
+		return lblEliminar;
 	}
 }

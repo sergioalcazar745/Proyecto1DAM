@@ -28,6 +28,8 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class panelAsignarCategoria extends JPanel implements ActionListener{
 	private DefaultTableModel modelo = new DefaultTableModel();

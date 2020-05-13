@@ -100,7 +100,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
 	private JButton btnVaciar;
+	JLabel lblNewLabel_3 = new JLabel("");
 	JButton btnFinalizarComprar = new JButton("");
+	JPanel panel_Menu = new JPanel();
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
@@ -168,7 +170,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				lblNewLabel_2.setBounds(544, 468, 86, 19);
 				panel_Cesta.add(lblNewLabel_2);
 				
-				JLabel lblNewLabel_3 = new JLabel("9850");
 				lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_3.setBounds(634, 470, 94, 19);
@@ -286,7 +287,15 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
 				if(gdb.getSesionIniciada()) {
-					btnAccount.setVisible(true);
+					if(gdb.getCliente()==true) {
+						btnAccount.setVisible(true);
+						panel_Menu.remove(btnShop);
+						panel_Menu.add(btnAccount);
+					}else {
+						System.out.println("administrador");
+						panel_Menu.remove(btnAccount);
+						panel_Menu.add(btnShop);
+					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
 				}
@@ -313,7 +322,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		separator.setBounds(12, 149, 198, 2);
 		panel.add(separator);		
 
-		btnHome = new JButton("HOME");
+		btnHome = new JButton("Inicio");
 		btnHome.addActionListener(this);
 		btnHome.setForeground(Color.WHITE);
 		btnHome.setFont(dynamicFont32Pt);
@@ -322,9 +331,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnHome.setOpaque(false);
 		btnHome.setContentAreaFilled(false);
 		btnHome.setFocusPainted(false);
-		panel.add(btnHome);
 		
-		btnAccount = new JButton("ACCOUNT");
+		btnAccount = new JButton("Cuenta");
 		btnAccount.setVisible(false);
 		btnAccount.addActionListener(this);
 		btnAccount.setForeground(Color.WHITE);
@@ -334,9 +342,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnAccount.setOpaque(false);
 		btnAccount.setContentAreaFilled(false);
 		btnAccount.setFocusPainted(false);
-		panel.add(btnAccount);
 
-		btnShop = new JButton("SHOPPING");
+		btnShop = new JButton("Suministros");
 		btnShop.addActionListener(this);
 		btnShop.setForeground(Color.WHITE);
 		btnShop.setFont(dynamicFont32Pt);
@@ -345,18 +352,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnShop.setOpaque(false);
 		btnShop.setContentAreaFilled(false);
 		btnShop.setFocusPainted(false);
-		panel.add(btnShop);
-		
-		JButton btnSetting = new JButton("SETTING");
-		btnSetting.setForeground(Color.WHITE);
-		btnSetting.setFont(dynamicFont32Pt);
-		btnSetting.setBounds(12, 316, 198, 25);
-		btnSetting.setBorderPainted(false);
-		btnSetting.setOpaque(false);
-		btnSetting.setContentAreaFilled(false);
-		btnSetting.setFocusPainted(false);
-		btnSetting.setVisible(false);
-		panel.add(btnSetting);
 		
 		btnSignOut = new JButton("Iniciar Sesion");
 		btnSignOut.addActionListener(this);
@@ -379,7 +374,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(btnSalir);
 		JButton btnNewButton = new JButton("Borrar");
 		
-		btnCesta = new JButton("CESTA");
+		btnCesta = new JButton("Cesta");
 		btnCesta.addActionListener(this);
 		btnCesta.setForeground(Color.WHITE);
 		btnCesta.setFont(dynamicFont32Pt);
@@ -388,7 +383,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnCesta.setOpaque(false);
 		btnCesta.setContentAreaFilled(false);
 		btnCesta.setFocusPainted(false);
-		panel.add(btnCesta);
+		
+		panel_Menu.setBackground(new Color(36,41,46));
+		panel_Menu.setBounds(0, 149, 222, 146);
+		panel.add(panel_Menu);
+		panel_Menu.setLayout(new GridLayout(4, 0, 0, 0));
+		panel_Menu.add(btnHome);
+		panel_Menu.add(btnCesta);
 //		panel_articulos_filtros.addComponentListener(new ComponentAdapter() {
 //			@Override
 //			public void componentHidden(ComponentEvent arg0) {
@@ -396,6 +397,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //				textField_filtro.setVisible(false);
 //			}
 //		});
+		
+		
+
 		
 	}
 	private void addTab(String string, Object object, JPanel panelAdministrador, Object object2) {
@@ -436,6 +440,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				gdb.setSesionIniciada(false);
 				panel_2.setVisible(true);
 				btnSignOut.setText("Iniciar Sesion");
+				panel_Menu.remove(btnAccount);
+				panel_Menu.remove(btnShop);
 			}
 		}else if(evento.equals(btnShop)) {
 			desactivarPaneles();
@@ -471,6 +477,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			}else {
 				scrollPane_Cesta.setBounds(0, 0, 853, 469);
 			}
+			lblNewLabel_3.setText(gdb.devolverPrecioCesta());
+			panelCesta.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent evt) {
+					lblNewLabel_3.setText(gdb.devolverPrecioCesta());
+					scrollPane_Cesta.setBounds(0, 0, 853, 544);
+				}
+			});
 			panel_Cesta.setVisible(true);
 			panel_Cesta.revalidate();
 			panel_Cesta.repaint();

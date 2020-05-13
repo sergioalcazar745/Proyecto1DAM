@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
@@ -64,7 +65,17 @@ public class panelCesta extends JPanel {
 							}else {
 								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getTalla()));
 							}
-						}
+						}else if(componentes[i].getName().equals("lblValorPrecio")) {
+							//System.out.println("miami");
+							try {
+								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getCantidad()*Double.parseDouble(gdb.devolverPrecioDeCategoria(nombre_articulo.getNombre()))));
+							} catch (NumberFormatException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}						}
 					}
 				}
 			}
@@ -95,17 +106,12 @@ public class panelCesta extends JPanel {
 							}
 						}
 					}
+					panelVacio();
 				}
 			});
 		}
-		if(fila==0) {
-			JLabel lblNewLabel = new JLabel("No hay articulos en la cesta");
-	        lblNewLabel.setForeground(Color.GRAY);
-	        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
-	        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-	        lblNewLabel.setBounds(0, 0, 853, 496);
-	        add(lblNewLabel);
-		}
+		System.out.println("hitler con tu abuela: "+fila);
+		panelVacio();
 		setPreferredSize(new Dimension(825, 496*array_articulos.size()));
 		
 		//insertamos toods los paneles de articulo
@@ -117,6 +123,17 @@ public class panelCesta extends JPanel {
 			if(components[i] instanceof JButton) {
 				components[i].setVisible(false);
 			}
+		}
+	}
+	public void panelVacio() {
+		if(fila==0) {
+			System.out.println("hitler");
+			JLabel lblNewLabel = new JLabel("No hay articulos en la cesta");
+	        lblNewLabel.setForeground(Color.GRAY);
+	        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
+	        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+	        lblNewLabel.setBounds(0, 0, 853, 496);
+	        add(lblNewLabel);
 		}
 	}
 }
