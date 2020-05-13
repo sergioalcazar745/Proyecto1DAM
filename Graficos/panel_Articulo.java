@@ -49,6 +49,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblValorDescuento = new JLabel("");
 	JLabel lblValorPrecio = new JLabel("-");
 	Double entero_descuento;
+	JLabel lblTalla_comprada = new JLabel("New label");
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
@@ -161,7 +162,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblEliminar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				gdb.eliminarCesta(nombre_articulo);
+				gdb.eliminarCesta(nombre_articulo, lblTalla_comprada.getText());
 				setVisible(false);
 			}
 		});
@@ -177,7 +178,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(lblCantidad);
 		lblCantidad.setVisible(false);
 		
-		JLabel lblTalla_comprada = new JLabel("New label");
+		
 		lblTalla_comprada.setName("lblTalla_comprada");
 		lblTalla_comprada.setBounds(471, 283, 79, 22);
 		add(lblTalla_comprada);
@@ -243,9 +244,23 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
 				lblNewLabel_2.setForeground(Color.RED);
 			}else {
-				lblNewLabel_2.setText("*Añadido a la cesta");
 				lblNewLabel_2.setForeground(Color.GREEN);
-				gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+				//comprobar el numero de articulos que lleva en la cesta y del numero de stock.
+				int numero_stock=0;
+				try {
+					numero_stock=gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString());
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				if((gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString())+(int)spinner.getValue()) > numero_stock) {
+					lblNewLabel_2.setText("*No hay suficientes articulos");
+				}else {
+					lblNewLabel_2.setText("*Añadido a la cesta");
+					System.out.println(gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString())+"-cantidad");
+					//System.out.println((lblNumeroStock.getText()+spinner.getValue()) +"-stock");
+					gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+				}
 				actualizarTallas();
 			}
 			//Buscamos si ya existe el objeto con los mismos valores y si lo encuentra que llame al setCantidad.
@@ -261,7 +276,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			//quitar los objetos y comprobar que has iniciado sesion
 			if(gdb.getSesionIniciada()==false) {
 				lblNewLabel_2.setText("*Debes iniciar sesión para esta acción");
-			}else {
+			}else if(gdb.getCliente()==true){
 				try {
 					if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 						if(comboBox_Tallas.getSelectedItem().equals("")) {
@@ -283,6 +298,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			}else {
+				lblNewLabel_2.setText("*Solo los clientes pueden comprar");
 			}
 		}
 	}
@@ -291,9 +308,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	}
 	public void actualizarTallas() {
 		//Aqui que recoger el numero de tallas.
+		//restar los de la cesta.
+		int numero_cesta=0;
+		numero_cesta=gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString());
 		if(!comboBox_Tallas.getSelectedItem().equals("")) {
 			try {
-				lblNumeroStock.setText(String.valueOf(gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())));
+				numero_cesta=gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())-numero_cesta;
+				lblNumeroStock.setText(String.valueOf(numero_cesta));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

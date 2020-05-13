@@ -1,8 +1,8 @@
 package Clases;
 
 public class Articulos {
-	public String nombre;
-	public String talla;
+	public String nombre="";
+	public String talla="";
 	public int cantidad;
 	
 	public Articulos(String nombre, String talla, int cantidad) {

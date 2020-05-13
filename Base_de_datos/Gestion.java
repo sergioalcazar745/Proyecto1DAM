@@ -36,6 +36,7 @@ public class Gestion  {
 		return sesionIniciada;
 	}
 	public void setSesionIniciada(boolean sesion) {
+		array_articulosCesta.clear();
 		this.sesionIniciada=sesion;
 	}
 	public Gestion() {
@@ -92,12 +93,13 @@ public class Gestion  {
 			array_articulosCesta.add(new Articulos(nombre, talla, cantidad));
 		}
 	}
-	public void eliminarCesta(String nombre_buscar) {
+	public void eliminarCesta(String nombre_buscar, String talla) {
 		Articulos nombre_eliminar;
 		Iterator<Articulos> it = array_articulosCesta.iterator(); 
-			while(it.hasNext()) {				 
+			while(it.hasNext()) {	
 				 nombre_eliminar= it.next();
-				if (nombre_buscar.equals(nombre_eliminar.getNombre())) {				 
+				 System.out.println(nombre_buscar+"/"+talla);
+				if (nombre_buscar.equals(nombre_eliminar.getNombre()) && talla.equals(nombre_eliminar.getTalla())) {				 
 					it.remove();
 				}
 			}
@@ -660,6 +662,15 @@ public class Gestion  {
 		}
 		System.out.println("stock: "+numero);
 		return numero;
+	}
+	public int devolverCantidadArticuloCesta(String nombre, String talla) {
+		int cantidad=0;
+			for (Articulos art : array_articulosCesta) {
+				if(nombre.equals(art.getNombre()) && talla.equals(art.getTalla())) {
+					cantidad=art.getCantidad();
+				}
+			}
+		return cantidad;
 	}
 	
 	public void comprarSuministros(String nombre, String talla, int cantidad) throws SQLException {
