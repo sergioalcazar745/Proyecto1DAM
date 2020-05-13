@@ -932,28 +932,31 @@ public class Gestion  {
 			//Insert Padre
 			Calendar fecha = Calendar.getInstance();
 			String mes,dia, año;
-			mes=String.valueOf(fecha.get(Calendar.MONTH));
+			mes=String.valueOf(fecha.get(Calendar.MONTH)+1);
 			dia=String.valueOf(fecha.get(Calendar.DAY_OF_MONTH));
 			año=String.valueOf(fecha.get(Calendar.YEAR));
 			String fecha_final=dia+"-"+mes+"-"+año;
 			System.out.println("hitler padre: "+"id_articulo: "+id_articulo+"\nid_oferta: "+id_oferta+"\nid_cliente: "+id_cliente+"\nfecha: "+fecha_final);
-			sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+8000+"','"+cantidad_aux+"','"+fecha_final+"')";
+			sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+devolverPrecioCesta()+"','"+cantidad_aux+"','"+fecha_final+"')";
 			st.executeUpdate(sql);
 		} catch (SQLException e) {
 			
 		}
 	}
 	
-	public void finalizarCompra() {
+	public boolean finalizarCompra() {
+		boolean correcto=false;
 		for (Articulos art : array_articulosCesta) {
 			try {
 				System.out.println("hitler art");
 				comprarArticulos(art.getNombre(), art.getTalla(), art.getCantidad());
+				correcto=true;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		return correcto;
 	}
 	public String devolverPrecioCesta() {
 		double a=0;

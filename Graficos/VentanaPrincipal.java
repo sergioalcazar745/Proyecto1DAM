@@ -470,23 +470,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 		}else if(evento.equals(btnCesta)) {
 			desactivarPaneles();
-			panelCesta=new panelCesta(gdb, cnx);
-			scrollPane_Cesta.setViewportView(panelCesta);
-			if(gdb.getArray_articulosCesta().size()==0) {
-				scrollPane_Cesta.setBounds(0, 0, 853, 544);	
-			}else {
-				scrollPane_Cesta.setBounds(0, 0, 853, 469);
-			}
-			lblNewLabel_3.setText(gdb.devolverPrecioCesta());
-			panelCesta.addPropertyChangeListener(new PropertyChangeListener() {
-				public void propertyChange(PropertyChangeEvent evt) {
-					lblNewLabel_3.setText(gdb.devolverPrecioCesta());
-					scrollPane_Cesta.setBounds(0, 0, 853, 544);
-				}
-			});
-			panel_Cesta.setVisible(true);
-			panel_Cesta.revalidate();
-			panel_Cesta.repaint();
+			crearPanelCesta();
 		}else if(evento.equals(btnVaciar)) {
 			gdb.vaciarArray_articulosCesta();
 			desactivarPaneles();
@@ -502,13 +486,42 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_Cesta.repaint();
 		}else if(evento.equals(btnFinalizarComprar)) {
 			//coger la cantigad el nombre y la talla
-			gdb.finalizarCompra();
+			if( gdb.getCliente()==true) {
+				if(gdb.finalizarCompra()) {
+					JOptionPane.showMessageDialog(null, "COMPRA REALIZADA");
+					gdb.vaciarArray_articulosCesta();
+					crearPanelCesta();
+				}
+			}
+			
+			
 
 		}
 	}
 	
 	protected JButton getBtnSalir() {
 		return btnSalir;
+	}
+	public void crearPanelCesta() {
+		panelCesta=new panelCesta(gdb, cnx);
+		scrollPane_Cesta.setViewportView(panelCesta);
+		if(gdb.getArray_articulosCesta().size()==0) {
+			scrollPane_Cesta.setBounds(0, 0, 853, 544);	
+		}else {
+			scrollPane_Cesta.setBounds(0, 0, 853, 469);
+		}
+		lblNewLabel_3.setText(gdb.devolverPrecioCesta());
+		panelCesta.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				lblNewLabel_3.setText(gdb.devolverPrecioCesta());
+				if(gdb.getArray_articulosCesta().size()==0) {
+					scrollPane_Cesta.setBounds(0, 0, 853, 544);
+				}
+			}
+		});
+		panel_Cesta.setVisible(true);
+		panel_Cesta.revalidate();
+		panel_Cesta.repaint();
 	}
 	
 	public void desactivarPaneles() {
