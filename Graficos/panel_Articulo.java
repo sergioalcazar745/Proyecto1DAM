@@ -48,6 +48,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	String nombre_articulo;
 	JLabel lblValorDescuento = new JLabel("");
 	JLabel lblValorPrecio = new JLabel("-");
+	Double entero_descuento;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
@@ -188,9 +189,9 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblNewLabel_2.setBounds(372, 403, 189, 16);
 		add(lblNewLabel_2);
 		
-		JLabel lblPrecio = new JLabel("Precio:");
+		JLabel lblPrecio = new JLabel("Precio Total:");
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPrecio.setBounds(370, 308, 74, 23);/*setBounds(370, 283, 74, 23);*/
+		lblPrecio.setBounds(370, 308, 104, 23);/*setBounds(370, 283, 74, 23);*/
 		add(lblPrecio);
 		
 		lblValorPrecio.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -215,7 +216,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			if(!gdb.buscarOfertaArticulo(nombre_articulo).equals("")) {
 				lblDescuento.setVisible(true);
 				lblValorDescuento.setVisible(true);
-				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo));
+				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo)+"%");
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
@@ -303,6 +304,12 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		return lblTalla;
 	}
 	public void calcularPrecio() {
+		try {
+			entero_descuento = Double.parseDouble(gdb.buscarOfertaArticulo(nombre_articulo));
+		}catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Double precio_articulo=0.0;
 		try {
 			precio_articulo = Double.parseDouble(gdb.devolverPrecioDeCategoria(nombre_articulo));
@@ -312,7 +319,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		Double precio=0.0;
 		System.out.println("descuentO: "+lblValorDescuento.getText()+"/"+"SPINNER: "+spinner.getValue().toString());
 		if(!lblValorDescuento.getText().equals("")) {
-			precio=( ((100-Double.parseDouble(lblValorDescuento.getText()))/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString())  );
+			precio=( ((100-entero_descuento)/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString())  );
 
 		}else {
 			precio=precio_articulo*Double.parseDouble(spinner.getValue().toString());
