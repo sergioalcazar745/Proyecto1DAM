@@ -485,7 +485,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_Cesta.revalidate();
 			panel_Cesta.repaint();
 		}else if(evento.equals(btnFinalizarComprar)) {
-			//coger la cantigad el nombre y la talla
+			//coger la cantigad el nombre y laa talla
 			if( gdb.getCliente()==true) {
 				if(gdb.finalizarCompra()) {
 					JOptionPane.showMessageDialog(null, "COMPRA REALIZADA");
