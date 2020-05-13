@@ -27,8 +27,16 @@ public class Gestion  {
 	ArrayList<String> array_datos=new ArrayList<String>();
 	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
 	boolean sesionIniciada=false;
+	String dinero_disponible;
 	boolean cliente = false;
 	
+	
+	public String getDinero_disponible() {
+		return dinero_disponible;
+	}
+	public void setDinero_disponible(String dinero_disponible) {
+		this.dinero_disponible = dinero_disponible;
+	}
 	public boolean getCliente() {
 		return cliente;
 	}
@@ -162,33 +170,9 @@ public class Gestion  {
 				System.out.println("Fallo al buscar2");
 				e.printStackTrace();
 			}
-		}else {
-			con = cx.getConexion();
-			String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";		
-			try {
-				st=(Statement) con.createStatement();
-				resultado = st.executeQuery(sql);				
-				while(resultado.next()) {
-					id=resultado.getString("id_persona");
-				}
-			}catch (SQLException e){
-				System.out.println("Fallo al buscar");
-				e.printStackTrace();
-			}
 	
-			String sql2 = "SELECT dinero_disponible FROM administrador WHERE id_persona_aux='"+id+"'";
-			
-			try {
-				st=(Statement) con.createStatement();
-				resultado = st.executeQuery(sql2);
-				while(resultado.next()) {
-					datos.add(resultado.getString("dinero_disponible"));
-				}
-			} catch (SQLException e) {
-				System.out.println("Fallo al buscar");
-				e.printStackTrace();
-			}
-		}		
+		}
+				
 		array_datos=datos;
 	}
 	public ArrayList getDatos() {
@@ -975,5 +959,22 @@ public class Gestion  {
 		precio=String.valueOf(a);
 		//System.out.println("hitleeeerr: "+precio);
 		return precio;
+	}
+	public double dineroDisponible() throws SQLException {
+		Double dinero=0.0;
+		con = cx.getConexion();
+		String sql2 = "SELECT dinero_disponible FROM administrador WHERE id_persona_aux='"+id+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql2);
+			while(resultado.next()) {
+				dinero_disponible=resultado.getString("dinero_disponible");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		return dinero;
 	}
 }
