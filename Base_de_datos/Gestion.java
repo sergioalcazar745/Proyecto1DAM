@@ -1,8 +1,12 @@
 package Base_de_datos;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import javax.swing.JOptionPane;
@@ -36,11 +40,16 @@ public class Gestion  {
 		return sesionIniciada;
 	}
 	public void setSesionIniciada(boolean sesion) {
-		array_articulosCesta.clear();
+		if(sesion==false) {
+			array_articulosCesta.clear();
+		}
 		this.sesionIniciada=sesion;
 	}
 	public Gestion() {
 		
+	}
+	public void vaciarArray_articulosCesta(){
+		array_articulosCesta.clear();
 	}
 	public ResultSet comprobarSesion(String correo) throws SQLException {		
 		int confirmar = 0;
@@ -81,8 +90,8 @@ public class Gestion  {
 	public void añadirCesta(String nombre, String talla, int cantidad) {
 		boolean existe = false;
 		for (Articulos articulos : array_articulosCesta) {
-			System.out.println(nombre + "\n" + cantidad);
-			System.out.println(articulos.getNombre() + "\n" + articulos.getTalla());
+			System.out.println(nombre + "n" + cantidad);
+			System.out.println(articulos.getNombre() + "n" + articulos.getTalla());
 			if(nombre.equals(articulos.getNombre()) && articulos.getTalla().equals(talla)) {
 				existe = true;
 				articulos.setCantidad(cantidad);				
@@ -639,7 +648,7 @@ public class Gestion  {
 			descripcion_aux+=descripcion.charAt(i);
 			salto_linea++;
 			if(salto_linea==42) {
-				descripcion_aux+="\n";
+				descripcion_aux+="n";
 				salto_linea=0;
 			}
 		}
@@ -853,7 +862,28 @@ public class Gestion  {
 		return descuento;
 	}
 	
+	public String buscarIdOfertaArticulo(String nombre) throws SQLException {
+		String id_oferta = "";
+		con = cx.getConexion();		
+		String sql = "SELECT id_oferta_aux FROM articulogenerico WHERE nombre = '"+nombre+"'";
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()) {
+				id_oferta = resultado.getString("id_oferta_aux");
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar64");
+			e.printStackTrace();
+		}
+		return id_oferta;
+	}
+	
 	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {
+		String id_oferta="";
+		int cantidad_aux=cantidad;
+		String id_cliente="", id_persona="";
+		System.out.println("comprado");
 		//se debe buscar el id del articulo_generico con el nombre.
 		String id_articulo = "";
 		con = cx.getConexion();		
@@ -881,6 +911,48 @@ public class Gestion  {
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
-		}		
+		}
+		System.out.println("hitler 2");
+		id_oferta=buscarIdOfertaArticulo(nombre);
+		sql = "SELECT id_persona FROM persona WHERE correo='"+array_datos.get(0)+"'";
+		System.out.println("hitler 3");
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(resultado.next()){
+				id_persona=resultado.getString("id_persona");
+			}
+			
+			sql = "SELECT id_cliente FROM cliente WHERE id_persona_aux='"+id_persona+"'";
+			resultado2 = st.executeQuery(sql);
+			if(resultado2.next()){
+				id_cliente=resultado2.getString("id_cliente");
+			}
+			System.out.println("hitler 4");
+			//Insert Padre
+			Calendar fecha = Calendar.getInstance();
+			String mes,dia, año;
+			mes=String.valueOf(fecha.get(Calendar.MONTH));
+			dia=String.valueOf(fecha.get(Calendar.DAY_OF_MONTH));
+			año=String.valueOf(fecha.get(Calendar.YEAR));
+			String fecha_final=dia+"-"+mes+"-"+año;
+			System.out.println("hitler padre: "+"id_articulo: "+id_articulo+"\nid_oferta: "+id_oferta+"\nid_cliente: "+id_cliente+"\nfecha: "+fecha_final);
+			sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+8000+"','"+cantidad_aux+"','"+fecha_final+"')";
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			
+		}
+	}
+	
+	public void finalizarCompra() {
+		for (Articulos art : array_articulosCesta) {
+			try {
+				System.out.println("hitler art");
+				comprarArticulos(art.getNombre(), art.getTalla(), art.getCantidad());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -99,6 +99,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JScrollPane scrollPane_Cesta;
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
+	private JButton btnVaciar;
+	JButton btnFinalizarComprar = new JButton("");
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
@@ -132,14 +134,45 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				panel_Cesta.setBackground(Color.WHITE);
 				panel_Cesta.setBounds(232, 11, 853, 544);
 				contentPane.add(panel_Cesta);
-				panel_Cesta.setLayout(new BorderLayout(0, 0));
 				panel_Cesta.setVisible(false);
+				panel_Cesta.setLayout(null);
 				
 				scrollPane_Cesta = new JScrollPane();
-				panel_Cesta.add(scrollPane_Cesta, BorderLayout.CENTER);
+				scrollPane_Cesta.setBounds(0, 0, 853, 469);
+				panel_Cesta.add(scrollPane_Cesta);
 				scrollPane_Cesta.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				scrollPane_Cesta.getVerticalScrollBar().setUnitIncrement(25);
 				scrollPane_Cesta.setViewportView(panelCesta);
+				
+				btnFinalizarComprar.addActionListener(this);
+				btnFinalizarComprar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/vaciar.png")));
+				btnFinalizarComprar.setBounds(644, 491, 188, 53);
+				btnFinalizarComprar.setBorderPainted(false);
+				btnFinalizarComprar.setOpaque(false);
+				btnFinalizarComprar.setContentAreaFilled(false);
+				btnFinalizarComprar.setFocusPainted(false);
+				panel_Cesta.add(btnFinalizarComprar);
+				
+				btnVaciar = new JButton("");
+				btnVaciar.addActionListener(this);
+				btnVaciar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/finalizar_compra_2.png")));
+				btnVaciar.setBounds(530, 491, 100, 53);
+				btnVaciar.setBorderPainted(false);
+				btnVaciar.setOpaque(false);
+				btnVaciar.setContentAreaFilled(false);
+				btnVaciar.setFocusPainted(false);
+				panel_Cesta.add(btnVaciar);
+				
+				JLabel lblNewLabel_2 = new JLabel("Precio Total:");
+				lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				lblNewLabel_2.setBounds(544, 468, 86, 19);
+				panel_Cesta.add(lblNewLabel_2);
+				
+				JLabel lblNewLabel_3 = new JLabel("9850");
+				lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+				lblNewLabel_3.setBounds(634, 470, 94, 19);
+				panel_Cesta.add(lblNewLabel_3);
 
 				
 				panel_2.setBackground(Color.WHITE);
@@ -433,9 +466,31 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			desactivarPaneles();
 			panelCesta=new panelCesta(gdb, cnx);
 			scrollPane_Cesta.setViewportView(panelCesta);
+			if(gdb.getArray_articulosCesta().size()==0) {
+				scrollPane_Cesta.setBounds(0, 0, 853, 544);	
+			}else {
+				scrollPane_Cesta.setBounds(0, 0, 853, 469);
+			}
 			panel_Cesta.setVisible(true);
 			panel_Cesta.revalidate();
 			panel_Cesta.repaint();
+		}else if(evento.equals(btnVaciar)) {
+			gdb.vaciarArray_articulosCesta();
+			desactivarPaneles();
+			panelCesta=new panelCesta(gdb, cnx);
+			scrollPane_Cesta.setViewportView(panelCesta);
+			if(gdb.getArray_articulosCesta().size()==0) {
+				scrollPane_Cesta.setBounds(0, 0, 853, 544);	
+			}else {
+				scrollPane_Cesta.setBounds(0, 0, 853, 469);
+			}
+			panel_Cesta.setVisible(true);
+			panel_Cesta.revalidate();
+			panel_Cesta.repaint();
+		}else if(evento.equals(btnFinalizarComprar)) {
+			//coger la cantigad el nombre y la talla
+			gdb.finalizarCompra();
+
 		}
 	}
 	
@@ -474,5 +529,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	}	
 	protected JPanel getPanelOferta() {
 		return panelOferta;
+	}
+	public JButton getBtnVaciar() {
+		return btnVaciar;
 	}
 }

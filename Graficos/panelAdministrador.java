@@ -154,7 +154,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		btnComprar.setFocusPainted(false);
 		comboBox_Tallas.addActionListener(this);
 		
-		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "X", "L", "XL", "XXL", "XXXL"}));
+		comboBox_Tallas.setModel(new DefaultComboBoxModel(new String[] {"", "S", "M", "L", "XL", "XXL", "XXXL"}));
 		comboBox_Tallas.setBounds(330, 87, 178, 26);
 		add(comboBox_Tallas);
 		
