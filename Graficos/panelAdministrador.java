@@ -174,6 +174,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		
 		insertarArticulos();
 		insertarProveedores();
+		insertarDinero();
 	}
 	public void insertarArticulos(){
 		
@@ -201,6 +202,15 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		
 		for(String n : nombres) {
 			comboBox_proveedor_1.addItem(n);
+		}
+	}
+	
+	public void insertarDinero() {
+		ArrayList<String>Datos=new ArrayList<String>();
+		gdb = new Gestion();
+		Datos = gdb.getDatos();
+		for (String a : Datos) {
+			tfDinero.setText(a);
 		}
 	}
 	@Override

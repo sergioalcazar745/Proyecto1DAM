@@ -197,12 +197,12 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 					
 					if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
 						JOptionPane.showMessageDialog(null, "Correcto");
-						//lblIniciado.setVisible(true);
 						lblInicio.setVisible(false);
 						lblImagenError.setVisible(false);
 						lblError.setVisible(false);
 						lblIncorrecto.setVisible(false);						
 						
+						boolean persona = gdb.comprobarTipoPersona(resultado.getString("id_persona"));
 						gdb.guardarDatos(tfCorreo.getText());
 						gdb.setSesionIniciada(true);
 						setVisible(false);
@@ -218,32 +218,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 						tfContraseña.setText("");
 					}
 				}
-//				while(resultado.next()) {
-//					
-//					if(resultado == null) {
-//						lblInicio.setVisible(false);
-//						lblImagenError.setVisible(true);
-//						lblError.setVisible(true);
-//						lblIncorrecto.setVisible(true);
-//						
-//						tfCorreo.setText("");
-//						tfContraseña.setText("");
-//						System.out.println("Hola");
-//					}else if(tfCorreo.getText().equals(resultado.getString("correo")) && tfContraseña.getText().equals(resultado.getString("contraseña"))) {
-//						JOptionPane.showMessageDialog(null, "Correcto");
-//						gdb.guardarDatos(tfCorreo.getText());
-//						gdb.setSesionIniciada(true);
-//						setVisible(false);
-//					}else {
-//						lblInicio.setVisible(false);
-//						lblImagenError.setVisible(true);
-//						lblError.setVisible(true);
-//						lblIncorrecto.setVisible(true);
-//						
-//						tfCorreo.setText("");
-//						tfContraseña.setText("");
-//					}
-//				}
+				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -261,9 +236,6 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	}
 	protected JLabel getLblIncorrecto() {
 		return lblIncorrecto;
-	}
-	public void hola() {
-		
 	}
 	protected JLabel getLblIniciado() {
 		return lblIniciado;

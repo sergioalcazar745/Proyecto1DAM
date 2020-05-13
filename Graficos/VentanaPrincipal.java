@@ -436,7 +436,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_Cesta.setVisible(true);
 			panel_Cesta.revalidate();
 			panel_Cesta.repaint();
-			//System.out.println("hola");
 		}
 	}
 	

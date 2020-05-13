@@ -23,6 +23,14 @@ public class Gestion  {
 	ArrayList<String> array_datos=new ArrayList<String>();
 	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
 	boolean sesionIniciada=false;
+	boolean cliente = false;
+	
+	public boolean getCliente() {
+		return cliente;
+	}
+	public void setCliente(boolean cliente) {
+		this.cliente=cliente;
+	}
 	
 	public boolean getSesionIniciada() {
 		return sesionIniciada;
@@ -48,7 +56,27 @@ public class Gestion  {
 		}
 		
 		return resultado;
-	}	
+	}
+	
+	public boolean comprobarTipoPersona (String id_persona) throws SQLException {
+		con = cx.getConexion();
+		String sql = "SELECT * FROM administrador WHERE id_persona_aux='"+id_persona+"'";
+		
+		try {
+			st=(Statement) con.createStatement();
+			resultado = st.executeQuery(sql);
+			if(!resultado.next()) {
+				setCliente(true);
+			}else {
+				setCliente(false);
+			}
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
 	public void añadirCesta(String nombre, String talla, int cantidad) {
 		boolean existe = false;
 		for (Articulos articulos : array_articulosCesta) {
@@ -81,58 +109,85 @@ public class Gestion  {
 	public void setArray_articulosCesta(ArrayList<Articulos> array_articulosCesta) {
 		this.array_articulosCesta = array_articulosCesta;
 	}
-	public void guardarDatos(String correo) throws SQLException {	
+	public void guardarDatos(String correo) throws SQLException {
 		ArrayList<String> datos=new ArrayList<String>();
-		String id = "";
+		String id = null;
 		int confirmar = 0;
-		
+	
 		con = cx.getConexion();
 		//cogemos el id;
-		String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";
-		
-		
-		try {
-			st=(Statement) con.createStatement();
-			resultado = st.executeQuery(sql);
-			
-			while(resultado.next()) {
-				datos.add(resultado.getString("correo"));
-				datos.add(resultado.getString("contraseña"));
-				datos.add(resultado.getString("telefono"));
-				id=(resultado.getString(1));
-			}
-
-			String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
-			
-				try {
-					st2=(Statement) con.createStatement();
-					resultado2 = st2.executeQuery(sql2);
-					while(resultado2.next()) {
-						datos.add(resultado2.getString("nombre"));
-						datos.add(resultado2.getString("apellidos"));
-						datos.add(resultado2.getString("fecha_nacimiento"));
-					}
-					
-				} catch (SQLException e) {
-					System.out.println("Fallo al buscar1");
-					e.printStackTrace();
+		System.out.println(getCliente());
+		if(getCliente() == true) {
+		String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";		
+			try {
+				st=(Statement) con.createStatement();
+				resultado = st.executeQuery(sql);
+				
+				while(resultado.next()) {
+					datos.add(resultado.getString("correo"));
+					datos.add(resultado.getString("contraseña"));
+					datos.add(resultado.getString("telefono"));
+					id=(resultado.getString(1));
 				}
+				System.out.println("id1" +id );
+				String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
+				
+					try {
+						st2=(Statement) con.createStatement();
+						resultado2 = st2.executeQuery(sql2);
+						while(resultado2.next()) {
+							System.out.println(resultado2.getString("nombre"));
+							datos.add(resultado2.getString("nombre"));
+							datos.add(resultado2.getString("apellidos"));
+							datos.add(resultado2.getString("fecha_nacimiento"));
+						}
+						
+					} catch (SQLException e) {
+						System.out.println("Fallo al buscar1");
+						e.printStackTrace();
+					}
+				
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar2");
+				e.printStackTrace();
+			}
+		}else {
+			con = cx.getConexion();
+			String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";		
+			try {
+				st=(Statement) con.createStatement();
+				resultado = st.executeQuery(sql);				
+				while(resultado.next()) {
+					id=resultado.getString("id_persona");
+				}
+			}catch (SQLException e){
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
+	
+			String sql2 = "SELECT dinero_disponible FROM administrador WHERE id_persona_aux='"+id+"'";
 			
-		} catch (SQLException e) {
-			System.out.println("Fallo al buscar2");
-			e.printStackTrace();
-		}
-	array_datos=datos;
-	System.out.println("array_datos: "+array_datos.size());
+			try {
+				st=(Statement) con.createStatement();
+				resultado = st.executeQuery(sql2);
+				while(resultado.next()) {
+					datos.add(resultado.getString("dinero_disponible"));
+				}
+			} catch (SQLException e) {
+				System.out.println("Fallo al buscar");
+				e.printStackTrace();
+			}
+		}		
+		array_datos=datos;
 	}
 	public ArrayList getDatos() {
-		System.out.println("array_datos get: "+array_datos.size());
 		return array_datos;
 	}
 	public ResultSet comprobarCliente(String id) throws SQLException {		
 		int confirmar = 0;
 		
 		con = cx.getConexion();
+		
 		String sql = "SELECT * FROM cliente WHERE id_cliente='"+id+"'";
 		
 		try {
@@ -146,6 +201,10 @@ public class Gestion  {
 		return resultado;
 	}
 	
+	protected Gestion(ArrayList<String> array_datos) {
+		super();
+		this.array_datos = array_datos;
+	}
 	public ResultSet recorrerCategorias() throws SQLException {				
 		
 		String sql = "SELECT * FROM categoria";
@@ -375,7 +434,6 @@ public class Gestion  {
 	public void eliminarArticuloCategoria(String nombre_articulo, String nombre_categoria) throws SQLException{		
 		boolean insertado = true;
 		String id_generico = null, id_categoria = null;
-		System.out.println("Hola");
 		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+nombre_articulo+"'";
 		
 		try {
@@ -628,79 +686,6 @@ public class Gestion  {
 		}		
 	}
 	
-//	public void crearOfertas(String articulo, String categoria, String valor) throws SQLException {
-//		String id_articulo = null, id_categoria = null;
-//		String correcto = null;
-//		int confirmar;
-//		ArrayList <String> ofertas = new ArrayList <String> ();
-//		
-//		con = cx.getConexion();		
-//		if(articulo.equals("")) {
-//			//Tenemos que comprobar que el descuento existe y si es asi se reutiliza la id. Si es una categoria hay que sacar todo los id_articulo.			
-//			String sql = "SELECT id_categoria FROM categoria WHERE nombre = '"+categoria+"'";
-//			try {
-//				st=(Statement) con.createStatement();
-//				resultado = st.executeQuery(sql);
-//				if(resultado.next()) {
-//					id_categoria = resultado.getString("id_categoria");
-//				}
-//			} catch (SQLException e) {
-//				System.out.println("Fallo al buscar");
-//				e.printStackTrace();
-//			}
-//			
-//			String sql3 = "SELECT id_articulogenerico_aux FROM pertenece WHERE id_categoria_aux = '"+id_categoria+"'";
-//			try {
-//				st=(Statement) con.createStatement();
-//				 resultado = st.executeQuery(sql3);
-//				 while (resultado.next()) {
-//					 id_articulo = resultado.getString("id_articulogenerico_aux");
-//						if(comprobarOfertaArticulo(id_articulo) == true) {
-//							JOptionPane.showMessageDialog(null, "Algunos articulos ya tienen ofertas");
-//						}
-//							String sql2 = "INSERT INTO oferta (descuento) values ('"+valor+"')";
-//							try {
-//								st2=(Statement) con.createStatement();
-//								confirmar = st2.executeUpdate(sql2);
-//							} catch (SQLException e) {
-//								System.out.println("Fallo al buscar");
-//								e.printStackTrace();
-//							}
-//									
-//				 }
-//			
-//			} catch (SQLException e) {
-//				System.out.println("Fallo al buscar");
-//				e.printStackTrace();
-//			}
-//		}else {
-//			String sql = "SELECT id_generico FROM articulogenerico WHERE nombre = '"+articulo+"'";
-//			try {
-//				st=(Statement) con.createStatement();
-//				resultado = st.executeQuery(sql);
-//				if(resultado.next()) {
-//					id_articulo = resultado.getString("id_generico");
-//				}
-//			} catch (SQLException e) {
-//				System.out.println("Fallo al buscar");
-//				e.printStackTrace();
-//			}
-//			
-//			if(comprobarOfertaArticulo(id_articulo) == true) {
-//				JOptionPane.showMessageDialog(null, "Este articulo ya tiene una oferta");
-//			}else {				
-//				String sql2 = "INSERT INTO oferta (descuento, id_articulogenerico_aux) values ('"+valor+"', '"+id_articulo+"')";
-//				try {
-//					st=(Statement) con.createStatement();
-//					 confirmar = st.executeUpdate(sql2);
-//				} catch (SQLException e) {
-//					System.out.println("Fallo al buscar");
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//	}
-	
 	public boolean crearOfertas (String articulo, String categoria, String valor) throws SQLException {
 		boolean oferta = false, existe = false;
 		int num = 0;
@@ -714,7 +699,7 @@ public class Gestion  {
 			while(resultado.next()) {
 				System.out.println(resultado.getString("descuento"));
 				System.out.println(valor);
-				if(Double.parseDouble(resultado.getString("descuento")) == Double.parseDouble(valor)) {
+				if(Integer.parseInt(resultado.getString("descuento")) == Integer.parseInt(valor)) {
 					id_oferta=resultado.getString("id_oferta");
 					existe = true;
 				}
@@ -728,7 +713,6 @@ public class Gestion  {
 					resultado2 = st2.executeQuery(sql);
 					while(resultado2.next()) {
 						id_oferta = resultado2.getString("id_oferta");
-						System.out.println("Hola");
 						num ++;
 					}
 				} catch (SQLException e) {
@@ -736,7 +720,7 @@ public class Gestion  {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(valor);
+			
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar222222222222");
 		}
@@ -878,7 +862,6 @@ public class Gestion  {
 					id_articulo = resultado.getString("id_articulo");
 					sql = "UPDATE articulos SET Disponible=0 WHERE id_articulo='"+id_articulo+"'";
 					st2.executeUpdate(sql);
-					System.out.println("hola: "+id_articulo+"/"+cantidad);
 					cantidad--;
 				}
 		} catch (SQLException e) {
