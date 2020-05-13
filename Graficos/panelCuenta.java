@@ -17,8 +17,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -215,7 +218,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		}else if(boton.equals(btnEditApellidos)) {
 			tfApellidos.setText(JOptionPane.showInputDialog("Introduzca los apellidos nuevos: "));
 		}else if(boton.equals(btnEditFechaNacimiento)) {
-			tfFecha_Nacimiento.setText(JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: "));
+			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: ");
 		}else if(boton.equals(btnEditTelefono)) {
 			tfTelefono.setText(JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
 		}else if(boton.equals(btnEditCorreo)) {
@@ -241,9 +244,10 @@ public class panelCuenta extends JPanel implements ActionListener{
 			try {
 				if(gdb.actualizarCampos(tfNombre.getText(), tfApellidos.getText(), tfFecha_Nacimiento.getText(), tfTelefono.getText(),tfCorreo.getText(), tfContraseña.getText())) {
 					JOptionPane.showMessageDialog(null, "Los campos han sido actualizados");
+				}else {
+					JOptionPane.showMessageDialog(null, "Alguno de los valores nuevos son incorrectos");
 				}
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -258,6 +262,13 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfContraseña.setText(datos.get(1));
 		tfContraseña.setEchoChar((char)'*');
 		tfTelefono.setText(datos.get(2));
+	}
+	
+	public boolean comprobarFecha(String fecha)throws Exception {
+		boolean correcto = false;
+		SimpleDateFormat fechaFormat=new SimpleDateFormat("dd/MM/yyyy");
+		Date date1=(Date) fechaFormat.parse(fecha); 
+		return correcto;	
 	}
 
 	public void setTfNombre(JTextField tfNombre) {

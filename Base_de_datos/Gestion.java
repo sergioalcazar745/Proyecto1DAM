@@ -476,7 +476,7 @@ public class Gestion  {
 	public boolean actualizarCampos (String nombre, String apellidos, String fecha_nacimiento, String telefono, String correo, String contraseña) throws SQLException{
 		boolean actualizado = false;
 		String id = null;
-		
+
 		String sql = "SELECT id_persona FROM persona WHERE correo = '"+correo+"' and contraseña = '"+contraseña+"'";
 		
 		try {
@@ -485,31 +485,34 @@ public class Gestion  {
 			resultado = st.executeQuery(sql);
 			if(resultado.next()) {
 				id = resultado.getString("id_persona");
+//				if(resultado.getString("correo").equals(correo) && resultado.getString("contraseña").equals(contraseña) && resultado.getString("telefono").equals(telefono)) {
+//					
+//				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		String sql2 = "UPDATE persona SET correo = '"+correo+"', contraseña = '"+contraseña+"', telefono = '"+telefono+"' WHERE correo = '"+correo+"' and contraseña = '"+contraseña+"'";
+		String sql2 = "UPDATE persona SET correo = '"+correo+"', contraseña = '"+contraseña+"', telefono = '"+Integer.parseInt(telefono)+"' WHERE correo = '"+correo+"' and contraseña = '"+contraseña+"'";
 		
 		try {
 			con = cx.getConexion();
 			st = (Statement) con.createStatement();
-			resultado = st.executeQuery(sql);
-			if(resultado.next()) {
-				id = resultado.getString("id_persona");
+			int confirmar = st.executeUpdate(sql2);
+			if(confirmar == 1) {
+				actualizado=true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Persona"+actualizado);
 		String sql3 = "UPDATE cliente SET nombre = '"+nombre+"', apellidos = '"+apellidos+"', fecha_nacimiento = '"+fecha_nacimiento+"' WHERE id_persona_aux = '"+id+"'";
 		
 		try {
 			con=cx.getConexion();
 			st= (Statement) con.createStatement();
 			int confirmar=st.executeUpdate(sql3);
-			if(confirmar ==1) {
+			if(confirmar == 1) {
 				actualizado=true;
 				st.close();
 				con.close();
@@ -517,7 +520,7 @@ public class Gestion  {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		System.out.println("Cliente"+actualizado);
 		return actualizado;
 	}
 	

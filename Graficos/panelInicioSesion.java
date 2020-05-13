@@ -129,6 +129,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		tfCorreo.setColumns(10);
 		
 		tfContraseña = new JPasswordField();
+		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(299, 318, 326, 28);
 		add(tfContraseña);
 		
@@ -221,8 +222,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
-			}
-			
+			}			
 		}
 	}
 	protected JLabel getLblImagenError() {
