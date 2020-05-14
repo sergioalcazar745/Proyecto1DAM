@@ -100,9 +100,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
 	private JButton btnVaciar;
-	JLabel lblNewLabel_3 = new JLabel("");
-	JButton btnFinalizarComprar = new JButton("");
-	JPanel panel_Menu = new JPanel();
+	private JLabel lblNewLabel_3 = new JLabel("");
+	private JButton btnFinalizarComprar = new JButton("");
+	private JPanel panel_Menu = new JPanel();
+	private JPanel panelAdministrador = new panelAdministrador(gdb, cnx);
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
@@ -232,7 +233,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		tabbedPane.setBackground(Color.WHITE);
 		panel_3.add(tabbedPane);
 		
-		JPanel panelAdministrador = new panelAdministrador();
 		tabbedPane.addTab("Suministros", null, panelAdministrador, null);
 		
 		JPanel panelAsignarCategoria = new panelAsignarCategoria();
@@ -292,12 +292,18 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 						panel_Menu.remove(btnShop);
 						panel_Menu.add(btnAccount);
 					}else {
-						System.out.println("administrador");
 						panel_Menu.remove(btnAccount);
 						panel_Menu.add(btnShop);
 					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
+					
+					try {
+						((Graficos.panelAdministrador) panelAdministrador).insertarDinero();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -402,10 +408,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 		
 	}
-	private void addTab(String string, Object object, JPanel panelAdministrador, Object object2) {
-		// TODO Auto-generated method stub
-		
-	}
 	protected JButton getBtnHome() {
 		return btnHome;
 	}
@@ -493,9 +495,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 					crearPanelCesta();
 				}
 			}
-			
-			
-
 		}
 	}
 	

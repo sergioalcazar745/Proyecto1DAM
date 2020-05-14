@@ -38,17 +38,16 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 	private JPasswordField tfContraseña;
 	private JButton btnEntrar;
 	private JButton btnRegistrarse;
-	private Gestion gt;
 	private ResultSet resultado;
 	private JTable table;
 	private JLabel lblImagenError;
 	private JLabel lblError;
 	private JLabel lblInicio;
 	private JLabel lblIncorrecto;
-	conexion conx=new conexion();
-	Gestion gdb=new Gestion();
-	ArrayList<String> datos=new ArrayList<String>();
-	String sesionIniciada = "";
+	private conexion conx=new conexion();
+	private Gestion gdb=new Gestion();
+	private ArrayList<String> datos=new ArrayList<String>();
+	private String sesionIniciada = "";
 	private JLabel lblIniciado;
 	
 	public String getSesionIniciada() {
@@ -168,7 +167,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		if(boton.equals(btnRegistrarse)) {
 			URL url=null;
 			try {
-			    url = new URL("http://www.google.es/");
+			    url = new URL("http://localhost/PROYECTO%20PAGINA/");
 			    try {
 			        Desktop.getDesktop().browse(url.toURI());
 			    } catch (IOException e1) {
@@ -180,11 +179,9 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			    e1.printStackTrace();
 			}
 			
-		}else if (boton.equals(btnEntrar)) {
-			gt = new Gestion();
-			
+		}else if (boton.equals(btnEntrar)) {			
 			try {				
-				resultado = gt.comprobarSesion(tfCorreo.getText());
+				resultado = gdb.comprobarSesion(tfCorreo.getText());
 				
 				if(!resultado.next()) {
 					lblInicio.setVisible(false);

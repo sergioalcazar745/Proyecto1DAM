@@ -3,14 +3,25 @@ package Clases;
 public class Articulos {
 	public String nombre="";
 	public String talla="";
-	public int cantidad;
-	
-	public Articulos(String nombre, String talla, int cantidad) {
+	public int cantidad = 0;
+	public double precio = 0;
+		
+	public Articulos(String nombre, String talla, int cantidad, double precio) {
+		super();
 		this.nombre = nombre;
 		this.talla = talla;
 		this.cantidad = cantidad;
+		this.precio = precio;
 	}
 	
+	public double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio += precio;
+	}
+
 	public int getCantidad() {
 		return cantidad;
 	}

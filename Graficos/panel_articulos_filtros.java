@@ -395,7 +395,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		for(int i=0; i<nombre_fotos.size(); i++) {
 			//recogemos el precio
 			try {
-				precio = gdb.devolverPrecioDeCategoria(nombre_fotos.get(i));
+				precio = gdb.devolverPrecioVentaDeCategoria(nombre_fotos.get(i));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

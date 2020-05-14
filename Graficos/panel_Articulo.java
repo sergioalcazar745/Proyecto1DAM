@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
@@ -257,9 +258,9 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 					lblNewLabel_2.setText("*No hay suficientes articulos");
 				}else {
 					lblNewLabel_2.setText("*Añadido a la cesta");
-					System.out.println(gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString())+"-cantidad");
-					//System.out.println((lblNumeroStock.getText()+spinner.getValue()) +"-stock");
-					gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
+					String price1 = lblValorPrecio.getText().replace(",", ".");
+					double price2 = Double.parseDouble(price1);
+					gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue(), price2);
 				}
 				actualizarTallas();
 			}
@@ -289,6 +290,9 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 						lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
 						lblNewLabel_2.setForeground(Color.RED);
 					}else {
+						String price1 = lblValorPrecio.getText().replace(",", ".");
+						double price2 = Double.parseDouble(price1);
+						gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue(), price2);
 						lblNewLabel_2.setText("*Compra realizada");
 						lblNewLabel_2.setForeground(Color.GREEN);
 						gdb.comprarArticulos(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
@@ -333,19 +337,20 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		}
 		Double precio_articulo=0.0;
 		try {
-			precio_articulo = Double.parseDouble(gdb.devolverPrecioDeCategoria(nombre_articulo));
+			precio_articulo = Double.parseDouble(gdb.devolverPrecioVentaDeCategoria(nombre_articulo));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		DecimalFormat df = new DecimalFormat("#.00");
 		Double precio=0.0;
-		System.out.println("descuentO: "+lblValorDescuento.getText()+"/"+"SPINNER: "+spinner.getValue().toString());
+		System.out.println("descuento: "+lblValorDescuento.getText()+"/"+"SPINNER: "+spinner.getValue().toString());
 		if(!lblValorDescuento.getText().equals("")) {
-			precio=( ((100-entero_descuento)/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString())  );
+			precio=( ((100-entero_descuento)/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString()));
 
 		}else {
 			precio=precio_articulo*Double.parseDouble(spinner.getValue().toString());
 		}
-		lblValorPrecio.setText(String.valueOf(precio));
+		lblValorPrecio.setText(String.valueOf(df.format(precio)));
 	//hacer las cueentas
 		
 	}

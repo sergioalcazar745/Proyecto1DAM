@@ -47,19 +47,21 @@ import javax.swing.event.ChangeEvent;
 public class panelAdministrador extends JPanel implements ActionListener{
 	private JTextField tfPrecioFinal;
 	private JTextField tfDinero;
-	JComboBox comboBox_Nombres = new JComboBox();
+	private JComboBox comboBox_Nombres = new JComboBox();
 	private conexion cx = new conexion();
 	private Connection con;
 	private ResultSet resultado;
 	private Gestion gdb;
-	private JComboBox comboBox_proveedor_1;
-	JSpinner spinner = new JSpinner();
-	JButton btnComprar = new JButton("COMPRAR");
-	JComboBox comboBox_Tallas = new JComboBox();
-	JLabel lblFalloCompra = new JLabel("");
+	private JComboBox comboBox_proveedor = new JComboBox();;
+	private JSpinner spinner = new JSpinner();
+	private JButton btnComprar = new JButton("COMPRAR");
+	private JComboBox comboBox_Tallas = new JComboBox();
+	private JLabel lblFalloCompra = new JLabel("");
+	private double precio = 0;
 	
-	public panelAdministrador() throws SQLException {
-				
+	public panelAdministrador(Gestion gdb, conexion cx) throws SQLException {
+		this.gdb = gdb;
+		this.cx = cx;
 		setBounds(232, 11, 853, 544);
 		setBackground(Color.WHITE);
 		setLayout(null);
@@ -77,10 +79,10 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		comboBox_Nombres.setBounds(32, 86, 211, 29);
 		add(comboBox_Nombres);
 		
-		comboBox_proveedor_1 = new JComboBox();
-		comboBox_proveedor_1.addActionListener(this);
-		comboBox_proveedor_1.setBounds(593, 86, 211, 29);
-		add(comboBox_proveedor_1);
+		comboBox_proveedor = new JComboBox();
+		comboBox_proveedor.addActionListener(this);
+		comboBox_proveedor.setBounds(593, 86, 211, 29);
+		add(comboBox_proveedor);
 		
 		JLabel lblNewLabel_2 = new JLabel("Cantidad:");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 16));
@@ -89,7 +91,16 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				lblFalloCompra.setText("");
-			}
+				try {
+//					System.out.println("Precio: "+gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()));
+//					System.out.println("Cantidad: "+(Integer) spinner.getValue());
+					precio = (Double.parseDouble(gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()))) * (Integer) spinner.getValue();
+					tfPrecioFinal.setText(String.valueOf(precio)+"€");
+					System.out.println("Id_admin por dios: "+gdb.getId_admin());
+				} catch (NumberFormatException | SQLException e1) {
+					e1.printStackTrace();
+				}
+			}			
 		});
 
 		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
@@ -109,8 +120,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		tfPrecioFinal.setEditable(false);
 		tfPrecioFinal.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		tfPrecioFinal.setBounds(593, 246, 211, 47);
-		add(tfPrecioFinal);
 		tfPrecioFinal.setColumns(10);
+		add(tfPrecioFinal);
 		
 		
 		btnComprar.addActionListener(this);
@@ -180,7 +191,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		
 		try {
 			con = (Connection) cx.getConexion();
-			gdb = new Gestion();
 			resultado = gdb.recorrerArticuloGenerico();
 			comboBox_Nombres.addItem("");
 			
@@ -196,22 +206,16 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	
 	public void insertarProveedores() throws SQLException{
 		ArrayList<String> nombres = new ArrayList<String>();
-		gdb = new Gestion();
 		nombres = gdb.recorrerProveedores();
-		comboBox_proveedor_1.addItem("");
+		comboBox_proveedor.addItem("");
 		
 		for(String n : nombres) {
-			comboBox_proveedor_1.addItem(n);
+			comboBox_proveedor.addItem(n);
 		}
 	}
 	
-	public void insertarDinero() {
-		ArrayList<String>Datos=new ArrayList<String>();
-		gdb = new Gestion();
-		Datos = gdb.getDatos();
-		for (String a : Datos) {
-			tfDinero.setText(a);
-		}
+	public void insertarDinero() throws SQLException {
+		tfDinero.setText(String.valueOf(gdb.dineroDisponible()));
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -226,7 +230,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			}else if(comboBox_Tallas.getSelectedItem().equals("")) {
 				lblFalloCompra.setText("*Debe seleccionar una talla");
 				lblFalloCompra.setForeground(Color.RED);
-			}else if(comboBox_proveedor_1.getSelectedItem().equals("")) {
+			}else if(comboBox_proveedor.getSelectedItem().equals("")) {
 				lblFalloCompra.setText("*Debe seleccionar un proovedor");
 				lblFalloCompra.setForeground(Color.RED);
 			}else if(((Integer) spinner.getValue())<=0) {
@@ -234,17 +238,31 @@ public class panelAdministrador extends JPanel implements ActionListener{
 				lblFalloCompra.setForeground(Color.RED);
 			}else {
 				try {
-					gdb.comprarSuministros(comboBox_Nombres.getSelectedItem().toString(), comboBox_Tallas.getSelectedItem().toString(), (Integer) spinner.getValue());
-					lblFalloCompra.setText("*COMPRA REALIZADA");
-					lblFalloCompra.setForeground(Color.GREEN);
-					lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 14));
+					if(precio<=Double.parseDouble(tfDinero.getText())) {
+						gdb.comprarSuministros(comboBox_Nombres.getSelectedItem().toString(), comboBox_Tallas.getSelectedItem().toString(), comboBox_proveedor.getSelectedItem().toString(), precio, (Integer) spinner.getValue());
+						lblFalloCompra.setText("*COMPRA REALIZADA");
+						tfDinero.setText("");
+						insertarDinero();
+						lblFalloCompra.setForeground(Color.GREEN);
+						lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 14));
+					}else {
+						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero");
+					}
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				System.out.println("Id_admin por dios: "+gdb.getId_admin());
 			}
-		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor_1) ) {
+		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor) ) {
 			lblFalloCompra.setText("");
 		}
+	}
+	protected JSpinner getSpinner() {
+		return spinner;
+	}
+	protected JTextField getTfPrecioFinal() {
+		return tfPrecioFinal;
 	}
 }

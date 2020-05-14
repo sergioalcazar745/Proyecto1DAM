@@ -240,7 +240,6 @@ public class panelCuenta extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
 			}			
 		}else if(boton.equals(btnGuardar)) {
-			gdb = new Gestion();
 			try {
 				if(gdb.actualizarCampos(tfNombre.getText(), tfApellidos.getText(), tfFecha_Nacimiento.getText(), tfTelefono.getText(),tfCorreo.getText(), tfContraseña.getText())) {
 					JOptionPane.showMessageDialog(null, "Los campos han sido actualizados");

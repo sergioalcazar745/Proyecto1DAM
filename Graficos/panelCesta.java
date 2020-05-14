@@ -68,14 +68,12 @@ public class panelCesta extends JPanel {
 						}else if(componentes[i].getName().equals("lblValorPrecio")) {
 							//System.out.println("miami");
 							try {
-								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getCantidad()*Double.parseDouble(gdb.devolverPrecioDeCategoria(nombre_articulo.getNombre()))));
+								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getPrecio()));
 							} catch (NumberFormatException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}						}
+							}						
+						}
 					}
 				}
 			}
