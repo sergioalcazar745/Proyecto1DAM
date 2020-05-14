@@ -455,6 +455,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				panelInicioSesion.setVisible(true);
 			}else {
 				btnAccount.setVisible(false);
+				btnShop.setVisible(false);
 				gdb.setSesionIniciada(false);
 				panel_2.setVisible(true);
 				btnSignOut.setText("Iniciar Sesion");
