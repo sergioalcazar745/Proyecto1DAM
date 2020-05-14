@@ -16,6 +16,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -108,7 +109,6 @@ public class panelCesta extends JPanel {
 				}
 			});
 		}
-		System.out.println("hitler con tu abuela: "+fila);
 		panelVacio();
 		setPreferredSize(new Dimension(825, 496*array_articulos.size()));
 		
@@ -126,8 +126,8 @@ public class panelCesta extends JPanel {
 	public void panelVacio() {
 		if(fila==0) {
 			System.out.println("hitler");
-			JLabel lblNewLabel = new JLabel("No hay articulos en la cesta");
-	        lblNewLabel.setForeground(Color.GRAY);
+			JLabel lblNewLabel = new JLabel("");
+	        lblNewLabel.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/cesta_vacia.png")));
 	        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
 	        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 	        lblNewLabel.setBounds(0, 0, 853, 496);

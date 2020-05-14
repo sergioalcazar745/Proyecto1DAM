@@ -401,6 +401,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/logo.PNG")));
 		lblNewLabel.setBounds(12, 13, 198, 123);
 		panel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/decora.png")));
+		lblNewLabel_1.setBounds(10, 297, 200, 245);
+		panel.add(lblNewLabel_1);
 //		panel_articulos_filtros.addComponentListener(new ComponentAdapter() {
 //			@Override
 //			public void componentHidden(ComponentEvent arg0) {
