@@ -396,6 +396,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_Menu.setLayout(new GridLayout(4, 0, 0, 0));
 		panel_Menu.add(btnHome);
 		panel_Menu.add(btnCesta);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/logo.PNG")));
+		lblNewLabel.setBounds(12, 13, 198, 123);
+		panel.add(lblNewLabel);
 //		panel_articulos_filtros.addComponentListener(new ComponentAdapter() {
 //			@Override
 //			public void componentHidden(ComponentEvent arg0) {
