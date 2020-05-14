@@ -320,6 +320,9 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		if(!comboBox_Tallas.getSelectedItem().equals("")) {
 			try {
 				numero_cesta=gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString())-numero_cesta;
+				if(numero_cesta<0) {
+					numero_cesta=0;
+				}
 				lblNumeroStock.setText(String.valueOf(numero_cesta));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
