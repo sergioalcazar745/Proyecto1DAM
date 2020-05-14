@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 
 import Base_de_datos.Gestion;
 
@@ -127,6 +128,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			}
 		});
 		spinner.setBounds(470, 254, 80, 22);
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		add(spinner);
 		
 		
