@@ -299,7 +299,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 						panel_Menu.add(btnShop);
 						btnShop.setText("");
 						//Comprobar cuando no haya suministros de un articulo, si alguno tiene 0 insertamos el icono. Y si no borramos el icono y metemos setText("Suministros")
-						btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/suministro.png")));
+						btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/avisobeta6.png")));
 					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
