@@ -22,6 +22,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -154,6 +155,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				btnFinalizarComprar.setOpaque(false);
 				btnFinalizarComprar.setContentAreaFilled(false);
 				btnFinalizarComprar.setFocusPainted(false);
+				btnFinalizarComprar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));	
 				panel_Cesta.add(btnFinalizarComprar);
 				
 				btnVaciar = new JButton("");
@@ -164,6 +166,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				btnVaciar.setOpaque(false);
 				btnVaciar.setContentAreaFilled(false);
 				btnVaciar.setFocusPainted(false);
+				btnVaciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));	
 				panel_Cesta.add(btnVaciar);
 				
 				JLabel lblNewLabel_2 = new JLabel("Precio Total:");
@@ -294,6 +297,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 					}else {
 						panel_Menu.remove(btnAccount);
 						panel_Menu.add(btnShop);
+						btnShop.setText("");
+						//Comprobar cuando no haya suministros de un articulo, si alguno tiene 0 insertamos el icono. Y si no borramos el icono y metemos setText("Suministros")
+						btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/suministro.png")));
 					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
