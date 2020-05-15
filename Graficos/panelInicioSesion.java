@@ -132,9 +132,9 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		tfContraseña.setBounds(299, 318, 326, 28);
 		add(tfContraseña);
 		
-		btnEntrar = new JButton("ENTRAR");
+		btnEntrar = new JButton("");
 		btnEntrar.addActionListener(this);
-		btnEntrar.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/door.png")));
+		btnEntrar.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/login.png")));
 		btnEntrar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnEntrar.setBounds(211, 405, 151, 52);
 		btnEntrar.setBorderPainted(false);
@@ -143,8 +143,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		btnEntrar.setFocusPainted(false);
 		add(btnEntrar);
 		
-		btnRegistrarse = new JButton("REGISTRARSE");
-		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/sign_up.png")));
+		btnRegistrarse = new JButton("");
+		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/register.png")));
 		btnRegistrarse.addActionListener(this);
 		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
 		btnRegistrarse.setBounds(493, 405, 183, 52);
