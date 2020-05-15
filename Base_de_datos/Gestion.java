@@ -995,15 +995,15 @@ public class Gestion  {
 				price = String.valueOf(art.getPrecio()).replace(",", "." );
 			}
 		}
-//		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
-//		
-//		try {
-//			st=(Statement) con.createStatement();
-//			st.executeUpdate(sql);
-//		} catch (SQLException e) {
-//			System.out.println("Fallo al buscar");
-//			e.printStackTrace();
-//		}		
+		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
+		
+		try {
+			st=(Statement) con.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			System.out.println("Fallo al buscar");
+			e.printStackTrace();
+		}		
 	}
 	
 	public boolean finalizarCompra() {
