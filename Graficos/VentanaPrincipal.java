@@ -118,6 +118,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	    
 	    //colores
 		Color color_menu=Color.decode("#643a7e");
+		Color color_sing=Color.decode("#cc0099");
 		
 		setResizable(false);
 		setUndecorated(false);
@@ -389,7 +390,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		btnSignOut = new JButton("Iniciar Sesion");
 		btnSignOut.addActionListener(this);
-		btnSignOut.setBackground(Color.RED);
+		btnSignOut.setBackground(color_sing);
 		btnSignOut.setForeground(new Color(255, 255, 255));
 		btnSignOut.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnSignOut.setBounds(41, 566, 145, 25);
@@ -437,7 +438,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_Menu.add(btnCesta);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/logo.PNG")));
+		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/logolauraa.png")));
 		lblNewLabel.setBounds(12, 13, 198, 123);
 		panel.add(lblNewLabel);
 		
