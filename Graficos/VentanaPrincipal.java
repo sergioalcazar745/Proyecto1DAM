@@ -83,6 +83,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String[7];
 	private JButton btnSalir;
+	private JButton btnPedidos;
 	String palabra="hola";
 	
 	private conexion cn = new conexion();
@@ -105,6 +106,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnFinalizarComprar = new JButton("");
 	private JPanel panel_Menu = new JPanel();
 	private JPanel panelAdministrador = new panelAdministrador(gdb, cnx);
+	JPanel panelMisPedidos = new panelMisPedidos(gdb);
+	
 	public VentanaPrincipal() throws Exception{
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
@@ -134,6 +137,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setVisible(false);
+		
+		panelMisPedidos.setBackground(Color.WHITE);
+		panelMisPedidos.setBounds(232, 11, 853, 544);
+		panelMisPedidos.add(panel_Cesta);
+		panelMisPedidos.setVisible(false);
+		panelMisPedidos.setLayout(null);
+		contentPane.add(panelMisPedidos);
 				
 				panel_Cesta.setBackground(Color.WHITE);
 				panel_Cesta.setBounds(232, 11, 853, 544);
@@ -282,9 +292,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelOferta.setName("panelOferta");
 		tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
-		JPanel panelMisPedidos = new panelMisPedidos();
-		tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);
-		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
@@ -295,10 +302,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				if(gdb.getSesionIniciada()) {
 					if(gdb.getCliente()==true) {
 						btnAccount.setVisible(true);
+						btnPedidos.setVisible(true);
 						panel_Menu.remove(btnShop);
 						panel_Menu.add(btnAccount);
+						panel_Menu.add(btnPedidos);
 					}else {
 						panel_Menu.remove(btnAccount);
+						panel_Menu.remove(btnPedidos);
 						panel_Menu.add(btnShop);
 						btnShop.setText("");
 						btnShop.setVisible(true);
@@ -400,6 +410,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnCesta.setContentAreaFilled(false);
 		btnCesta.setFocusPainted(false);
 		
+		btnPedidos = new JButton("Pedidos");
+		btnPedidos.addActionListener(this);
+		btnPedidos.setForeground(Color.WHITE);
+		btnPedidos.setFont(dynamicFont32Pt);
+		btnPedidos.setBounds(12, 240, 198, 25);
+		btnPedidos.setBorderPainted(false);
+		btnPedidos.setOpaque(false);
+		btnPedidos.setContentAreaFilled(false);
+		btnPedidos.setFocusPainted(false);
+		btnPedidos.setVisible(false);
+		
 		panel_Menu.setBackground(new Color(36,41,46));
 		panel_Menu.setBounds(0, 149, 222, 146);
 		panel.add(panel_Menu);
@@ -460,11 +481,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			}else {
 				btnAccount.setVisible(false);
 				btnShop.setVisible(false);
+				btnPedidos.setVisible(false);
 				gdb.setSesionIniciada(false);
 				panel_2.setVisible(true);
 				btnSignOut.setText("Iniciar Sesion");
 				panel_Menu.remove(btnAccount);
 				panel_Menu.remove(btnShop);
+				panel_Menu.remove(btnPedidos);
 			}
 		}else if(evento.equals(btnShop)) {
 			desactivarPaneles();
@@ -516,6 +539,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 					crearPanelCesta();
 				}
 			}
+		}else if(evento.equals(btnPedidos)){
+			desactivarPaneles();
+			panelMisPedidos.setVisible(true);
+			((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
 		}
 	}
 	

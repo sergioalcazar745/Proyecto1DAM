@@ -4,17 +4,24 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Base_de_datos.Gestion;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 
 public class panelMisPedidos extends JPanel {
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private String [] Datos = new String [1];
+	private String [] Datos = new String [5];
+	private Gestion gdb;
 	
-	public panelMisPedidos() {
+	public panelMisPedidos(Gestion gdb) {
+		this.gdb=gdb;
 		setBackground(Color.WHITE);
 		setVisible(true);
 		setBounds(232, 11, 853, 544);
@@ -22,13 +29,14 @@ public class panelMisPedidos extends JPanel {
 		
 		table = new JTable();
 		modelo.addColumn("Articulo");
+		modelo.addColumn("Talla");
 		modelo.addColumn("Fecha");
 		modelo.addColumn("Cantidad");
 		modelo.addColumn("Precio");
 		table.setModel(modelo);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(73, 132, 712, 372);
+		scrollPane.setBounds(74, 111, 712, 372);
 		add(scrollPane);
 		scrollPane.setColumnHeaderView(table);
 		scrollPane.setViewportView(table);
@@ -36,7 +44,27 @@ public class panelMisPedidos extends JPanel {
 		JLabel lblNewLabel = new JLabel("Aqu\u00ED podr\u00E1s encontrar todos las compras que has realizado con tu cuenta.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
-		lblNewLabel.setBounds(0, 49, 853, 49);
+		lblNewLabel.setBounds(0, 38, 853, 49);
 		add(lblNewLabel);
+		
+		insertarPedidos();
+	}
+	
+	public void insertarPedidos() {		
+		if(gdb.getSesionIniciada() && gdb.getCliente()) {
+			ArrayList<String> compra = new ArrayList<String>();
+			compra = gdb.devolverCompra();
+			int j = 0;
+			for(int i = 0; i<compra.size(); i++) {
+				Datos[j] = compra.get(i);
+				j++;
+				if(j==5) {
+					j = 0;
+					modelo.addRow(Datos);
+				}
+			}
+		}else if(gdb.getSesionIniciada() && gdb.getCliente()==false){
+			
+		}
 	}
 }

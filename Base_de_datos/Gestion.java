@@ -22,8 +22,8 @@ import Clases.Articulos;
 public class Gestion  {
 	private Connection con;//objeto conexion
 	private conexion cx= new conexion();
-	private Statement st, st2, st3;//realiza consulta
-	private ResultSet resultado, resultado2; //recibe consulta
+	private Statement st, st2, st3, st4;//realiza consulta
+	private ResultSet resultado, resultado2, resultado3, resultado4; //recibe consulta
 	private String id, id_admin;
 	ArrayList<String> array_datos=new ArrayList<String>();
 	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
@@ -1074,21 +1074,7 @@ public class Gestion  {
 		ArrayList<String> compra = new ArrayList<String>();
 		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null;
 		
-		String sql = "SELECT id_persona FROM persona WHERE correo='"+getDatos().get(0)+"'";
-
-        try {
-            st=(Statement) con.createStatement();
-            resultado = st.executeQuery(sql);            
-            if(resultado.next()) {
-            	id_persona = resultado.getString("id_persona");
-            }
-        } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
-        }
-		
-		
-        sql = "SELECT id_cliente FROM cliente WHERE id_persona_aux='"+id_persona+"'";
+		String sql = "SELECT id_cliente FROM persona inner join cliente on persona.id_persona=cliente.id_persona_aux WHERE persona.correo='"+getDatos().get(0)+"';";
 
         try {
             st=(Statement) con.createStatement();
@@ -1100,36 +1086,64 @@ public class Gestion  {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-        
+         
         sql = "SELECT * FROM compra WHERE id_cliente_aux='"+id_cliente+"'";
-
+        String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join compra on articulos.id_articulo=id_articulo_aux WHERE id_cliente_aux=1"; 
+        
         try {
             st=(Statement) con.createStatement();
-            resultado = st.executeQuery(sql);            
+            resultado = st.executeQuery(sql);   
+            resultado2 = st2.executeQuery(sql2); 
             while(resultado.next()) {
-            	id_articulo = resultado.getString("id_articuloa_aux");
-            	
-            	sql = "SELECT nombre FROM articulogenerico WHERE id_generico='"+id_articulo+"'";
-
-                try {
-                    st=(Statement) con.createStatement();
-                    resultado2 = st.executeQuery(sql);            
-                    while(resultado2.next()) {
-                    	compra.add(resultado2.getString("nombre"));
-                    	compra.add(resultado.getString("fecha"));
-                    	compra.add(resultado.getString("cantidad"));
-                    	compra.add(resultado.getString("precio"));
-                    }
-                } catch (SQLException e) {
-                    System.out.println("Fallo al buscar");
-                    e.printStackTrace();
-                }
-            }
+                 try {
+                     st2=(Statement) con.createStatement();           
+                     if(resultado2.next()) {
+                    	System.out.println("Lo mismo: "+resultado2.getString("nombre"));
+                    	System.out.println("Lo mismo: "+resultado2.getString("talla"));
+                     	compra.add(resultado2.getString("nombre"));
+                     	compra.add(resultado2.getString("talla"));
+                     	compra.add(resultado.getString("fecha"));
+                     	compra.add(resultado.getString("cantidad"));
+                     	compra.add(resultado.getString("precio_total"));
+                     }
+                 } catch (SQLException e) {
+                     System.out.println("Fallo al buscar");
+                     e.printStackTrace();
+                 }
+            }            
         } catch (SQLException e) {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-		
 		return compra;
  	}
+	
+	public ArrayList <String> devolverSuministro(){
+		ArrayList<String> suministro = new ArrayList<String>();
+		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null, sql = null;
+         
+        sql = "SELECT * FROM suministra WHERE id_cliente_aux='"+getId_admin()+"'";
+        String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join compra on articulos.id_articulo=id_articulo_aux WHERE id_cliente_aux='"+getId_admin()+"'"; 
+        
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);   
+            resultado2 = st2.executeQuery(sql2); 
+            while(resultado.next()) {
+                 try {
+                     st2=(Statement) con.createStatement();           
+                     if(resultado2.next()) {
+                    	
+                     }
+                 } catch (SQLException e) {
+                     System.out.println("Fallo al buscar");
+                     e.printStackTrace();
+                 }
+            }            
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }		
+		return suministro;
+	}
 }
