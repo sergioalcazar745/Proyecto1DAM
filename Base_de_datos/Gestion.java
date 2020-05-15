@@ -1123,7 +1123,7 @@ public class Gestion  {
 		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null, sql = null;
          
         sql = "SELECT * FROM suministra WHERE id_cliente_aux='"+getId_admin()+"'";
-        String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join compra on articulos.id_articulo=id_articulo_aux WHERE id_cliente_aux='"+getId_admin()+"'"; 
+        String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join suministra on articulos.id_articulo=id_articulo_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
         
         try {
             st=(Statement) con.createStatement();
@@ -1133,7 +1133,11 @@ public class Gestion  {
                  try {
                      st2=(Statement) con.createStatement();           
                      if(resultado2.next()) {
-                    	
+                    	 suministro.add(resultado2.getString("nombre"));
+                    	 suministro.add(resultado2.getString("talla"));
+                    	 suministro.add(resultado.getString("fecha"));
+                    	 suministro.add(resultado.getString("cantidad"));
+                    	 suministro.add(resultado.getString("precio_total"));
                      }
                  } catch (SQLException e) {
                      System.out.println("Fallo al buscar");
@@ -1143,7 +1147,32 @@ public class Gestion  {
         } catch (SQLException e) {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
-        }		
+        }
+        
+        for (String n : suministro) {
+			System.out.println(n);
+		}
 		return suministro;
+	}
+	
+	public boolean devolverCorreo() {
+		boolean correo=true;
+		
+		String sql = "SELECT correo FROM persona";
+
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            while(resultado.next()) {
+            	if(getDatos().get(0).equals(resultado.getString("correo"))) {
+            		correo=false;
+            	}
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }
+		
+		return correo;
 	}
 }

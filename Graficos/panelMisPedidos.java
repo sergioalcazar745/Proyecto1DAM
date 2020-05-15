@@ -64,7 +64,17 @@ public class panelMisPedidos extends JPanel {
 				}
 			}
 		}else if(gdb.getSesionIniciada() && gdb.getCliente()==false){
-			
+			ArrayList<String> suministro = new ArrayList<String>();
+			suministro = gdb.devolverSuministro();
+			int j = 0;
+			for(int i = 0; i<suministro.size(); i++) {
+				Datos[j] = suministro.get(i);
+				j++;
+				if(j==5) {
+					j = 0;
+					modelo.addRow(Datos);
+				}
+			}
 		}
 	}
 }
