@@ -1121,17 +1121,17 @@ public class Gestion  {
 	public ArrayList <String> devolverSuministro(){
 		ArrayList<String> suministro = new ArrayList<String>();
 		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null, sql = null;
-         
-        sql = "SELECT * FROM suministra WHERE id_cliente_aux='"+getId_admin()+"'";
+        System.out.println("IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+getId_admin());
+        sql = "SELECT * FROM suministra WHERE id_admin_aux='"+getId_admin()+"'";
         String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join suministra on articulos.id_articulo=id_articulo_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
         
         try {
             st=(Statement) con.createStatement();
-            resultado = st.executeQuery(sql);   
+            resultado = st.executeQuery(sql); 
+            st2=(Statement) con.createStatement(); 
             resultado2 = st2.executeQuery(sql2); 
             while(resultado.next()) {
-                 try {
-                     st2=(Statement) con.createStatement();           
+                 try {          
                      if(resultado2.next()) {
                     	 suministro.add(resultado2.getString("nombre"));
                     	 suministro.add(resultado2.getString("talla"));
@@ -1149,8 +1149,8 @@ public class Gestion  {
             e.printStackTrace();
         }
         
-        for (String n : suministro) {
-			System.out.println(n);
+		for (String n : suministro) {
+			System.out.println("SUMINISTRO: "+n);
 		}
 		return suministro;
 	}
@@ -1174,5 +1174,56 @@ public class Gestion  {
         }
 		
 		return correo;
+	}
+	
+	public ArrayList <String> devolverStock() {
+		ArrayList<String> tallas = new ArrayList<String>();
+		tallas.add("S");
+		tallas.add("M");
+		tallas.add("L");
+		tallas.add("XL");
+		tallas.add("XXL");
+		tallas.add("XXXL");
+		ArrayList<String> stock = new ArrayList<String>();
+		String id_generico=null;
+		int cantidad = 0;
+		String sql = "SELECT * FROM articulogenerico";
+
+        try {
+            st=(Statement) con.createStatement();            
+            for (String t : tallas) {
+            	resultado = st.executeQuery(sql);
+            	while(resultado.next()) {
+            	id_generico = resultado.getString("id_generico");
+            	cantidad = 0;            	
+            		String sql2 = "SELECT * FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"'";
+
+                    try {
+                        st2=(Statement) con.createStatement();
+                        resultado2= st2.executeQuery(sql2);
+                        while(resultado2.next()) {
+                        	if(resultado2.last()) {
+                        		stock.add(t);
+                        	}
+                        	if(resultado2.getString("talla").equals(t)) {
+                        		cantidad ++; 
+                        	}
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("Fallo al buscar");
+                        e.printStackTrace();
+                    }
+            	stock.add(resultado.getString("nombre"));
+            	stock.add(String.valueOf(cantidad));
+            }
+           }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }
+		for (String n : stock) {
+			System.out.println("Stock: "+n);
+		}
+		return stock;
 	}
 }

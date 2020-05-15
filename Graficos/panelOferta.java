@@ -187,7 +187,6 @@ public class panelOferta extends JPanel implements ActionListener{
 		for(int i = 0; i<oferta.size(); i++) {
 			if(!oferta.get(i).equals("0.000")) {
 				Datos[j] = oferta.get(i);
-				j++;
 				if(j==2) {
 					j = 0;
 					modelo.addRow(Datos);

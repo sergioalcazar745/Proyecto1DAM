@@ -107,8 +107,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panel_Menu = new JPanel();
 	private JPanel panelAdministrador = new panelAdministrador(gdb, cnx);
 	JPanel panelMisPedidos = new panelMisPedidos(gdb);
-	
+	JPanel panelMisPedidos_Cliente = new panelMisPedidos(gdb);
 	public VentanaPrincipal() throws Exception{
+		gdb.devolverStock();
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
 	    FileInputStream in = new FileInputStream(f);
@@ -138,12 +139,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panel_3.setBackground(Color.WHITE);
 		panel_3.setVisible(false);
 		
-		panelMisPedidos.setBackground(Color.WHITE);
-		panelMisPedidos.setBounds(232, 11, 853, 544);
-		panelMisPedidos.add(panel_Cesta);
-		panelMisPedidos.setVisible(false);
-		panelMisPedidos.setLayout(null);
-		contentPane.add(panelMisPedidos);
+		panelMisPedidos_Cliente.setBackground(Color.WHITE);
+		panelMisPedidos_Cliente.setBounds(232, 11, 853, 544);
+		panelMisPedidos_Cliente.setVisible(false);
+		panelMisPedidos_Cliente.setLayout(null);
+		contentPane.add(panelMisPedidos_Cliente);
 				
 				panel_Cesta.setBackground(Color.WHITE);
 				panel_Cesta.setBounds(232, 11, 853, 544);
@@ -292,8 +292,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelOferta.setName("panelOferta");
 		tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
-		tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);
-		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
@@ -316,6 +314,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 						btnShop.setVisible(true);
 						//Comprobar cuando no haya suministros de un articulo, si alguno tiene 0 insertamos el icono. Y si no borramos el icono y metemos setText("Suministros")
 						btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/avisobeta6.png")));
+						panelMisPedidos.setName("panelMisPedidos");
+						((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
+						tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);
 					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
@@ -543,8 +544,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			}
 		}else if(evento.equals(btnPedidos)){
 			desactivarPaneles();
-			panelMisPedidos.setVisible(true);
-			((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
+			panelMisPedidos_Cliente.setVisible(true);
+			((Graficos.panelMisPedidos) panelMisPedidos_Cliente).insertarPedidos();
 		}
 	}
 	

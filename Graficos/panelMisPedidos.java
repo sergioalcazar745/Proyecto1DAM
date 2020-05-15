@@ -50,7 +50,11 @@ public class panelMisPedidos extends JPanel {
 		insertarPedidos();
 	}
 	
-	public void insertarPedidos() {		
+	public void insertarPedidos() {
+		modelo.setRowCount(0);
+		System.out.println("SESION: "+gdb.getSesionIniciada());
+		System.out.println("CLIENTE: "+gdb.getCliente());
+		
 		if(gdb.getSesionIniciada() && gdb.getCliente()) {
 			ArrayList<String> compra = new ArrayList<String>();
 			compra = gdb.devolverCompra();
@@ -64,6 +68,7 @@ public class panelMisPedidos extends JPanel {
 				}
 			}
 		}else if(gdb.getSesionIniciada() && gdb.getCliente()==false){
+			System.out.println("Primooooooooooooooooooo");
 			ArrayList<String> suministro = new ArrayList<String>();
 			suministro = gdb.devolverSuministro();
 			int j = 0;

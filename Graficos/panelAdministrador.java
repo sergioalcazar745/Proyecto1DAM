@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
@@ -58,6 +59,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private JComboBox comboBox_Tallas = new JComboBox();
 	private JLabel lblFalloCompra = new JLabel("");
 	private double precio = 0;
+	private JButton btnStock;
 	
 	public panelAdministrador(Gestion gdb, conexion cx) throws SQLException {
 		this.gdb = gdb;
@@ -181,6 +183,16 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		lblFalloCompra.setBounds(183, 388, 467, 14);
 		add(lblFalloCompra);
 		
+		btnStock = new JButton("");
+		btnStock.addActionListener(this);
+		btnStock.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/dialog.png")));
+		btnStock.setBounds(0, 0, 39, 29);
+		btnStock.setBorderPainted(false);
+		btnStock.setOpaque(false);
+		btnStock.setContentAreaFilled(false);
+		btnStock.setFocusPainted(false);
+		add(btnStock);
+		
 		UIManager.put("TextField.disabledBackground",Color.WHITE);
 		
 		insertarArticulos();
@@ -257,6 +269,9 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			}
 		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor) ) {
 			lblFalloCompra.setText("");
+		}else if(evento.equals(btnStock)) {
+			Stock st = new Stock();
+			st.setModal(true);
 		}
 	}
 	protected JSpinner getSpinner() {
@@ -264,5 +279,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	}
 	protected JTextField getTfPrecioFinal() {
 		return tfPrecioFinal;
+	}
+	protected JButton getBtnStock() {
+		return btnStock;
 	}
 }
