@@ -935,25 +935,25 @@ public class Gestion  {
 		String id_cliente="", id_persona="", fecha_final;
 		Calendar fecha = Calendar.getInstance();
 		String mes,dia, año;
-		System.out.println("comprado");
-		//se debe buscar el id del articulo_generico con el nombre.
-		String id_articulo = "";
+		String id_articulo = "", id_generico = null;
+		
 		con = cx.getConexion();		
-		//System.out.println("nombre insertar: "+nombre);
+
 		mes=String.valueOf(fecha.get(Calendar.MONTH)+1);
 		dia=String.valueOf(fecha.get(Calendar.DAY_OF_MONTH));
 		año=String.valueOf(fecha.get(Calendar.YEAR));
 		fecha_final=dia+"-"+mes+"-"+año;
-		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";//sacamos el id generico y lo buscamos en la siguiente consulta con el id y talla
-		 //SELECT id_articulo FROM articulos WHERE id_articulo=1 and Disponible=1;
+		
+		String sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";//sacamos el id generico y lo buscamos en la siguiente consulta con el id y talla;
+		
 		try {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
 				if(resultado.next()) {
-					id_articulo = resultado.getString("id_generico");
+					id_generico = resultado.getString("id_generico");
 				}
 			
-			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_articulo+"' and talla='"+talla+"' and Disponible=1";
+			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"' and talla='"+talla+"' and Disponible=1";
 			resultado=st.executeQuery(sql);
 			//resultado.last();
 			//System.out.println(resultado.getRow()+"/resultados");
@@ -968,10 +968,9 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("hitler 2");
+		System.out.println("ID ARTICULO: "+id_articulo);
 		id_oferta=buscarIdOfertaArticulo(nombre);
 		sql = "SELECT id_persona FROM persona WHERE correo='"+array_datos.get(0)+"'";
-		System.out.println("hitler 3");
 		try {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
@@ -984,9 +983,8 @@ public class Gestion  {
 			if(resultado2.next()){
 				id_cliente=resultado2.getString("id_cliente");
 			}
-			System.out.println("hitler 4");
 			//Insert Padre
-			System.out.println("hitler padre: "+"id_articulo: "+id_articulo+"\nid_oferta: "+id_oferta+"\nid_cliente: "+id_cliente+"\nfecha: "+fecha_final);
+			//System.out.println("hitler padre: "+"id_articulo: "+id_articulo+"\nid_oferta: "+id_oferta+"\nid_cliente: "+id_cliente+"\nfecha: "+fecha_final);
 			
 		} catch (SQLException e) {
 			
@@ -997,15 +995,15 @@ public class Gestion  {
 				price = String.valueOf(art.getPrecio()).replace(",", "." );
 			}
 		}
-		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
-		
-		try {
-			st=(Statement) con.createStatement();
-			st.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
-		}		
+//		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
+//		
+//		try {
+//			st=(Statement) con.createStatement();
+//			st.executeUpdate(sql);
+//		} catch (SQLException e) {
+//			System.out.println("Fallo al buscar");
+//			e.printStackTrace();
+//		}		
 	}
 	
 	public boolean finalizarCompra() {
@@ -1071,4 +1069,67 @@ public class Gestion  {
             e.printStackTrace();
         }
 	}
+	
+	public ArrayList <String> devolverCompra() {
+		ArrayList<String> compra = new ArrayList<String>();
+		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null;
+		
+		String sql = "SELECT id_persona FROM persona WHERE correo='"+getDatos().get(0)+"'";
+
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            if(resultado.next()) {
+            	id_persona = resultado.getString("id_persona");
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }
+		
+		
+        sql = "SELECT id_cliente FROM cliente WHERE id_persona_aux='"+id_persona+"'";
+
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            if(resultado.next()) {
+            	id_cliente = resultado.getString("id_cliente");
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }
+        
+        sql = "SELECT * FROM compra WHERE id_cliente_aux='"+id_cliente+"'";
+
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            while(resultado.next()) {
+            	id_articulo = resultado.getString("id_articuloa_aux");
+            	
+            	sql = "SELECT nombre FROM articulogenerico WHERE id_generico='"+id_articulo+"'";
+
+                try {
+                    st=(Statement) con.createStatement();
+                    resultado2 = st.executeQuery(sql);            
+                    while(resultado2.next()) {
+                    	compra.add(resultado2.getString("nombre"));
+                    	compra.add(resultado.getString("fecha"));
+                    	compra.add(resultado.getString("cantidad"));
+                    	compra.add(resultado.getString("precio"));
+                    }
+                } catch (SQLException e) {
+                    System.out.println("Fallo al buscar");
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar");
+            e.printStackTrace();
+        }
+		
+		return compra;
+ 	}
 }

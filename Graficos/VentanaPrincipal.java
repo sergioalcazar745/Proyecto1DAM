@@ -282,6 +282,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelOferta.setName("panelOferta");
 		tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
+		JPanel panelMisPedidos = new panelMisPedidos();
+		tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);
+		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {
 			comboBox_Filtro.addItem(resultado.getString("nombre"));
