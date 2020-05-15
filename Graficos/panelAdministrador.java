@@ -270,7 +270,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor) ) {
 			lblFalloCompra.setText("");
 		}else if(evento.equals(btnStock)) {
-			Stock st = new Stock();
+			Stock st = new Stock(gdb);
 			st.setModal(true);
 		}
 	}

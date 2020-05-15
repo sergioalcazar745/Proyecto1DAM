@@ -1177,6 +1177,8 @@ public class Gestion  {
 	}
 	
 	public ArrayList <String> devolverStock() {
+		String nombre="";
+		String cantidad="";
 		ArrayList<String> tallas = new ArrayList<String>();
 		tallas.add("S");
 		tallas.add("M");
@@ -1184,45 +1186,63 @@ public class Gestion  {
 		tallas.add("XL");
 		tallas.add("XXL");
 		tallas.add("XXXL");
+		ArrayList<String> datos_articulos = new ArrayList<String>();
 		ArrayList<String> stock = new ArrayList<String>();
-		String id_generico=null;
-		int cantidad = 0;
-		String sql = "SELECT * FROM articulogenerico";
+		
+		String sql = "SELECT * from articulogenerico";
 
         try {
-            st=(Statement) con.createStatement();            
-            for (String t : tallas) {
-            	resultado = st.executeQuery(sql);
-            	while(resultado.next()) {
-            	id_generico = resultado.getString("id_generico");
-            	cantidad = 0;            	
-            		String sql2 = "SELECT * FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"'";
-
-                    try {
-                        st2=(Statement) con.createStatement();
-                        resultado2= st2.executeQuery(sql2);
-                        while(resultado2.next()) {
-                        	if(resultado2.last()) {
-                        		stock.add(t);
-                        	}
-                        	if(resultado2.getString("talla").equals(t)) {
-                        		cantidad ++; 
-                        	}
-                        }
-                    } catch (SQLException e) {
-                        System.out.println("Fallo al buscar");
-                        e.printStackTrace();
-                    }
-            	stock.add(resultado.getString("nombre"));
-            	stock.add(String.valueOf(cantidad));
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            while(resultado.next()) {
+            	datos_articulos.add(resultado.getString("id_generico"));
             }
-           }
         } catch (SQLException e) {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-		for (String n : stock) {
-			System.out.println("Stock: "+n);
+		
+        
+        for (String talla: tallas) {
+        	for(String id: datos_articulos) {
+	        	sql = "SELECT * from articulos WHERE id_articulogenerico_aux='"+id+"'";
+	
+	            try {
+	                st=(Statement) con.createStatement();
+	                resultado = st.executeQuery(sql);
+	                resultado.last();
+	               // System.out.println("hola: "+id);
+	               // System.out.println("dispnible: "+resultado.getString("Disponible"));
+	                cantidad=String.valueOf(resultado.getRow());
+	            } catch (SQLException e) {
+	                System.out.println("Fallo al buscar");
+	            }
+	            
+	            sql = "SELECT nombre from articulogenerico WHERE id_generico='"+id+"'";
+	            try {
+	                st=(Statement) con.createStatement();
+	                resultado = st.executeQuery(sql);
+	                resultado.next();
+	                nombre=resultado.getString("nombre");
+	               // System.out.println("hola: "+id);
+	               // System.out.println("dispnible: "+resultado.getString("Disponible"));
+	            } catch (SQLException e) {
+	                System.out.println("Fallo al buscar");
+	            }
+	            
+	            
+	            stock.add(nombre);
+	            stock.add(cantidad);
+	            stock.add(talla);
+        	}
+              
+		}
+        for (int i=0; i<stock.size(); i++) {
+			System.out.println("nombre: "+stock.get(i));
+			i++;
+			System.out.println("cantidad: "+stock.get(i));
+			i++;
+			System.out.println("talla: "+stock.get(i));
 		}
 		return stock;
 	}

@@ -313,7 +313,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 						btnShop.setText("");
 						btnShop.setVisible(true);
 						//Comprobar cuando no haya suministros de un articulo, si alguno tiene 0 insertamos el icono. Y si no borramos el icono y metemos setText("Suministros")
-						btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/avisobeta6.png")));
+						if(gdb.devolverStock().contains("0")) {
+							btnShop.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/avisobeta6.png")));
+						}else {
+							btnShop.setText("Suministros");
+							btnShop.setIcon(null);
+						}
 						panelMisPedidos.setName("panelMisPedidos");
 						((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
 						tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);

@@ -4,12 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.mysql.jdbc.Connection;
+
+import Base_de_datos.Gestion;
 
 import java.awt.Color;
 import javax.swing.JScrollPane;
@@ -20,10 +26,12 @@ public class Stock extends JDialog implements ActionListener{
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
-	private String [] Datos = new String [5];
+	private String [] Datos = new String [3];
 	private JButton btnOk;
-
-	public Stock() {
+	private Connection con;
+	private Gestion gdb=new Gestion();
+	public Stock(Gestion gdb) {
+		this.gdb=gdb;
 		setVisible(true);
 		setBounds(100, 100, 648, 466);
 		getContentPane().setLayout(new BorderLayout());
@@ -58,6 +66,7 @@ public class Stock extends JDialog implements ActionListener{
 				getRootPane().setDefaultButton(btnOk);
 			}
 		}
+		insertarStock();
 	}
 
 	@Override
@@ -71,7 +80,17 @@ public class Stock extends JDialog implements ActionListener{
 	}
 	
 	public void insertarStock() {
-		
+		ArrayList<String> stock = new ArrayList<String>();
+		stock=gdb.devolverStock();
+		int j = 0;
+		for(int i = 0; i<stock.size(); i++) {
+			Datos[j] = stock.get(i);
+			j++;
+			if(j==3) {
+				j = 0;
+				modelo.addRow(Datos);
+			}
+		}
 	}
 	public JButton getBtnOk() {
 		return btnOk;
