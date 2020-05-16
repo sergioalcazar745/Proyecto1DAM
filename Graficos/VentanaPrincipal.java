@@ -550,6 +550,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 					gdb.vaciarArray_articulosCesta();
 					crearPanelCesta();
 				}
+			}else{
+				JOptionPane.showMessageDialog(null, "Solo los clientes pueden realizar una compra");
 			}
 		}else if(evento.equals(btnPedidos)){
 			desactivarPaneles();
