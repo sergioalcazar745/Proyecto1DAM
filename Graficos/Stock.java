@@ -48,6 +48,14 @@ public class Stock extends JDialog implements ActionListener{
 		modelo.addColumn("Cantidad");
 		table.setModel(modelo);
 		
+		table = new JTable(){//esto desactiva que podamos editar la tabla
+	         public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	             return false;
+	          }
+	    };
+	    
+		table.setRowHeight(25);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(40, 36, 536, 319);
 		contentPanel.add(scrollPane);

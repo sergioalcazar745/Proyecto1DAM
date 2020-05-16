@@ -1237,13 +1237,6 @@ public class Gestion  {
         	}
               
 		}
-        for (int i=0; i<stock.size(); i++) {
-			System.out.println("nombre: "+stock.get(i));
-			i++;
-			System.out.println("cantidad: "+stock.get(i));
-			i++;
-			System.out.println("talla: "+stock.get(i));
-		}
 		return stock;
 	}
 }
