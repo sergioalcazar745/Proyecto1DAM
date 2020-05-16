@@ -680,9 +680,10 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("stock: "+numero);
+		System.out.println("stockKKKKKKKKKKKKKKKKKKKKKKKKKK: "+numero);
 		return numero;
 	}
+	
 	public int devolverCantidadArticuloCesta(String nombre, String talla) {
 		int cantidad=0;
 			for (Articulos art : array_articulosCesta) {

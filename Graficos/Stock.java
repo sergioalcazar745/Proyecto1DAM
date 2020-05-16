@@ -41,19 +41,16 @@ public class Stock extends JDialog implements ActionListener{
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		table = new JTable();
+		table = new JTable() {;
+		public boolean editCellAt(int row, int column, java.util.EventObject e) {
+            return false;
+         }
+		};
 		table.setBackground(Color.WHITE);
 		modelo.addColumn("Articulo");
 		modelo.addColumn("Talla");
 		modelo.addColumn("Cantidad");
-		table.setModel(modelo);
-		
-		table = new JTable(){//esto desactiva que podamos editar la tabla
-	         public boolean editCellAt(int row, int column, java.util.EventObject e) {
-	             return false;
-	          }
-	    };
-	    
+		table.setModel(modelo);	    
 		table.setRowHeight(25);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -73,7 +70,8 @@ public class Stock extends JDialog implements ActionListener{
 				buttonPane.add(btnOk);
 				getRootPane().setDefaultButton(btnOk);
 			}
-		}
+		}	         
+	    
 		insertarStock();
 	}
 
@@ -95,11 +93,10 @@ public class Stock extends JDialog implements ActionListener{
 		for(int i = 0; i<stock.size(); i++) {
 			Datos[j] = stock.get(i);
 			j++;
-			System.out.println("j: "+j+"\n valor: "+stock.get(i));
 			if(j==3) {
 				j = 0;
 				modelo.addRow(Datos);
-			}
+			}			
 		}
 	}
 	public JButton getBtnOk() {
