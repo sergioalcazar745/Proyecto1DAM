@@ -1,7 +1,10 @@
 package Clases;
 
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 
+import javax.print.DocFlavor.URL;
 import javax.swing.UIManager;
 
 import Graficos.VentanaPrincipal;

@@ -40,6 +40,7 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.List;
 import java.awt.ScrollPane;
+import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
 import java.awt.event.ActionEvent;
@@ -109,6 +110,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	JPanel panelMisPedidos = new panelMisPedidos(gdb);
 	JPanel panelMisPedidos_Cliente = new panelMisPedidos(gdb);
 	public VentanaPrincipal() throws Exception{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/minilogo.png")));
+		setTitle("Model Fashion");
 		gdb.devolverStock();
 		//creacion tipo de fuentee
 	    File f = new File("src/font_family/Quicksand-Bold.ttf");
