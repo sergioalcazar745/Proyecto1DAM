@@ -1230,7 +1230,7 @@ public class Gestion  {
 	                System.out.println("Fallo al buscar");
 	            }
 	            
-	            
+	            //System.out.println("añadido");
 	            stock.add(nombre);
 	            stock.add(cantidad);
 	            stock.add(talla);

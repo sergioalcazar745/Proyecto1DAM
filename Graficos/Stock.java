@@ -90,10 +90,12 @@ public class Stock extends JDialog implements ActionListener{
 	public void insertarStock() {
 		ArrayList<String> stock = new ArrayList<String>();
 		stock=gdb.devolverStock();
+		System.out.println("tamañooo: "+stock.size());
 		int j = 0;
 		for(int i = 0; i<stock.size(); i++) {
 			Datos[j] = stock.get(i);
 			j++;
+			System.out.println("j: "+j+"\n valor: "+stock.get(i));
 			if(j==3) {
 				j = 0;
 				modelo.addRow(Datos);
