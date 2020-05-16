@@ -1205,7 +1205,7 @@ public class Gestion  {
         
         for (String talla: tallas) {
         	for(String id: datos_articulos) {
-	        	sql = "SELECT * from articulos WHERE id_articulogenerico_aux='"+id+"' and Disponible='"+1+"'";
+	        	sql = "SELECT * from articulos WHERE id_articulogenerico_aux='"+id+"' and Disponible='"+1+"' and  talla='"+talla+"'";
 	
 	            try {
 	                st=(Statement) con.createStatement();
