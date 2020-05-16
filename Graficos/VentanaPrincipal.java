@@ -160,8 +160,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				scrollPane_Cesta.setViewportView(panelCesta);
 				
 				btnFinalizarComprar.addActionListener(this);
-				btnFinalizarComprar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/vaciar.png")));
-				btnFinalizarComprar.setBounds(644, 491, 188, 53);
+				btnFinalizarComprar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/btnFinalizar.png")));
+				btnFinalizarComprar.setBounds(546, 491, 220, 47);
 				btnFinalizarComprar.setBorderPainted(false);
 				btnFinalizarComprar.setOpaque(false);
 				btnFinalizarComprar.setContentAreaFilled(false);
@@ -171,8 +171,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				
 				btnVaciar = new JButton("");
 				btnVaciar.addActionListener(this);
-				btnVaciar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/finalizar_compra_2.png")));
-				btnVaciar.setBounds(530, 491, 100, 53);
+				btnVaciar.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/Imagenes/vaciar_cesta.png")));
+				btnVaciar.setBounds(350, 491, 176, 47);
 				btnVaciar.setBorderPainted(false);
 				btnVaciar.setOpaque(false);
 				btnVaciar.setContentAreaFilled(false);

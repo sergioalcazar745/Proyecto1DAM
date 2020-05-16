@@ -54,6 +54,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	JLabel lblTalla_comprada = new JLabel("New label");
 	private JLabel lblEliminar;
 	public panel_Articulo(String nombre_articulo, Gestion gdb){
+		Color color_realizada=Color.decode("#0000cc");
 		this.nombre_articulo=nombre_articulo;
 		this.gdb=gdb;
 		setName("laura callate");
@@ -87,8 +88,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		
 		btnComprar.addActionListener(this);
 		btnComprar.setBackground(Color.WHITE);
-		btnComprar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/comprar_boton.png")));
-		btnComprar.setBounds(455, 423, 168, 49);
+		btnComprar.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/btnComprar.png")));
+		btnComprar.setBounds(424, 423, 169, 49);
 		btnComprar.setBorderPainted(false);
 		btnComprar.setOpaque(false);
 		btnComprar.setContentAreaFilled(false);
@@ -97,8 +98,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		btnComprar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));		
 
 		btnCesta.setBackground(Color.WHITE);
-		btnCesta.setIcon(new ImageIcon(panel_Articulo.class.getResource("/fotos_botones/boton_cesta.png")));
-		btnCesta.setBounds(633, 423, 189, 49);
+		btnCesta.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/btnCesta.png")));
+		btnCesta.setBounds(603, 423, 189, 49);
 		btnCesta.setBorderPainted(false);
 		btnCesta.setOpaque(false);
 		btnCesta.setContentAreaFilled(false);
@@ -109,8 +110,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		
 		btnVolver = new JButton("");
 		btnVolver.setBackground(Color.WHITE);
-		btnVolver.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/Go-back_36760.png")));
-		btnVolver.setBounds(72, 431, 44, 41);
+		btnVolver.setIcon(new ImageIcon(panel_Articulo.class.getResource("/Imagenes/flechanegra.png")));
+		btnVolver.setBounds(109, 423, 55, 49);
 		btnVolver.setBorderPainted(false);
 		btnVolver.setOpaque(false);
 		btnVolver.setContentAreaFilled(false);
@@ -186,7 +187,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		add(lblTalla_comprada);
 		
 		
-		lblNewLabel_2.setForeground(Color.RED);
+		lblNewLabel_2.setForeground(new Color (204, 0, 153));
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.ITALIC, 11));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setBounds(372, 403, 189, 16);
@@ -239,13 +240,13 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 				if(comboBox_Tallas.getSelectedItem().equals("")) {
 					lblNewLabel_2.setText("*Seleccione una talla");
-					lblNewLabel_2.setForeground(Color.RED);
+					lblNewLabel_2.setForeground(new Color (204, 0, 153));
 				}else {
 					lblNewLabel_2.setText("*Seleccione minimo una unidad");
 				}
 			}else if((int) spinner.getValue()>Integer.parseInt(lblNumeroStock.getText())) {
 				lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
-				lblNewLabel_2.setForeground(Color.RED);
+				lblNewLabel_2.setForeground(new Color (204, 0, 153));
 			}else {
 				lblNewLabel_2.setForeground(Color.GREEN);
 				//comprobar el numero de articulos que lleva en la cesta y del numero de stock.
@@ -284,19 +285,19 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 					if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 						if(comboBox_Tallas.getSelectedItem().equals("")) {
 							lblNewLabel_2.setText("*Seleccione una talla");
-							lblNewLabel_2.setForeground(Color.RED);
+							lblNewLabel_2.setForeground(new Color (204, 0, 153));
 						}else {
 							lblNewLabel_2.setText("*Seleccione minimo una unidad");
 						}
 					}else if((int) spinner.getValue()>Integer.parseInt(lblNumeroStock.getText())) {
 						lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
-						lblNewLabel_2.setForeground(Color.RED);
+						lblNewLabel_2.setForeground(new Color (204, 0, 153));
 					}else {
 						String price1 = lblValorPrecio.getText().replace(",", ".");
 						double price2 = Double.parseDouble(price1);
 						gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue(), price2);
 						lblNewLabel_2.setText("*Compra realizada");
-						lblNewLabel_2.setForeground(Color.GREEN);
+						lblNewLabel_2.setForeground(new Color(0, 0, 204));
 						gdb.comprarArticulos(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());
 						actualizarTallas();
 					}

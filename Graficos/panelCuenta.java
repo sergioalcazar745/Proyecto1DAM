@@ -75,11 +75,11 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 16));
 		add(lblNewLabel_1);
 		
-		btnGuardar = new JButton("GUARDAR");
+		btnGuardar = new JButton("  GUARDAR");
 		btnGuardar.addActionListener(this);
-		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/save.png")));
-		btnGuardar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnGuardar.setBounds(132, 446, 193, 45);
+		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/nube.png")));
+		btnGuardar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnGuardar.setBounds(303, 446, 193, 45);
 		btnGuardar.setBorderPainted(false);
 		btnGuardar.setOpaque(false);
 		btnGuardar.setContentAreaFilled(false);
@@ -135,9 +135,9 @@ public class panelCuenta extends JPanel implements ActionListener{
 		add(lblContrasea);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnCancelar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/equis.png")));
-		btnCancelar.setBounds(498, 446, 193, 45);
+		btnCancelar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnCancelar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/CANCELAR.PNG")));
+		btnCancelar.setBounds(506, 446, 193, 45);
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setOpaque(false);
 		btnCancelar.setContentAreaFilled(false);
@@ -146,7 +146,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditNombre = new JButton("");
 		btnEditNombre.addActionListener(this);
-		btnEditNombre.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditNombre.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditNombre.setBounds(714, 45, 43, 34);
 		btnEditNombre.setBorderPainted(false);
 		btnEditNombre.setOpaque(false);
@@ -156,7 +156,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditApellidos = new JButton("");
 		btnEditApellidos.addActionListener(this);
-		btnEditApellidos.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditApellidos.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditApellidos.setBounds(714, 110, 43, 34);
 		btnEditApellidos.setBorderPainted(false);
 		btnEditApellidos.setOpaque(false);
@@ -166,7 +166,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditFechaNacimiento = new JButton("");
 		btnEditFechaNacimiento.addActionListener(this);
-		btnEditFechaNacimiento.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditFechaNacimiento.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditFechaNacimiento.setBounds(714, 175, 43, 34);
 		btnEditFechaNacimiento.setBorderPainted(false);
 		btnEditFechaNacimiento.setOpaque(false);
@@ -176,7 +176,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditTelefono = new JButton("");
 		btnEditTelefono.addActionListener(this);
-		btnEditTelefono.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditTelefono.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditTelefono.setBounds(714, 239, 43, 34);
 		btnEditTelefono.setBorderPainted(false);
 		btnEditTelefono.setOpaque(false);
@@ -186,7 +186,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditCorreo = new JButton("");
 		btnEditCorreo.addActionListener(this);
-		btnEditCorreo.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditCorreo.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditCorreo.setBounds(714, 302, 43, 34);
 		btnEditCorreo.setBorderPainted(false);
 		btnEditCorreo.setOpaque(false);
@@ -196,7 +196,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		btnEditContraseña = new JButton("");
 		btnEditContraseña.addActionListener(this);
-		btnEditContraseña.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/edit.png")));
+		btnEditContraseña.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/editar.PNG")));
 		btnEditContraseña.setBounds(714, 368, 43, 34);
 		btnEditContraseña.setBorderPainted(false);
 		btnEditContraseña.setOpaque(false);
