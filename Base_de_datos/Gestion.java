@@ -1155,8 +1155,8 @@ public class Gestion  {
 		return suministro;
 	}
 	
-	public boolean devolverCorreo() {
-		boolean correo=true;
+	public boolean devolverCorreo(String correo) {
+		boolean resultadoFinal=true;
 		
 		String sql = "SELECT correo FROM persona";
 
@@ -1164,8 +1164,8 @@ public class Gestion  {
             st=(Statement) con.createStatement();
             resultado = st.executeQuery(sql);            
             while(resultado.next()) {
-            	if(getDatos().get(0).equals(resultado.getString("correo"))) {
-            		correo=false;
+            	if(correo.equals(resultado.getString("correo"))) {
+            		resultadoFinal=false;
             	}
             }
         } catch (SQLException e) {
@@ -1173,7 +1173,7 @@ public class Gestion  {
             e.printStackTrace();
         }
 		
-		return correo;
+		return resultadoFinal;
 	}
 	
 	public ArrayList <String> devolverStock() {

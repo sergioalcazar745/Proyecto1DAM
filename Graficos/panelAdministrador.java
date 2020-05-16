@@ -268,7 +268,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				System.out.println("Id_admin por dios: "+gdb.getId_admin());
 			}
 		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor) ) {
 			lblFalloCompra.setText("");

@@ -79,7 +79,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnGuardar.addActionListener(this);
 		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/nube.png")));
 		btnGuardar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnGuardar.setBounds(303, 446, 193, 45);
+		btnGuardar.setBounds(160, 446, 193, 45);
 		btnGuardar.setBorderPainted(false);
 		btnGuardar.setOpaque(false);
 		btnGuardar.setContentAreaFilled(false);
@@ -222,7 +222,14 @@ public class panelCuenta extends JPanel implements ActionListener{
 		}else if(boton.equals(btnEditTelefono)) {
 			tfTelefono.setText(JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
 		}else if(boton.equals(btnEditCorreo)) {
-			tfCorreo.setText(JOptionPane.showInputDialog("Introduzca el nuevo correo: "));
+			String correo = JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
+			
+			if(gdb.devolverCorreo(correo) == false) {
+				JOptionPane.showMessageDialog(null, "El correo introducido ya existe");
+			}else {
+				tfCorreo.setText(correo);
+			}
+			
 		}else if(boton.equals(btnEditContraseña)) {
 			JPasswordField pf = new JPasswordField();
 			
