@@ -55,7 +55,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private Gestion gdb;
 	private JComboBox comboBox_proveedor = new JComboBox();;
 	private JSpinner spinner = new JSpinner();
-	private JButton btnComprar = new JButton("COMPRAR");
+	private JButton btnComprar = new JButton("  COMPRAR");
 	private JComboBox comboBox_Tallas = new JComboBox();
 	private JLabel lblFalloCompra = new JLabel("");
 	private double precio = 0;
@@ -94,10 +94,13 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			public void stateChanged(ChangeEvent e) {
 				lblFalloCompra.setText("");
 				try {
+					System.out.println("laura duermte: "+comboBox_Nombres.getSelectedItem().toString());
 //					System.out.println("Precio: "+gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()));
 //					System.out.println("Cantidad: "+(Integer) spinner.getValue());
-					precio = (Double.parseDouble(gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()))) * (Integer) spinner.getValue();
-					tfPrecioFinal.setText(String.valueOf(precio)+"€");
+					if(!comboBox_Nombres.getSelectedItem().toString().equals("") ) {
+						precio = (Double.parseDouble(gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()))) * (Integer) spinner.getValue();
+						tfPrecioFinal.setText(String.valueOf(precio)+"€");
+					}
 					System.out.println("Id_admin por dios: "+gdb.getId_admin());
 				} catch (NumberFormatException | SQLException e1) {
 					e1.printStackTrace();
@@ -127,9 +130,9 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		
 		
 		btnComprar.addActionListener(this);
-		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/shopping_bag.png")));
+		btnComprar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/carro.png")));
 		btnComprar.setFont(new Font("Arial", Font.BOLD, 16));
-		btnComprar.setBounds(183, 322, 154, 40);
+		btnComprar.setBounds(183, 322, 160, 40);
 		btnComprar.setBorderPainted(false);
 		btnComprar.setOpaque(false);
 		btnComprar.setContentAreaFilled(false);
@@ -152,7 +155,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		tfDinero.setColumns(10);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
-		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/equis.png")));
+		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/CANCELAR.PNG")));
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCancelar.setBounds(449, 322, 170, 40);
 		btnCancelar.setBorderPainted(false);
@@ -177,7 +180,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		add(lblNewLabel_6);
 		
 		
-		lblFalloCompra.setForeground(Color.RED);
+		lblFalloCompra.setForeground(new Color (204, 0, 153));
 		lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 12));
 		lblFalloCompra.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFalloCompra.setBounds(183, 388, 467, 14);
@@ -237,17 +240,17 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			//IMPORTANTE AHORA NO ESTA LA CONDICION DE COMPROBAR EL DINERO PERO SE DEBERA AÑADIR MAS ADELANTE
 			if(comboBox_Nombres.getSelectedItem().equals("") ) {
 				//System.out.println("rellene todos los campos");
-				lblFalloCompra.setForeground(Color.RED);
+				lblFalloCompra.setForeground(new Color (204, 0, 153));
 				lblFalloCompra.setText("*Debe seleccionar un articulo");
 			}else if(comboBox_Tallas.getSelectedItem().equals("")) {
 				lblFalloCompra.setText("*Debe seleccionar una talla");
-				lblFalloCompra.setForeground(Color.RED);
+				lblFalloCompra.setForeground(new Color (204, 0, 153));
 			}else if(comboBox_proveedor.getSelectedItem().equals("")) {
 				lblFalloCompra.setText("*Debe seleccionar un proovedor");
-				lblFalloCompra.setForeground(Color.RED);
+				lblFalloCompra.setForeground(new Color (204, 0, 153));
 			}else if(((Integer) spinner.getValue())<=0) {
 				lblFalloCompra.setText("*La cantidad debe ser mayor que 0");
-				lblFalloCompra.setForeground(Color.RED);
+				lblFalloCompra.setForeground(new Color (204, 0, 153));
 			}else {
 				try {
 					if(precio<=Double.parseDouble(tfDinero.getText())) {
@@ -255,7 +258,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 						lblFalloCompra.setText("*COMPRA REALIZADA");
 						tfDinero.setText("");
 						insertarDinero();
-						lblFalloCompra.setForeground(Color.GREEN);
+						lblFalloCompra.setForeground(new Color(0, 0, 204));
 						lblFalloCompra.setFont(new Font("Tahoma", Font.ITALIC, 14));
 					}else {
 						JOptionPane.showMessageDialog(null, "No tienes suficiente dinero");

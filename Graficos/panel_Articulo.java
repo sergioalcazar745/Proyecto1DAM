@@ -248,7 +248,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				lblNewLabel_2.setText("*No hay suficientes articulos en Stock");
 				lblNewLabel_2.setForeground(new Color (204, 0, 153));
 			}else {
-				lblNewLabel_2.setForeground(Color.GREEN);
+				lblNewLabel_2.setForeground(new Color(0, 0, 204));
 				//comprobar el numero de articulos que lleva en la cesta y del numero de stock.
 				int numero_stock=0;
 				try {
