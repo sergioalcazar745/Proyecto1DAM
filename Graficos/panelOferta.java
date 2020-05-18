@@ -231,7 +231,7 @@ public class panelOferta extends JPanel implements ActionListener{
 			Double.parseDouble(tfPorcentaje.getText().toString());
 			correcto = true;
 		}catch(Exception a){
-			System.out.println("perdedor");
+			System.out.println("Fallo al buscar");
 		}
 		return correcto;
 	}

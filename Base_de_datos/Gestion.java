@@ -30,7 +30,6 @@ public class Gestion  {
 	boolean sesionIniciada=false;
 	boolean cliente = false;
 	String dinero_disponible;
-	String borrar = "";
 
 	public String getDinero_disponible() {
 		return dinero_disponible;
@@ -92,7 +91,6 @@ public class Gestion  {
 			if(!resultado.next()) {
 				setCliente(true);
 			}else {
-				borrar = "primo";
 				setId_admin(resultado.getString("id_admin"));
 				setCliente(false);
 			}
@@ -1158,22 +1156,21 @@ public class Gestion  {
 	
 	public boolean devolverCorreo(String correo) {
 		boolean resultadoFinal=true;
-		
-		String sql = "SELECT correo FROM persona";
-
-        try {
-            st=(Statement) con.createStatement();
-            resultado = st.executeQuery(sql);            
-            while(resultado.next()) {
-            	if(correo.equals(resultado.getString("correo"))) {
-            		resultadoFinal=false;
-            	}
-            }
-        } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
-        }
-		
+				
+			String sql = "SELECT correo FROM persona";
+	
+	        try {
+	            st=(Statement) con.createStatement();
+	            resultado = st.executeQuery(sql);            
+	            while(resultado.next()) {
+	            	if(correo.equals(resultado.getString("correo"))) {
+	            		resultadoFinal=false;
+	            	}
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Fallo al buscar");
+	            e.printStackTrace();
+	        }	        
 		return resultadoFinal;
 	}
 	

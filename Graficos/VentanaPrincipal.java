@@ -86,8 +86,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JButton btnSalir;
 	private JButton btnPedidos;
 	String palabra="hola";
-	
-	private conexion cn = new conexion();
 	private Connection con;
 	private JTextField textField_filtro;
 	private JButton btnSignOut;

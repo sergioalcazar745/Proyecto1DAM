@@ -22,7 +22,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -218,16 +222,26 @@ public class panelCuenta extends JPanel implements ActionListener{
 		}else if(boton.equals(btnEditApellidos)) {
 			tfApellidos.setText(JOptionPane.showInputDialog("Introduzca los apellidos nuevos: "));
 		}else if(boton.equals(btnEditFechaNacimiento)) {
-			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: ");
+			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: (dd-mm-yyyy)");
+			if(validarFecha(fecha)) {
+//				tfFecha_Nacimiento.setText(fecha);
+				mayoriaEdad(fecha);
+			}else {
+				JOptionPane.showMessageDialog(null, "El formato es incorrecto");
+			}
 		}else if(boton.equals(btnEditTelefono)) {
 			tfTelefono.setText(JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
 		}else if(boton.equals(btnEditCorreo)) {
-			String correo = JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
+			String correo = "";
+			correo = JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
 			
-			if(gdb.devolverCorreo(correo) == false) {
-				JOptionPane.showMessageDialog(null, "El correo introducido ya existe");
-			}else {
-				tfCorreo.setText(correo);
+			if(correo != null) {
+			
+				if(gdb.devolverCorreo(correo) == false) {
+					JOptionPane.showMessageDialog(null, "El correo introducido ya existe");
+				}else {
+					tfCorreo.setText(correo);
+				}
 			}
 			
 		}else if(boton.equals(btnEditContraseña)) {
@@ -238,14 +252,17 @@ public class panelCuenta extends JPanel implements ActionListener{
 			
 			pf.setText("");
 			
-			int dos = JOptionPane.showConfirmDialog(null, pf, "Introduce la contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+			int dos = JOptionPane.showConfirmDialog(null, pf, "Introduce de nueva la contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			String contraseña2 = new String (pf.getText());
 			
-			if(contraseña1.equals(contraseña2)) {
-				tfContraseña.setText(contraseña2);
-			}else {
-				JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
-			}			
+			if(contraseña1 != null && contraseña2 != null) {
+			
+				if(contraseña1.equals(contraseña2)) {
+					tfContraseña.setText(contraseña2);
+				}else {
+					JOptionPane.showMessageDialog(null, "No coinciden las contraseñas. Vuelva a intentarlo");
+				}			
+			}
 		}else if(boton.equals(btnGuardar)) {
 			try {
 				if(gdb.actualizarCampos(tfNombre.getText(), tfApellidos.getText(), tfFecha_Nacimiento.getText(), tfTelefono.getText(),tfCorreo.getText(), tfContraseña.getText())) {
@@ -270,11 +287,31 @@ public class panelCuenta extends JPanel implements ActionListener{
 		tfTelefono.setText(datos.get(2));
 	}
 	
-	public boolean comprobarFecha(String fecha)throws Exception {
-		boolean correcto = false;
-		SimpleDateFormat fechaFormat=new SimpleDateFormat("dd/MM/yyyy");
-		Date date1=(Date) fechaFormat.parse(fecha); 
-		return correcto;	
+	public static boolean validarFecha(String fecha) {
+		boolean correcto = true;
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return correcto = false;
+        }
+        return correcto;
+    }
+	
+	public void mayoriaEdad(String fecha) {
+		StringTokenizer st = new StringTokenizer(fecha,"-");
+		
+		int dia = Integer.parseInt(st.nextToken());
+		int mes = Integer.parseInt(st.nextToken());
+		int anio = Integer.parseInt(st.nextToken());
+		
+		LocalDate start = LocalDate.of(anio, mes, dia);
+		LocalDate end = LocalDate.now();
+		
+		Period period = Period.between(start, end);
+		
+		System.out.println("Edad : "+ period.getYears());
 	}
 
 	public void setTfNombre(JTextField tfNombre) {

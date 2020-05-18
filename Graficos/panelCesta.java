@@ -125,7 +125,6 @@ public class panelCesta extends JPanel {
 	}
 	public void panelVacio() {
 		if(fila==0) {
-			System.out.println("hitler");
 			JLabel lblNewLabel = new JLabel("");
 	        lblNewLabel.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/cesta_vacia_azul.png")));
 	        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
