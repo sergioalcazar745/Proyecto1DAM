@@ -27,6 +27,8 @@ import java.time.Month;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
@@ -218,9 +220,53 @@ public class panelCuenta extends JPanel implements ActionListener{
 		Object boton = e.getSource();
 		
 		if(boton.equals(btnEditNombre)) {
-			tfNombre.setText(JOptionPane.showInputDialog("Introduzca el nuevo nombre: "));		
+			String nombre = JOptionPane.showInputDialog("Introduzca el nuevo nombre: ");
+			
+			StringTokenizer tokens=new StringTokenizer(nombre);
+			boolean control=true;
+			
+			while(tokens.hasMoreTokens() && control){
+				
+				String cadena=tokens.nextToken();
+				
+				if (comprobarCaracter(cadena)==true) {
+					control=true;
+		
+				}else {					
+					control=false;
+				}
+		    }
+			
+			if(control == false) {
+				JOptionPane.showMessageDialog(null, "El nombre debe ser una cadena de caracteres");
+			}else {
+				tfNombre.setText(nombre);
+			}
+			
 		}else if(boton.equals(btnEditApellidos)) {
-			tfApellidos.setText(JOptionPane.showInputDialog("Introduzca los apellidos nuevos: "));
+			String apellidos = JOptionPane.showInputDialog("Introduzca los apellidos nuevos: ");
+			
+			StringTokenizer tokens=new StringTokenizer(apellidos);
+			boolean control=true;
+			
+			while(tokens.hasMoreTokens() && control){
+				
+				String cadena=tokens.nextToken();
+				
+				if (comprobarCaracter(cadena)==true) {
+					control=true;
+		
+				}else {					
+					control=false;
+				}
+		    }
+			
+			if(control == false) {
+				JOptionPane.showMessageDialog(null, "Los apellidos debe ser una cadena de caracteres");
+			}else{
+				tfApellidos.setText(apellidos);
+			}
+			
 		}else if(boton.equals(btnEditFechaNacimiento)) {
 			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: (dd-mm-yyyy)");
 			if(validarFecha(fecha)) {
@@ -233,7 +279,18 @@ public class panelCuenta extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "El formato es incorrecto");
 			}
 		}else if(boton.equals(btnEditTelefono)) {
-			tfTelefono.setText(JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
+			String telefono = (JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
+			
+			if(telefono == null) {
+				
+			}else {
+				if(comprobarTelefono(telefono)) {
+					tfTelefono.setText(telefono);
+				}else {
+					JOptionPane.showMessageDialog(null, "El numero introducido es incorrecto");
+				}
+			}
+			
 		}else if(boton.equals(btnEditCorreo)) {
 			String correo = "";
 			correo = JOptionPane.showInputDialog("Introduzca el nuevo correo: ");
@@ -243,7 +300,11 @@ public class panelCuenta extends JPanel implements ActionListener{
 				if(gdb.devolverCorreo(correo) == false) {
 					JOptionPane.showMessageDialog(null, "El correo introducido ya existe");
 				}else {
-					tfCorreo.setText(correo);
+					if(comprobarEmail(correo)) {
+						tfCorreo.setText(correo);
+					}else {
+						JOptionPane.showMessageDialog(null, "El correo introducido es incorrecto");
+					}
 				}
 			}
 			
@@ -316,6 +377,63 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		System.out.println("Edad : "+ period.getYears());
 		return period.getYears();
+	}
+	
+	protected boolean comprobarTelefono(String telefono) {		
+		boolean valido=true, letras=true;
+		int miNumero;
+		
+		if(telefono.matches("[0-9]+")) {
+			letras=true;
+		}else {
+			letras=false;
+		}
+		
+		if(letras==true) {
+			
+			miNumero = Integer.parseInt(telefono.substring(0,1));
+			
+			if (telefono.length()==9 && (miNumero==6 || miNumero==7)) {
+				valido=true;
+			}else {
+				valido=false;
+			}		
+			
+		}else if(letras==false) {
+			valido=false;
+		}		
+		return valido;
+	}
+	
+	public boolean comprobarCaracter(String n) {
+		boolean valido=true;
+		
+		if (n.matches("[a-zA-Z]+")) {
+			valido=true;
+		}else {
+			valido=false;
+		}
+		
+		return valido;
+	}
+	
+	public boolean comprobarEmail(String email) {
+		boolean correcto = false;
+		
+		// Patrón para validar el email
+        Pattern pattern = Pattern
+                .compile("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/.");
+
+
+        Matcher mather = pattern.matcher(email);
+
+        if (mather.find() == true) {
+            correcto = true;
+        } else {
+        	correcto = false;
+        }
+        
+        return correcto;
 	}
 
 	public void setTfNombre(JTextField tfNombre) {
