@@ -176,7 +176,6 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();
 		}else if(evento.equals(btnMenos)) {
-			System.out.println("BotonMenos");
 			if(comboBox_Pertenece.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 				
 			}else {
@@ -208,7 +207,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	
 	public void añadirCategoria() {
 		if(tfInsertar.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Si escribes algo mejor bro.");
+			JOptionPane.showMessageDialog(null, "Escribe una cayegoria.");
 		}else {
 			Datos [0] = tfInsertar.getText();
 			modelo.addRow(Datos);
@@ -227,7 +226,6 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		con = cx.getConexion();
 		
 		try {
-			System.out.println("Conexion realizada");
 			gdb = new Gestion();
 			resultado = gdb.recorrerCategorias();
 			

@@ -98,15 +98,12 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("ID PERSONA ADMIN: "+getId_admin());
 		return cliente;
 	}
 	
 	public void añadirCesta(String nombre, String talla, int cantidad, double precio) {
 		boolean existe = false;
 		for (Articulos articulos : array_articulosCesta) {
-			System.out.println(nombre + "n" + cantidad);
-			System.out.println(articulos.getNombre() + "n" + articulos.getTalla());
 			if(nombre.equals(articulos.getNombre()) && articulos.getTalla().equals(talla)) {
 				existe = true;
 				articulos.setCantidad(cantidad);
@@ -123,12 +120,10 @@ public class Gestion  {
 		Iterator<Articulos> it = array_articulosCesta.iterator(); 
 			while(it.hasNext()) {	
 				 nombre_eliminar= it.next();
-				 System.out.println(nombre_buscar+"/"+talla);
 				if (nombre_buscar.equals(nombre_eliminar.getNombre()) && talla.equals(nombre_eliminar.getTalla())) {				 
 					it.remove();
 				}
 			}
-		//System.out.println("articulo añadido: "+array_articulosCesta.size());
 	}
 	public ArrayList<Articulos> getArray_articulosCesta() {
 		return array_articulosCesta;
@@ -143,7 +138,6 @@ public class Gestion  {
 	
 		con = cx.getConexion();
 		//cogemos el id;
-		System.out.println(getCliente());
 		if(getCliente() == true) {
 		String sql = "SELECT * FROM persona WHERE correo='"+correo+"'";		
 			try {
@@ -156,14 +150,12 @@ public class Gestion  {
 					datos.add(resultado.getString("telefono"));
 					id=(resultado.getString(1));
 				}
-				System.out.println("id1" +id );
 				String sql2 = "SELECT * FROM cliente WHERE id_persona_aux='"+id+"'";
 				
 					try {
 						st2=(Statement) con.createStatement();
 						resultado2 = st2.executeQuery(sql2);
 						while(resultado2.next()) {
-							System.out.println(resultado2.getString("nombre"));
 							datos.add(resultado2.getString("nombre"));
 							datos.add(resultado2.getString("apellidos"));
 							datos.add(resultado2.getString("fecha_nacimiento"));
@@ -246,16 +238,13 @@ public class Gestion  {
 			con = cx.getConexion();
 			st=(Statement) con.createStatement();
 			int confirmar = st.executeUpdate(sql2);
-			if(confirmar > 0) {
-				System.out.println("Bien");
-			}
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar2");
 			e.printStackTrace();
 		}
 		
 		String sql3 = "DELETE FROM pertenece WHERE id_categoria_aux='"+id_categoria+"'";
-		System.out.println(id_categoria);
+
 		try {
 			con = cx.getConexion();
 			st=(Statement) con.createStatement();
@@ -315,7 +304,6 @@ public class Gestion  {
 			int confirmar=st.executeUpdate(sql);
 			if(confirmar ==1) {
 				insertado=true;
-				System.out.println("creado");
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -462,7 +450,6 @@ public class Gestion  {
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}		
-		System.out.println("Adios");
 		String sql3 = "DELETE FROM pertenece WHERE id_articulogenerico_aux = '"+id_generico+"' and id_categoria_aux = '"+id_categoria+"'";
 		try {
 			st= (Statement) con.createStatement();
@@ -561,12 +548,7 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		
-		
-		
-//		for (String string : nombres) {
-//			System.out.println("nombre: "+string);
-//		}
+
 		return nombres;
 	}
 	
@@ -678,7 +660,6 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("stockKKKKKKKKKKKKKKKKKKKKKKKKKK: "+numero);
 		return numero;
 	}
 	
@@ -696,8 +677,7 @@ public class Gestion  {
 		//se debe buscar el id del articulo_generico con el nombre.
 		String id_articulo = "", id_proveedor = "", sql ="";
 		con = cx.getConexion();		
-		System.out.println("Id admin comprar: "+getId_admin());
-		//System.out.println("nombre insertar: "+nombre);
+
 		sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";
 		
 		try {
@@ -744,8 +724,6 @@ public class Gestion  {
 		año=String.valueOf(fecha.get(Calendar.YEAR));
 		String fecha_final=dia+"-"+mes+"-"+año;
 		
-		System.out.println(id_articulo+"\n"+getId_admin()+"\n"+id_proveedor+"\n"+precio_total+"\n"+cantidad+"\n"+fecha_final+"\n");
-		
 		sql = "INSERT INTO suministra (id_articulo_aux, id_admin_aux, id_proveedor_aux, precio_total, cantidad, fecha) VALUES ('"+id_articulo+"',  '"+getId_admin()+"', '"+id_proveedor+"', '"+precio_total+"', '"+cantidad+"', '"+fecha_final+"')";
 
 		try {
@@ -769,8 +747,6 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);
 			while(resultado.next()) {
-				System.out.println(resultado.getString("descuento"));
-				System.out.println(valor);
 				if(Integer.parseInt(resultado.getString("descuento")) == Integer.parseInt(valor)) {
 					id_oferta=resultado.getString("id_oferta");
 					existe = true;
@@ -794,9 +770,9 @@ public class Gestion  {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar222222222222");
+			System.out.println("Fallo al buscar2");
 		}
-		System.out.println(id_oferta);
+
 		//Obtener id de los articulos
 		if(articulo.equals("")) {
 			//Tenemos que comprobar que el descuento existe y si es asi se reutiliza la id. Si es una categoria hay que sacar todo los id_articulo.			
@@ -824,7 +800,6 @@ public class Gestion  {
 							st2.executeUpdate(sql2);
 						} catch (SQLException e) {
 							System.out.println("Fallo al buscar4");
-							System.out.println(id_oferta +"/"+ id_articulo);
 							e.printStackTrace();
 						}									
 				 }
@@ -872,11 +847,11 @@ public class Gestion  {
 						}						
 					}
 				} catch (SQLException e) {
-					System.out.println("Fallo al buscarPrimoooooooooooo");
+					System.out.println("Fallo al buscar");
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscarSus muertoooooooooos");
+			System.out.println("Fallo al buscar");
 		}
 		return ofertas;
 	}
@@ -901,11 +876,11 @@ public class Gestion  {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar666666666666666666666666666666666666");
+				System.out.println("Fallo al buscar");
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar64");
+			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 		return descuento;
@@ -922,7 +897,7 @@ public class Gestion  {
 				id_oferta = resultado.getString("id_oferta_aux");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar64");
+			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 		return id_oferta;
@@ -954,8 +929,7 @@ public class Gestion  {
 			
 			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"' and talla='"+talla+"' and Disponible=1";
 			resultado=st.executeQuery(sql);
-			//resultado.last();
-			//System.out.println(resultado.getRow()+"/resultados");
+
 			st2=(Statement) con.createStatement();
 				while(resultado.next() && cantidad>0) {
 					id_articulo = resultado.getString("id_articulo");
@@ -967,7 +941,7 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("ID ARTICULO: "+id_articulo);
+
 		id_oferta=buscarIdOfertaArticulo(nombre);
 		sql = "SELECT id_persona FROM persona WHERE correo='"+array_datos.get(0)+"'";
 		try {
@@ -981,10 +955,7 @@ public class Gestion  {
 			resultado2 = st.executeQuery(sql);
 			if(resultado2.next()){
 				id_cliente=resultado2.getString("id_cliente");
-			}
-			//Insert Padre
-			//System.out.println("hitler padre: "+"id_articulo: "+id_articulo+"\nid_oferta: "+id_oferta+"\nid_cliente: "+id_cliente+"\nfecha: "+fecha_final);
-			
+			}			
 		} catch (SQLException e) {
 			
 		}
@@ -1041,7 +1012,6 @@ public class Gestion  {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
-		System.out.println("Dinero" +dinero);
 		return dinero;
 	}
 	
@@ -1049,7 +1019,7 @@ public class Gestion  {
 		//se debe buscar el id del articulo_generico con el nombre.
         String id_articulo = "";
         con = cx.getConexion();
-        //System.out.println("nombre insertar: "+nombre);
+
         String sql = "SELECT id_generico FROM articulogenerico WHERE nombre='"+nombre+"'";
 
         try {
@@ -1097,8 +1067,6 @@ public class Gestion  {
                  try {
                      st2=(Statement) con.createStatement();           
                      if(resultado2.next()) {
-                    	System.out.println("Lo mismo: "+resultado2.getString("nombre"));
-                    	System.out.println("Lo mismo: "+resultado2.getString("talla"));
                      	compra.add(resultado2.getString("nombre"));
                      	compra.add(resultado2.getString("talla"));
                      	compra.add(resultado.getString("fecha"));
@@ -1120,7 +1088,7 @@ public class Gestion  {
 	public ArrayList <String> devolverSuministro(){
 		ArrayList<String> suministro = new ArrayList<String>();
 		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null, sql = null;
-        System.out.println("IDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+getId_admin());
+
         sql = "SELECT * FROM suministra WHERE id_admin_aux='"+getId_admin()+"'";
         String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join suministra on articulos.id_articulo=id_articulo_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
         
@@ -1147,10 +1115,6 @@ public class Gestion  {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-        
-		for (String n : suministro) {
-			System.out.println("SUMINISTRO: "+n);
-		}
 		return suministro;
 	}
 	
@@ -1209,8 +1173,6 @@ public class Gestion  {
 	                st=(Statement) con.createStatement();
 	                resultado = st.executeQuery(sql);
 	                resultado.last();
-	               // System.out.println("hola: "+id);
-	               // System.out.println("dispnible: "+resultado.getString("Disponible"));
 	                cantidad=String.valueOf(resultado.getRow());
 	            } catch (SQLException e) {
 	                System.out.println("Fallo al buscar");
@@ -1222,13 +1184,10 @@ public class Gestion  {
 	                resultado = st.executeQuery(sql);
 	                resultado.next();
 	                nombre=resultado.getString("nombre");
-	               // System.out.println("hola: "+id);
-	               // System.out.println("dispnible: "+resultado.getString("Disponible"));
 	            } catch (SQLException e) {
 	                System.out.println("Fallo al buscar");
 	            }
 	            
-	            //System.out.println("añadido");
 	            stock.add(nombre);
 	            stock.add(cantidad);
 	            stock.add(talla);

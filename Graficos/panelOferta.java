@@ -182,9 +182,7 @@ public class panelOferta extends JPanel implements ActionListener{
 	protected void insertarOfertas() throws SQLException {
 		ArrayList<String> oferta = new ArrayList<String>();
 		oferta = gdb.recorrerOferta();
-		for (String string : oferta) {
-			System.out.println("Oferta"+string);
-		}
+
 		int j = 0;
 		for(int i = 0; i<oferta.size(); i++) {
 			if(!oferta.get(i).equals("0.000")) {
@@ -213,7 +211,7 @@ public class panelOferta extends JPanel implements ActionListener{
 						modelo.getDataVector().removeAllElements();
 						insertarOfertas();						
 					}catch (SQLException a){
-						System.out.println("Sur primo");
+						System.out.println("Falla al buscar");
 					}
 				}				
 			}				

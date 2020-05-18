@@ -522,7 +522,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
 			panel_2.revalidate();
 			panel_2.repaint();
-			//System.out.println("panel: "+panel_articulos_filtros.getHeight());
 
 		}else if(evento.equals(btnCesta)) {
 			desactivarPaneles();
