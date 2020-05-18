@@ -224,8 +224,11 @@ public class panelCuenta extends JPanel implements ActionListener{
 		}else if(boton.equals(btnEditFechaNacimiento)) {
 			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: (dd-mm-yyyy)");
 			if(validarFecha(fecha)) {
-//				tfFecha_Nacimiento.setText(fecha);
-				mayoriaEdad(fecha);
+				if(mayoriaEdad(fecha)>=18) {
+					tfFecha_Nacimiento.setText(fecha);
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe ser mayor de edad");
+				}
 			}else {
 				JOptionPane.showMessageDialog(null, "El formato es incorrecto");
 			}
@@ -255,7 +258,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 			int dos = JOptionPane.showConfirmDialog(null, pf, "Introduce de nueva la contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 			String contraseña2 = new String (pf.getText());
 			
-			if(contraseña1 != null && contraseña2 != null) {
+			if(!contraseña1.equals("") && !contraseña2.equals("")) {
 			
 				if(contraseña1.equals(contraseña2)) {
 					tfContraseña.setText(contraseña2);
@@ -299,7 +302,7 @@ public class panelCuenta extends JPanel implements ActionListener{
         return correcto;
     }
 	
-	public void mayoriaEdad(String fecha) {
+	public int mayoriaEdad(String fecha) {
 		StringTokenizer st = new StringTokenizer(fecha,"-");
 		
 		int dia = Integer.parseInt(st.nextToken());
@@ -312,6 +315,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		Period period = Period.between(start, end);
 		
 		System.out.println("Edad : "+ period.getYears());
+		return period.getYears();
 	}
 
 	public void setTfNombre(JTextField tfNombre) {
