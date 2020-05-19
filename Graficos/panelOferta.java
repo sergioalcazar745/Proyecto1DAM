@@ -207,8 +207,8 @@ public class panelOferta extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Escribe algo");
 			}else {
 				if((comboBox_Nombres.getSelectedItem().toString().equals("")==true && comboBox_Categoria.getSelectedItem().toString().equals("")==false) || (comboBox_Nombres.getSelectedItem().toString().equals("")==false && comboBox_Categoria.getSelectedItem().toString().equals("")==true)  ) {
-					System.out.println(comboBox_Nombres.getSelectedItem().toString().equals(""));
-					System.out.println(comboBox_Categoria.getSelectedItem().toString().equals(""));
+					//System.out.println(comboBox_Nombres.getSelectedItem().toString().equals(""));
+					//System.out.println(comboBox_Categoria.getSelectedItem().toString().equals(""));
 					if(comprobarNumero()) {
 						try {						
 							gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
