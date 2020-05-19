@@ -424,17 +424,13 @@ public class panelCuenta extends JPanel implements ActionListener{
 		return valido;
 	}
 	
-	public boolean comprobarEmail(String email) {         
+	public boolean comprobarEmail(String correo) {         
 		boolean correcto = false;        
-		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";          
-		Pattern pattern = Pattern.compile(regex);          
-		Matcher matcher = pattern.matcher(email); 
-		
-			if(matcher.matches()) {             
-				correcto=true;         
-			}       
-			
-		return correcto;    
+		String formato = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "(hotmail|gmail)*(.com|.es)$";
+		if (correo.matches(formato) == false) {
+			//JOptionPane.showMessageDialog(null,"Formato de email incorrecto");
+		}
+		return correo.matches(formato);   
 	}
 
 	public void setTfNombre(JTextField tfNombre) {
