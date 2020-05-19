@@ -424,9 +424,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 	public boolean comprobarEmail(String email) {
 		boolean correcto = false;
 		
-		// Patrón para validar el email
-        Pattern pattern = Pattern
-                .compile("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/.");
+		// Patren para validar el email
+        Pattern pattern = Pattern.compile("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/.");
 
 
         Matcher mather = pattern.matcher(email);
@@ -436,6 +435,7 @@ public class panelCuenta extends JPanel implements ActionListener{
         } else {
         	correcto = false;
         }
+        
         
         return correcto;
 	}
