@@ -295,7 +295,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 					}else {
 						String price1 = lblValorPrecio.getText().replace(",", ".");
 						double price2 = Double.parseDouble(price1);
-						gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue(), price2);
+						//gdb.añadirCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue(), price2);
 						lblNewLabel_2.setText("*Compra realizada");
 						lblNewLabel_2.setForeground(new Color(0, 0, 204));
 						gdb.comprarArticulos(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString(), (int) spinner.getValue());

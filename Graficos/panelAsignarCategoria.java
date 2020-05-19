@@ -156,7 +156,6 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		Object evento = e.getSource();
 		
 		if(evento.equals(btnAñadir)) {
-			añadirCategoria();
 		}else if(evento.equals(btnAñadirCategoriaArticulo)) {
 			//creamos el objeto de que el articulo pertenece una categoria.
 			//seleccionamoss el articulo y la categoria elegidas se lo pasamos al objeto gestion y lo insertamos en la base de datos.
@@ -208,9 +207,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 	}
 	
 	public void añadirCategoria() {
-		if(tfInsertar.getText().isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Escribe una cayegoria.");
-		}else {
+		if(!tfInsertar.getText().isEmpty() && !tfInsertar.getText().equals("")) {
 			boolean existe=false;
 			for(int i=0; i<modelo.getRowCount(); i++) {
 				if(modelo.getValueAt(i, 0).toString().equals(tfInsertar.getText())) {
@@ -231,6 +228,13 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Categoria no insertada");
 				}
 			}
+		}
+	}
+	public void mostrarMensaje() {
+		if(tfInsertar.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Inserte algun nombre");
+		}else {
+			//añadirCategoria();
 		}
 	}
 	private void introducirDatos() throws SQLException {

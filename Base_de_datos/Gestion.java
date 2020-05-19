@@ -22,8 +22,8 @@ import Clases.Articulos;
 public class Gestion  {
 	private Connection con;//objeto conexion
 	private conexion cx= new conexion();
-	private Statement st, st2, st3, st4;//realiza consulta
-	private ResultSet resultado, resultado2, resultado3, resultado4; //recibe consulta
+	private Statement st, st2, st3, st4, stid, st5;//realiza consulta
+	private ResultSet resultado, resultado2, resultado3, resultado4, resultado5; //recibe consulta
 	private String id, id_admin;
 	ArrayList<String> array_datos=new ArrayList<String>();
 	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
@@ -905,12 +905,12 @@ public class Gestion  {
 	
 	public void comprarArticulos(String nombre, String talla, int cantidad) throws SQLException {
 		String id_oferta="";
-		int cantidad_aux=cantidad;
 		String id_cliente="", id_persona="", fecha_final;
 		Calendar fecha = Calendar.getInstance();
 		String mes,dia, año;
 		String id_articulo = "", id_generico = null;
-		
+		String precio="";
+		Double descuento=0.0;
 		con = cx.getConexion();		
 
 		mes=String.valueOf(fecha.get(Calendar.MONTH)+1);
@@ -922,58 +922,92 @@ public class Gestion  {
 		
 		try {
 			st=(Statement) con.createStatement();
-			resultado = st.executeQuery(sql);
-				if(resultado.next()) {
-					id_generico = resultado.getString("id_generico");
+			st4=(Statement) con.createStatement();
+			st3=(Statement) con.createStatement();
+			st2=(Statement) con.createStatement();
+			st5=(Statement) con.createStatement();
+		resultado=st.executeQuery(sql);
+			if(resultado.next()) {
+				id_generico=resultado.getString("id_generico");
+			}
+			
+			sql = "SELECT id_cliente FROM cliente inner join persona on persona.id_persona=cliente.id_persona_aux WHERE correo='"+array_datos.get(0)+"'";
+			st=(Statement) con.createStatement();
+			resultado=st.executeQuery(sql);
+			if(resultado.next()) {
+				id_cliente=resultado.getString("id_cliente");
+			}
+			
+			
+//			sql = "SELECT precio_venta FROM articulogenerico WHERE id_generico='"+id_generico+"'";
+//			st=(Statement) con.createStatement();
+//			resultado=st.executeQuery(sql);
+//			if(resultado.next()) {
+//				precio=resultado.getString("precio_venta");
+//			}
+			
+			sql = "SELECT id_oferta_aux FROM articulogenerico WHERE id_generico='"+id_generico+"'";
+			st=(Statement) con.createStatement();
+			resultado=st.executeQuery(sql);
+			if(resultado.next()) {
+				id_oferta=resultado.getString("id_oferta_aux");
+			}
+			
+			
+			sql = "SELECT * FROM oferta WHERE id_oferta='"+id_oferta+"'";
+			System.out.println("id_oferta: "+id_oferta);
+			st3=(Statement) con.createStatement();
+			resultado3=st.executeQuery(sql);
+			if(resultado3.next()) {
+				precio=devolverPrecioVentaDeCategoria(nombre);
+				descuento=Double.parseDouble(resultado3.getString("descuento"));
+				System.out.println("descuento: "+descuento);
+				System.out.println("precio: "+precio);
+				if(descuento!=0) {
+					descuento=(100-descuento)/100;
+					precio=String.valueOf( descuento*Double.parseDouble(precio) );
+					System.out.println("precio:final:  "+precio);
+					System.out.println("(100-descuento)/100): "+(100-descuento)/100+"\nDouble.parseDouble(precio): "+Double.parseDouble(precio));
 				}
+			}
+			
+			
+			
 			
 			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"' and talla='"+talla+"' and Disponible=1";
+			st=(Statement) con.createStatement();
 			resultado=st.executeQuery(sql);
+			System.out.println("cantidad: "+cantidad);
+			while(resultado.next() && cantidad>0){
+				id_articulo=resultado.getString("id_articulo");
+				sql = "UPDATE articulos SET Disponible=0 WHERE id_articulo='"+id_articulo+"'";
+				st2.executeUpdate(sql);
+				cantidad--;
+				
+				sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+precio+"','"+fecha_final+"')";
+				st3.executeUpdate(sql);
+			}
 
-			st2=(Statement) con.createStatement();
-				while(resultado.next() && cantidad>0) {
-					id_articulo = resultado.getString("id_articulo");
-					sql = "UPDATE articulos SET Disponible=0 WHERE id_articulo='"+id_articulo+"'";
-					st2.executeUpdate(sql);
-					cantidad--;
-				}
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 
-		id_oferta=buscarIdOfertaArticulo(nombre);
-		sql = "SELECT id_persona FROM persona WHERE correo='"+array_datos.get(0)+"'";
-		try {
-			st=(Statement) con.createStatement();
-			resultado = st.executeQuery(sql);
-			if(resultado.next()){
-				id_persona=resultado.getString("id_persona");
-			}
-			
-			sql = "SELECT id_cliente FROM cliente WHERE id_persona_aux='"+id_persona+"'";
-			resultado2 = st.executeQuery(sql);
-			if(resultado2.next()){
-				id_cliente=resultado2.getString("id_cliente");
-			}			
-		} catch (SQLException e) {
-			
-		}
-		String price ="";
-		for (Articulos art : array_articulosCesta) {
-			if(art.getNombre().equals(nombre) && art.getTalla().equals(talla)) {
-				price = String.valueOf(art.getPrecio()).replace(",", "." );
-			}
-		}
-		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
-		
-		try {
-			st=(Statement) con.createStatement();
-			st.executeUpdate(sql);
-		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
-		}		
+//		String price ="";
+//		for (Articulos art : array_articulosCesta) {
+//			if(art.getNombre().equals(nombre) && art.getTalla().equals(talla)) {
+//				price = String.valueOf(art.getPrecio()).replace(",", "." );
+//			}
+//		}
+//		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
+//		
+//		try {
+//			st=(Statement) con.createStatement();
+//			st.executeUpdate(sql);
+//		} catch (SQLException e) {
+//			System.out.println("Fallo al buscar");
+//			e.printStackTrace();
+//		}		
 	}
 	
 	public boolean finalizarCompra() {

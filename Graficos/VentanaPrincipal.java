@@ -107,6 +107,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JPanel panelAdministrador = new panelAdministrador(gdb, cnx);
 	JPanel panelMisPedidos = new panelMisPedidos(gdb);
 	JPanel panelMisPedidos_Cliente = new panelMisPedidos(gdb);
+	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	JPanel panelAsignarCategoria = new panelAsignarCategoria();
 	public VentanaPrincipal() throws Exception{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/minilogo.png")));
 		setTitle("Model Fashion");
@@ -234,7 +236,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		contentPane.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+
 		tabbedPane.setName("Tabbed");
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -250,7 +252,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		tabbedPane.addTab("Suministros", null, panelAdministrador, null);
 		
-		JPanel panelAsignarCategoria = new panelAsignarCategoria();
 		tabbedPane.addTab("Categoria", null, panelAsignarCategoria, null);
 		
 		((Graficos.panelAsignarCategoria) panelAsignarCategoria).getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
@@ -276,18 +277,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				((Graficos.panelAsignarCategoria) panelAsignarCategoria).añadirCategoria();			
-				tabbedPane.remove(2);
-				JPanel panelOferta = null;
-				try {
-					panelOferta = new panelOferta();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				tabbedPane.addTab("Oferta", null, panelOferta, null);
-				tabbedPane.repaint();
-				tabbedPane.revalidate();
+				repintarPanelOferta();
 			}});
 				
 		panelOferta = new panelOferta();
@@ -324,6 +314,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 						panelMisPedidos.setName("panelMisPedidos");
 						((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
 						tabbedPane.addTab("Pedidos", null, panelMisPedidos, null);
+						repintarPanelOferta();
 					}
 					panel_2.setVisible(true);
 					btnSignOut.setText("Cerrar Sesion");
@@ -455,7 +446,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //			}
 //		});
 		
-		
+		((Graficos.panelAsignarCategoria) panelAsignarCategoria).getBtnAñadir().addActionListener(new java.awt.event.ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				((Graficos.panelAsignarCategoria) panelAsignarCategoria).mostrarMensaje();
+			}});
 
 		
 	}
@@ -628,5 +624,24 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	}
 	public JButton getBtnVaciar() {
 		return btnVaciar;
+	}
+	public void repintarPanelOferta() {
+		((Graficos.panelAsignarCategoria) panelAsignarCategoria).añadirCategoria();
+		 for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+		        String tabTitle = tabbedPane.getTitleAt(i);
+		        if (tabTitle.equals("Oferta")) {
+		            tabbedPane.remove(i);
+		        }
+		    }
+		JPanel panelOferta = null;
+		try {
+			panelOferta = new panelOferta();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tabbedPane.addTab("Oferta", null, panelOferta, null);
+		tabbedPane.repaint();
+		tabbedPane.revalidate();
 	}
 }

@@ -19,7 +19,7 @@ public class Articulos {
 	}
 
 	public void setPrecio(double precio) {
-		this.precio += precio;
+		this.precio = precio;
 	}
 
 	public int getCantidad() {
