@@ -926,7 +926,7 @@ public class Gestion  {
 			st3=(Statement) con.createStatement();
 			st2=(Statement) con.createStatement();
 			st5=(Statement) con.createStatement();
-		resultado=st.executeQuery(sql);
+			resultado=st.executeQuery(sql);
 			if(resultado.next()) {
 				id_generico=resultado.getString("id_generico");
 			}
@@ -991,23 +991,7 @@ public class Gestion  {
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
 			e.printStackTrace();
-		}
-
-//		String price ="";
-//		for (Articulos art : array_articulosCesta) {
-//			if(art.getNombre().equals(nombre) && art.getTalla().equals(talla)) {
-//				price = String.valueOf(art.getPrecio()).replace(",", "." );
-//			}
-//		}
-//		sql = "INSERT INTO `compra`(`id_articulo_aux`, `id_oferta_aux`, `id_cliente_aux`, `precio_total`, `cantidad`, `fecha`) VALUES ('"+id_articulo+"','"+id_oferta+"','"+id_cliente+"','"+price+"','"+cantidad_aux+"','"+fecha_final+"')";
-//		
-//		try {
-//			st=(Statement) con.createStatement();
-//			st.executeUpdate(sql);
-//		} catch (SQLException e) {
-//			System.out.println("Fallo al buscar");
-//			e.printStackTrace();
-//		}		
+		}	
 	}
 	
 	public boolean finalizarCompra() {
@@ -1104,8 +1088,7 @@ public class Gestion  {
                      	compra.add(resultado2.getString("nombre"));
                      	compra.add(resultado2.getString("talla"));
                      	compra.add(resultado.getString("fecha"));
-                     	compra.add(resultado.getString("cantidad"));
-                     	compra.add(resultado.getString("precio_total"));
+                     	compra.add(resultado.getString("precio"));
                      }
                  } catch (SQLException e) {
                      System.out.println("Fallo al buscar");
@@ -1116,6 +1099,10 @@ public class Gestion  {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
+        
+        for (String string : compra) {
+			System.out.println("COMPRA: "+string);
+		}
 		return compra;
  	}
 	

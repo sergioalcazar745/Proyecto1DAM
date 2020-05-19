@@ -2,6 +2,7 @@ package Graficos;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -46,6 +47,8 @@ public class Stock extends JDialog implements ActionListener{
             return false;
          }
 		};
+		table.setShowGrid(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		table.setBackground(Color.WHITE);
 		modelo.addColumn("Articulo");
 		modelo.addColumn("Talla");

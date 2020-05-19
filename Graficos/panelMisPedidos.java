@@ -19,6 +19,7 @@ public class panelMisPedidos extends JPanel {
 	private JTable table;
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String [5];
+	private String [] Datos2 = new String [4];
 	private Gestion gdb;
 	
 	public panelMisPedidos(Gestion gdb) {
@@ -28,24 +29,46 @@ public class panelMisPedidos extends JPanel {
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
 		
-		table = new JTable() {;
-		//esto desactiva que podamos editar la tabla
-        public boolean editCellAt(int row, int column, java.util.EventObject e) {
-            return false;
-         }
-      };
-      	table.setShowGrid(false);
-		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		modelo.addColumn("Articulo");
-		modelo.addColumn("Talla");
-		modelo.addColumn("Fecha");
-		modelo.addColumn("Cantidad");
-		modelo.addColumn("Precio");
-		table.setModel(modelo);
-		table.setRowHeight(25);
-		
-		TableColumnModel columnModel = table.getColumnModel();
-	    columnModel.getColumn(0).setPreferredWidth(125);
+		if(gdb.getCliente()) {
+			System.out.println("Hola");
+			table = new JTable() {;
+				//esto desactiva que podamos editar la tabla
+		        public boolean editCellAt(int row, int column, java.util.EventObject e) {
+		            return false;
+		        }
+			};
+	      	table.setShowGrid(false);
+			table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			modelo.addColumn("Articulo");
+			modelo.addColumn("Talla");
+			modelo.addColumn("Fecha");
+			modelo.addColumn("Cantidad");
+			modelo.addColumn("Precio");
+			table.setModel(modelo);
+			table.setRowHeight(25);
+			
+			TableColumnModel columnModel = table.getColumnModel();
+		    columnModel.getColumn(0).setPreferredWidth(125);
+		}else {
+			System.out.println("Hola1");
+			table = new JTable() {;
+			//esto desactiva que podamos editar la tabla
+	        public boolean editCellAt(int row, int column, java.util.EventObject e) {
+	            return false;
+	         }
+	      };
+	      	table.setShowGrid(false);
+			table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+			modelo.addColumn("Articulo");
+			modelo.addColumn("Talla");
+			modelo.addColumn("Fecha");
+			modelo.addColumn("Precio");
+			table.setModel(modelo);
+			table.setRowHeight(25);
+			
+			TableColumnModel columnModel = table.getColumnModel();
+		    columnModel.getColumn(0).setPreferredWidth(125);
+		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(74, 111, 712, 372);
@@ -69,11 +92,11 @@ public class panelMisPedidos extends JPanel {
 			compra = gdb.devolverCompra();
 			int j = 0;
 			for(int i = 0; i<compra.size(); i++) {
-				Datos[j] = compra.get(i);
+				Datos2[j] = compra.get(i);
 				j++;
-				if(j==5) {
+				if(j==4) {
 					j = 0;
-					modelo.addRow(Datos);
+					modelo.addRow(Datos2);
 				}
 			}
 		}else if(gdb.getSesionIniciada() && gdb.getCliente()==false){

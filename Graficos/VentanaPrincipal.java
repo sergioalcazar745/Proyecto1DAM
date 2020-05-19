@@ -556,6 +556,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(evento.equals(btnPedidos)){
 			desactivarPaneles();
 			panelMisPedidos_Cliente.setVisible(true);
+			panelMisPedidos = new panelMisPedidos(gdb);
 			((Graficos.panelMisPedidos) panelMisPedidos_Cliente).insertarPedidos();
 		}
 	}
