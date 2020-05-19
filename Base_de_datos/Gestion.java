@@ -1211,4 +1211,38 @@ public class Gestion  {
 		}
 		return stock;
 	}
+	
+	public void borrar() {
+	ArrayList<String> tallas = new ArrayList<String>();
+	tallas.add("S");
+	tallas.add("M");
+	tallas.add("L");
+	tallas.add("XL");
+	tallas.add("XXL");
+	tallas.add("XXXL");
+	ArrayList<String> ids = new ArrayList<String>();
+	
+       String sql = "SELECT id_generico FROM articulogenerico";
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);
+            while(resultado.next()) {
+            	ids.add(resultado.getString("id_generico"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar1234");
+        }
+        
+        for (String t : tallas) {
+        	for (String n : ids) {
+        		sql = "INSERT INTO articulos (talla, id_articulogenerico_aux, disponible) VALUES ('"+t+"', '"+n+"', '1')";
+                try {
+                    st=(Statement) con.createStatement();
+                    st.executeUpdate(sql);
+                } catch (SQLException e) {
+                    System.out.println("Fallo al buscarStocks");
+                }
+			}        	
+		}      
+	}
 }

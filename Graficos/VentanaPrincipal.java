@@ -110,6 +110,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	JPanel panelAsignarCategoria = new panelAsignarCategoria();
 	public VentanaPrincipal() throws Exception{
+		gdb.borrar();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/minilogo.png")));
 		setTitle("Model Fashion");
 		gdb.devolverStock();
