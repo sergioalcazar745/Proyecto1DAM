@@ -176,7 +176,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();
 		}else if(evento.equals(btnMenos)) {
-			if(comboBox_Pertenece.getSelectedItem().toString().equals("") || comboBox_Nombres.getSelectedItem().toString().equals("") ) {
+			if(comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 				
 			}else {
 				try {

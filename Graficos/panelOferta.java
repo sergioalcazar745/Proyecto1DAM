@@ -71,6 +71,7 @@ public class panelOferta extends JPanel implements ActionListener{
 		scrollPane.setViewportView(table);
 		
 		comboBox_Nombres = new JComboBox();
+		comboBox_Nombres.addActionListener(this);
 		comboBox_Nombres.setBounds(230, 29, 146, 22);
 		add(comboBox_Nombres);
 		
@@ -205,15 +206,23 @@ public class panelOferta extends JPanel implements ActionListener{
 				//Compruebo para que los valores que le pasamos sean los correctos
 				JOptionPane.showMessageDialog(null, "Escribe algo");
 			}else {
-				if(comprobarNumero()) {
-					try {						
-						gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
-						modelo.getDataVector().removeAllElements();
-						insertarOfertas();						
-					}catch (SQLException a){
-						System.out.println("Falla al buscar");
+				if((comboBox_Nombres.getSelectedItem().toString().equals("")==true && comboBox_Categoria.getSelectedItem().toString().equals("")==false) || (comboBox_Nombres.getSelectedItem().toString().equals("")==false && comboBox_Categoria.getSelectedItem().toString().equals("")==true)  ) {
+					System.out.println(comboBox_Nombres.getSelectedItem().toString().equals(""));
+					System.out.println(comboBox_Categoria.getSelectedItem().toString().equals(""));
+					if(comprobarNumero()) {
+						try {						
+							gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
+							modelo.getDataVector().removeAllElements();
+							insertarOfertas();
+							JOptionPane.showMessageDialog(null, "Oferta creada");
+						}catch (SQLException a){
+							System.out.println("Falla al buscar");
+						}
 					}
-				}				
+				}else {
+					JOptionPane.showMessageDialog(null, "Solo puede elegir una categoria o articulo. No ambos.");
+
+				}
 			}				
 			
 		}else if(evento.equals(btnInfo)) {
