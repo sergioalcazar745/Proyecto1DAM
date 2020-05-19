@@ -67,7 +67,6 @@ public class panelCesta extends JPanel {
 								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getTalla()));
 							}
 						}else if(componentes[i].getName().equals("lblValorPrecio")) {
-							//System.out.println("miami");
 							try {
 								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getPrecio()));
 							} catch (NumberFormatException e) {
@@ -80,9 +79,7 @@ public class panelCesta extends JPanel {
 			}
 			desactivarBotones(panel_Articulo);
 			array_paneles.add(panel_Articulo);
-			System.out.println("Cantidad22: "+nombre_articulo.getCantidad());
 		}
-		//System.out.println("abse_datos: "+array_paneles.size());
 		for(int i=0; i<array_paneles.size(); i++) {
 			add(array_paneles.get(i));
 			array_paneles.get(i).setName(String.valueOf(i));
@@ -96,7 +93,6 @@ public class panelCesta extends JPanel {
 							if(array_componentes[i].getName().equals(name)) {
 								remove(array_componentes[i]);
 								fila--;
-								System.out.println("fila: "+fila);
 								setLayout(new GridLayout(array_articulos.size(), 1, 0, 0));
 								setPreferredSize(new Dimension(825, 496*fila));
 								repaint();

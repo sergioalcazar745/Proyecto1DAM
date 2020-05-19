@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import com.mysql.jdbc.Connection;
 
@@ -125,7 +126,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		});
 		table.setShowGrid(false);
 		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
-
+		
 		modelo.addColumn("Categoria");
 		setLayout(null);
 		table.setModel(modelo);

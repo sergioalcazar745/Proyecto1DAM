@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import Base_de_datos.Gestion;
 
@@ -27,13 +28,24 @@ public class panelMisPedidos extends JPanel {
 		setBounds(232, 11, 853, 544);
 		setLayout(null);
 		
-		table = new JTable();
+		table = new JTable() {;
+		//esto desactiva que podamos editar la tabla
+        public boolean editCellAt(int row, int column, java.util.EventObject e) {
+            return false;
+         }
+      };
+      	table.setShowGrid(false);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		modelo.addColumn("Articulo");
 		modelo.addColumn("Talla");
 		modelo.addColumn("Fecha");
 		modelo.addColumn("Cantidad");
 		modelo.addColumn("Precio");
 		table.setModel(modelo);
+		table.setRowHeight(25);
+		
+		TableColumnModel columnModel = table.getColumnModel();
+	    columnModel.getColumn(0).setPreferredWidth(125);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(74, 111, 712, 372);

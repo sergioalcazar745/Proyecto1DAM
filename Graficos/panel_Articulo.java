@@ -76,10 +76,10 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setFont(new Font("Arial", Font.PLAIN, 15));
+		//Obtenemos la descripcion del articulo
 		try {
 			descripcion=gdb.devolverDescripcion(nombre_articulo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		textArea.setText(descripcion);
@@ -128,6 +128,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				}
 			}
 		});
+		
 		spinner.setBounds(470, 254, 80, 22);
 		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 		add(spinner);
@@ -154,7 +155,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblStock.setBounds(370, 334, 75, 23);
 		add(lblStock);
 		
-		//JLabel lblNumeroStock = new JLabel("0");
 		lblNumeroStock.setName("lblNumeroStock");
 		lblNumeroStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumeroStock.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -210,13 +210,12 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		lblDescuento.setBounds(370, 362, 75, 16);
 		add(lblDescuento);
 		
-		//JLabel lblValorDescuento = new JLabel("");
 		lblValorDescuento.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblValorDescuento.setHorizontalAlignment(SwingConstants.CENTER);
 		lblValorDescuento.setBounds(470, 359, 80, 23);
 		add(lblValorDescuento);
 		lblValorDescuento.setVisible(false);
-		
+		//Buscamos la oferta del articulo clickado
 		try {
 			if(!gdb.buscarOfertaArticulo(nombre_articulo).equals("")) {
 				lblDescuento.setVisible(true);
@@ -315,7 +314,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	}
 	public void actualizarTallas() {
 		//Aqui que recoger el numero de tallas.
-		//restar los de la cesta.
+		//restarlos de la cesta.
 		int numero_cesta=0;
 		numero_cesta=gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString());
 		if(!comboBox_Tallas.getSelectedItem().equals("")) {
