@@ -296,4 +296,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
+	public JButton getBtnComprar() {
+		return btnComprar;
+	}
 }

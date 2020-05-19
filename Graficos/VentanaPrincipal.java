@@ -458,7 +458,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				((Graficos.panelAsignarCategoria) panelAsignarCategoria).mostrarMensaje();
 			}});
 
-		
+		((Graficos.panelAdministrador) panelAdministrador).getBtnComprar().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
+			}
+		});
+
+
+
+				//((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
+
 	}
 	protected JButton getBtnHome() {
 		return btnHome;

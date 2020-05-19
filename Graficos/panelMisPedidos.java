@@ -9,11 +9,15 @@ import javax.swing.table.TableColumnModel;
 import Base_de_datos.Gestion;
 
 import java.awt.Color;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class panelMisPedidos extends JPanel {
 	private JTable table;
@@ -80,6 +84,15 @@ public class panelMisPedidos extends JPanel {
 		lblNewLabel.setBounds(0, 38, 853, 49);
 		add(lblNewLabel);
 		
+		JButton btnHome = new JButton("Refrescar");
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertarPedidos();
+			}
+		});
+		btnHome.setBounds(10, 80, 79, 25);
+		add(btnHome);
+		
 		insertarPedidos();
 		//System.out.println("HOla");
 	}
@@ -103,6 +116,7 @@ public class panelMisPedidos extends JPanel {
 			suministro = gdb.devolverSuministro();
 			int j = 0;
 			for(int i = 0; i<suministro.size(); i++) {
+//System.out.println("suministro.get(i): "+suministro.get(i));
 				Datos[j] = suministro.get(i);
 				j++;
 				if(j==5) {

@@ -363,4 +363,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	public JLabel getLblEliminar() {
 		return lblEliminar;
 	}
+	public JButton getBtnComprar() {
+		return btnComprar;
+	}
 }

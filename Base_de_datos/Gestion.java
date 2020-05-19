@@ -724,7 +724,7 @@ public class Gestion  {
 		año=String.valueOf(fecha.get(Calendar.YEAR));
 		String fecha_final=dia+"-"+mes+"-"+año;
 		//System.out.println("id: "+id_articulo);
-		sql = "INSERT INTO suministra (id_articulogenerico_aux, id_admin_aux, id_proveedor_aux, precio_total, cantidad, fecha) VALUES ('"+id_articulo+"',  '"+getId_admin()+"', '"+id_proveedor+"', '"+precio_total+"', '"+cantidad+"', '"+fecha_final+"')";
+		sql = "INSERT INTO suministra (id_articulogenerico_aux, id_admin_aux, id_proveedor_aux, precio_total,talla, cantidad, fecha) VALUES ('"+id_articulo+"',  '"+getId_admin()+"', '"+id_proveedor+"', '"+precio_total+"', '"+talla+"','"+cantidad+"', '"+fecha_final+"')";
 
 		try {
 			st=(Statement) con.createStatement();
@@ -1103,7 +1103,6 @@ public class Gestion  {
 	public ArrayList <String> devolverSuministro(){
 		ArrayList<String> suministro = new ArrayList<String>();
 		String id_persona = null, id_cliente = null, id_articulo = null, nombre = null, sql = null;
-        String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join suministra on articulos.id_articulo=suministra.id_articulogenerico_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
 
         sql = "SELECT * FROM suministra WHERE id_admin_aux='"+getId_admin()+"'";
        // String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico  inner join suministra on articulos.id_articulo=suministra.id_articulogenerico_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
@@ -1112,16 +1111,20 @@ public class Gestion  {
             st=(Statement) con.createStatement();
             resultado = st.executeQuery(sql); 
             st2=(Statement) con.createStatement(); 
-            resultado2 = st2.executeQuery(sql2); 
+           // resultado2 = st2.executeQuery(sql2); 
             while(resultado.next()) {
                  try {          
-                     if(resultado2.next()) {
+                     //if(resultado2.next()) {
+                    	 //coger nombre;
+                    	 String sql_nombre="Select nombre from articulogenerico where id_generico='"+resultado.getString("id_articulogenerico_aux")+"'";
+                    	 resultado2 = st2.executeQuery(sql_nombre);
+                    	 resultado2.next();
                     	 suministro.add(resultado2.getString("nombre"));
-                    	 suministro.add(resultado2.getString("talla"));
+                    	 suministro.add(resultado.getString("talla"));
                     	 suministro.add(resultado.getString("fecha"));
                     	 suministro.add(resultado.getString("cantidad"));
                     	 suministro.add(resultado.getString("precio_total"));
-                     }
+                     //}
                  } catch (SQLException e) {
                      System.out.println("Fallo al buscar");
                      e.printStackTrace();
@@ -1131,9 +1134,6 @@ public class Gestion  {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-        for (String string : suministro) {
-			System.out.println(string);
-		}
 		return suministro;
 	}
 	
