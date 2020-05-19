@@ -52,6 +52,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 	Gestion gdb=new Gestion();
 	conexion conx=new conexion();
 	private JButton btnGuardar;
+	private JButton btnCancelar;
 	
 	public panelCuenta(Gestion gdb_aux, conexion conx_aux) {
 		this.gdb=gdb_aux;
@@ -140,7 +141,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblContrasea.setBounds(12, 368, 197, 34);
 		add(lblContrasea);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(this);
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnCancelar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/CANCELAR.PNG")));
 		btnCancelar.setBounds(506, 446, 193, 45);
@@ -337,6 +339,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}else if(boton.equals(btnCancelar)) {
+			setVisible(false);
 		}
 	}
 	
@@ -534,5 +538,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 	}
 	protected JButton getBtnGuardar() {
 		return btnGuardar;
+	}
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 }

@@ -95,14 +95,14 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			public void stateChanged(ChangeEvent e) {
 				lblFalloCompra.setText("");
 				try {
-					System.out.println("laura duermte: "+comboBox_Nombres.getSelectedItem().toString());
+					//System.out.println("laura duermte: "+comboBox_Nombres.getSelectedItem().toString());
 //					System.out.println("Precio: "+gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()));
 //					System.out.println("Cantidad: "+(Integer) spinner.getValue());
 					if(!comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 						precio = (Double.parseDouble(gdb.devolverPrecioDeCategoria(comboBox_Nombres.getSelectedItem().toString()))) * (Integer) spinner.getValue();
 						tfPrecioFinal.setText(String.valueOf(precio)+"€");
 					}
-					System.out.println("Id_admin por dios: "+gdb.getId_admin());
+					//System.out.println("Id_admin por dios: "+gdb.getId_admin());
 				} catch (NumberFormatException | SQLException e1) {
 					e1.printStackTrace();
 				}

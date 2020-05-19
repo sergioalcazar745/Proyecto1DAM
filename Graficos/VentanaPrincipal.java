@@ -484,6 +484,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			JPanel panelCuenta=new panelCuenta(gdb, cnx);
 			contentPane.add(panelCuenta);
 			panelCuenta.setVisible(true);
+			
+			panelCuenta.addComponentListener(new ComponentAdapter() {
+				@Override
+				public void componentHidden(ComponentEvent arg0) {
+					btnHome.doClick();
+				}
+			});
 		}else if(evento.equals(btnSignOut)) {
 			if(btnSignOut.getText()=="Iniciar Sesion") {
 				desactivarPaneles();
@@ -591,6 +598,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				components[i].setVisible(false);
 			}
 		}
+	}
+	public void volverAlInicio() {
+		desactivarPaneles();
+		panel_2.setVisible(true);
+		contentPane.revalidate();
 	}
 	
 	public JPanel getPanel() {
