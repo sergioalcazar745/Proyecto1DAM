@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import java.awt.Color;
+import java.awt.Cursor;
 
 public class panelCuenta extends JPanel implements ActionListener{
 	
@@ -85,6 +86,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnGuardar = new JButton("  GUARDAR");
 		btnGuardar.addActionListener(this);
 		btnGuardar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/nube.png")));
+		btnGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnGuardar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnGuardar.setBounds(160, 446, 193, 45);
 		btnGuardar.setBorderPainted(false);
@@ -145,6 +147,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnCancelar.addActionListener(this);
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnCancelar.setIcon(new ImageIcon(panelCuenta.class.getResource("/Imagenes/CANCELAR.PNG")));
+		btnCancelar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCancelar.setBounds(506, 446, 193, 45);
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setOpaque(false);
@@ -421,23 +424,17 @@ public class panelCuenta extends JPanel implements ActionListener{
 		return valido;
 	}
 	
-	public boolean comprobarEmail(String email) {
-		boolean correcto = false;
+	public boolean comprobarEmail(String email) {         
+		boolean correcto = false;        
+		String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";          
+		Pattern pattern = Pattern.compile(regex);          
+		Matcher matcher = pattern.matcher(email); 
 		
-		// Patrón para validar el email
-        Pattern pattern = Pattern
-                .compile("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/.");
-
-
-        Matcher mather = pattern.matcher(email);
-
-        if (mather.find() == true) {
-            correcto = true;
-        } else {
-        	correcto = false;
-        }
-        
-        return correcto;
+			if(matcher.matches()) {             
+				correcto=true;         
+			}       
+			
+		return correcto;    
 	}
 
 	public void setTfNombre(JTextField tfNombre) {

@@ -60,7 +60,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		setName("laura callate");
 		setBackground(Color.WHITE);
 		String descripcion="";
-		System.out.println("nombre: "+nombre_articulo);
 		setBounds(0, 48, 853, 496);
 		setLayout(null);
 		
@@ -226,7 +225,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		//System.out.println("hitles aprueba"+lblStock);
 		
 		
 	}
@@ -235,7 +233,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		// TODO Auto-generated method stub
 		Object evento=e.getSource();
 		if(evento.equals(btnCesta)) {
-			//System.out.println((int) spinner.getValue());
 			if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 				if(comboBox_Tallas.getSelectedItem().equals("")) {
 					lblNewLabel_2.setText("*Seleccione una talla");
@@ -348,7 +345,6 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		}
 		DecimalFormat df = new DecimalFormat("#.00");
 		Double precio=0.0;
-		System.out.println("descuento: "+lblValorDescuento.getText()+"/"+"SPINNER: "+spinner.getValue().toString());
 		if(!lblValorDescuento.getText().equals("")) {
 			precio=( ((100-entero_descuento)/100)*precio_articulo*Double.parseDouble(spinner.getValue().toString()));
 

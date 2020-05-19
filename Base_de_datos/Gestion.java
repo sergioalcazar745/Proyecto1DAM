@@ -966,8 +966,6 @@ public class Gestion  {
 				if(descuento!=0) {
 					descuento=(100-descuento)/100;
 					precio=String.valueOf( descuento*Double.parseDouble(precio) );
-					System.out.println("precio:final:  "+precio);
-					System.out.println("(100-descuento)/100): "+(100-descuento)/100+"\nDouble.parseDouble(precio): "+Double.parseDouble(precio));
 				}
 			}
 			
@@ -1099,10 +1097,6 @@ public class Gestion  {
             System.out.println("Fallo al buscar");
             e.printStackTrace();
         }
-        
-        for (String string : compra) {
-			System.out.println("COMPRA: "+string);
-		}
 		return compra;
  	}
 	

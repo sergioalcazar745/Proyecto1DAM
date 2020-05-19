@@ -2,6 +2,7 @@ package Graficos;
 
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Desktop;
 
 import javax.swing.JLabel;
@@ -97,14 +98,6 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		lblIncorrecto.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIncorrecto.setFont(new Font("Arial", Font.BOLD, 20));
 		
-//		lblIniciado = new JLabel("Ya has iniciado sesion");
-//		lblIniciado.setVisible(false);
-//		lblIniciado.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblIniciado.setFont(new Font("Arial", Font.BOLD, 20));
-//		lblIniciado.setBounds(0, 28, 853, 51);
-//		panel.add(lblIniciado);
-		
-		
 		JLabel lblNewLabel = new JLabel("INICIO DE SESI\u00D3N");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 28));
@@ -135,6 +128,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		btnEntrar = new JButton("");
 		btnEntrar.addActionListener(this);
 		btnEntrar.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/login.png")));
+		btnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEntrar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnEntrar.setBounds(211, 405, 151, 52);
 		btnEntrar.setBorderPainted(false);
@@ -145,6 +139,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		
 		btnRegistrarse = new JButton("");
 		btnRegistrarse.setIcon(new ImageIcon(panelInicioSesion.class.getResource("/Imagenes/register.png")));
+		btnRegistrarse.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRegistrarse.addActionListener(this);
 		btnRegistrarse.setFont(new Font("Arial", Font.BOLD, 16));
 		btnRegistrarse.setBounds(493, 405, 183, 52);
