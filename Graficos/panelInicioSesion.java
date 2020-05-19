@@ -33,6 +33,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class panelInicioSesion extends JPanel implements ActionListener{
 	private JTextField tfCorreo;
@@ -115,12 +117,32 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 		add(lblContrasea);
 		
 		tfCorreo = new JTextField();
+		tfCorreo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+			char tecla = arg0.getKeyChar();
+			
+			   if (tecla == KeyEvent.VK_ENTER) {
+			        btnEntrar.doClick();
+			   }
+			}
+		});
 		tfCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfCorreo.setBounds(299, 218, 326, 28);
 		add(tfCorreo);
 		tfCorreo.setColumns(10);
 		
 		tfContraseña = new JPasswordField();
+		tfContraseña.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+			char tecla = e.getKeyChar();
+				
+				  if (tecla == KeyEvent.VK_ENTER) {
+				       btnEntrar.doClick();
+				  }
+			}
+		});
 		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(299, 318, 326, 28);
 		add(tfContraseña);
@@ -217,6 +239,7 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			}			
 		}
 	}
+	
 	protected JLabel getLblImagenError() {
 		return lblImagenError;
 	}
