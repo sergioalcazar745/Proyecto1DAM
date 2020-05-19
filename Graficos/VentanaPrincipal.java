@@ -222,6 +222,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 							@Override
 							public void keyPressed(KeyEvent e) {
 								if(e.getKeyCode()==KeyEvent.VK_ENTER) {
+									//Creamos el nuevo panel_articulos_filtros para que se asignen los articulos correspondientes
 									panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", textField_filtro.getText());
 									scrollPane.setViewportView(panel_articulos_filtros);
 									panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
@@ -255,6 +256,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		
 		tabbedPane.addTab("Categoria", null, panelAsignarCategoria, null);
 		
+		//volvemos a crear el panel oferta para que se actualizen los datos
 		((Graficos.panelAsignarCategoria) panelAsignarCategoria).getBtnEliminar().addActionListener(new java.awt.event.ActionListener() {
 
 			@Override
@@ -292,6 +294,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelInicioSesion.addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentHidden(ComponentEvent arg0) {
+				//en fucnion de la sesion inciada el usuario vera un menu distinto.
 				if(gdb.getSesionIniciada()) {
 					if(gdb.getCliente()==true) {
 						btnAccount.setVisible(true);

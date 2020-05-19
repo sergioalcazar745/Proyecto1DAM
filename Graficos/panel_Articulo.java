@@ -122,6 +122,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		spinner.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				lblNewLabel_2.setText("");
+				//si el numero de stock es mayor que 0 y el spinner tambien calculamos el precio
 				if(!lblNumeroStock.equals("0") && Integer.parseInt(spinner.getValue().toString())>0) {
 					 calcularPrecio();
 				}
@@ -232,6 +233,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object evento=e.getSource();
+		//en funcion del boton que seleccione el usuarios se ejecutara una opcion distina
 		if(evento.equals(btnCesta)) {
 			if(comboBox_Tallas.getSelectedItem().equals("") || (int) spinner.getValue()==0){
 				if(comboBox_Tallas.getSelectedItem().equals("")) {

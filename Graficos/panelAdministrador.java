@@ -239,7 +239,6 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		Object evento = e.getSource();
 		if(evento.equals(btnComprar)) {
 			//primero comprobamos que todos los campos tienen un valor seleccionado.
-			//IMPORTANTE AHORA NO ESTA LA CONDICION DE COMPROBAR EL DINERO PERO SE DEBERA AÑADIR MAS ADELANTE
 			if(comboBox_Nombres.getSelectedItem().equals("") ) {
 				//System.out.println("rellene todos los campos");
 				lblFalloCompra.setForeground(new Color (204, 0, 153));

@@ -108,6 +108,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		for (int i=0; i<array_paneles.length; i++) {
 			if(array_paneles[i]!=null) {
 				if(evento.equals(array_paneles[i].getName())) {
+					//si el panel tiene un nombre asignado entonces le establecemos el tamaño
 					panel.removeAll();
 					panel.setBounds(0, 48, 853, 496);
 					panel.setPreferredSize(new Dimension(853, 496));
@@ -159,6 +160,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	}
 
 	public void añadirPaneles() {
+		//insertamos los paneles de forma dinamica
 		for(int i=0; i<nombre_fotos.size(); i++) {
 			//recogemos el precio
 			try {
