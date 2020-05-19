@@ -81,7 +81,7 @@ public class panelMisPedidos extends JPanel {
 		add(lblNewLabel);
 		
 		insertarPedidos();
-		System.out.println("HOla");
+		//System.out.println("HOla");
 	}
 	
 	public void insertarPedidos() {

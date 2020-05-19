@@ -162,12 +162,12 @@ public class Gestion  {
 						}
 						
 					} catch (SQLException e) {
-						System.out.println("Fallo al buscar1");
+						System.out.println("Fallo al buscar");
 						e.printStackTrace();
 					}
 				
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar2");
+				System.out.println("Fallo al buscar");
 				e.printStackTrace();
 			}	
 		}
@@ -228,7 +228,7 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}						
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar1");
+			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 		
@@ -239,7 +239,7 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			int confirmar = st.executeUpdate(sql2);
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar2");
+			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 		
@@ -253,7 +253,7 @@ public class Gestion  {
 				JOptionPane.showMessageDialog(null, "Categoria eliminada");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar3");
+			System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 	}
@@ -307,7 +307,7 @@ public class Gestion  {
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("no creado");
+			//System.out.println("no creado");
 		}
 		return insertado;
 	}
@@ -328,7 +328,7 @@ public class Gestion  {
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("no creado");
+			//System.out.println("no creado");
 		}
 		
 		String sql2="SELECT id_categoria_aux FROM pertenece where id_articulogenerico_aux='"+id_generico+"'";
@@ -352,14 +352,14 @@ public class Gestion  {
 					
 				}catch (SQLException e) {
 					e.printStackTrace();
-					System.out.println("no creado");
+					//System.out.println("no creado");
 				}
 			}
 			
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("no creado");
+			//System.out.println("no creado");
 		}	
 		return nombres;
 	}
@@ -379,7 +379,7 @@ public class Gestion  {
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("No creado");
+			//System.out.println("No creado");
 		}
 		
 		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
@@ -417,7 +417,7 @@ public class Gestion  {
 				
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("no creado");
+			//System.out.println("no creado");
 		}
 	}
 	
@@ -435,7 +435,7 @@ public class Gestion  {
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("No creado");
+			//System.out.println("No creado");
 		}
 		
 		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
@@ -520,7 +520,7 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
+			//System.out.println("Fallo al buscar");
 			e.printStackTrace();
 		}
 		
@@ -955,14 +955,14 @@ public class Gestion  {
 			
 			
 			sql = "SELECT * FROM oferta WHERE id_oferta='"+id_oferta+"'";
-			System.out.println("id_oferta: "+id_oferta);
+			//System.out.println("id_oferta: "+id_oferta);
 			st3=(Statement) con.createStatement();
 			resultado3=st.executeQuery(sql);
 			if(resultado3.next()) {
 				precio=devolverPrecioVentaDeCategoria(nombre);
 				descuento=Double.parseDouble(resultado3.getString("descuento"));
-				System.out.println("descuento: "+descuento);
-				System.out.println("precio: "+precio);
+				//System.out.println("descuento: "+descuento);
+				//System.out.println("precio: "+precio);
 				if(descuento!=0) {
 					descuento=(100-descuento)/100;
 					precio=String.valueOf( descuento*Double.parseDouble(precio) );
@@ -975,7 +975,7 @@ public class Gestion  {
 			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"' and talla='"+talla+"' and Disponible=1";
 			st=(Statement) con.createStatement();
 			resultado=st.executeQuery(sql);
-			System.out.println("cantidad: "+cantidad);
+			//System.out.println("cantidad: "+cantidad);
 			while(resultado.next() && cantidad>0){
 				id_articulo=resultado.getString("id_articulo");
 				sql = "UPDATE articulos SET Disponible=0 WHERE id_articulo='"+id_articulo+"'";
