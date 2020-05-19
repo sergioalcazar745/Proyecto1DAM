@@ -220,7 +220,7 @@ public class panelOferta extends JPanel implements ActionListener{
 					//System.out.println(comboBox_Nombres.getSelectedItem().toString().equals(""));
 					//System.out.println(comboBox_Categoria.getSelectedItem().toString().equals(""));
 					if(comprobarNumero()) {
-						try {						
+						try {	
 							gdb.crearOfertas(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString(), tfPorcentaje.getText().toString());
 							modelo.getDataVector().removeAllElements();
 							insertarOfertas();
@@ -245,10 +245,10 @@ public class panelOferta extends JPanel implements ActionListener{
 	protected boolean comprobarNumero() {
 		boolean correcto = false;
 		try {
-			Double.parseDouble(tfPorcentaje.getText().toString());
+			Integer.parseInt(tfPorcentaje.getText().toString());
 			correcto = true;
 		}catch(Exception a){
-			System.out.println("Fallo al buscar");
+			JOptionPane.showMessageDialog(null, "Formato inválido");
 		}
 		return correcto;
 	}
