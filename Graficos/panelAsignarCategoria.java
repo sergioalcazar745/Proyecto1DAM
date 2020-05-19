@@ -211,16 +211,25 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		if(tfInsertar.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Escribe una cayegoria.");
 		}else {
-			Datos [0] = tfInsertar.getText();
-			modelo.addRow(Datos);
-			
-			gdb = new Gestion();
-			if(gdb.insertarCategoria(tfInsertar.getText()) == true) {
-				JOptionPane.showMessageDialog(null, "Categoria insertada");
-				comboBox_Categoria.addItem(tfInsertar.getText());
-				tfInsertar.setText("");
-			}else{
-				JOptionPane.showMessageDialog(null, "Categoria no insertada");
+			boolean existe=false;
+			for(int i=0; i<modelo.getRowCount(); i++) {
+				if(modelo.getValueAt(i, 0).toString().equals(tfInsertar.getText())) {
+					existe=true;
+					JOptionPane.showMessageDialog(null, "No puede insertar una categoria que ya existe");
+				}
+			}
+			if(existe==false) {
+				Datos [0] = tfInsertar.getText();
+				modelo.addRow(Datos);
+				
+				gdb = new Gestion();
+				if(gdb.insertarCategoria(tfInsertar.getText()) == true) {
+					JOptionPane.showMessageDialog(null, "Categoria insertada");
+					comboBox_Categoria.addItem(tfInsertar.getText());
+					tfInsertar.setText("");
+				}else{
+					JOptionPane.showMessageDialog(null, "Categoria no insertada");
+				}
 			}
 		}
 	}
