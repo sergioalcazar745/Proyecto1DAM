@@ -179,10 +179,12 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			if(comboBox_Nombres.getSelectedItem().toString().equals("") ) {
 				
 			}else {
-				try {
-					gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Pertenece.getSelectedItem().toString());
-				} catch (SQLException e1) {
-					e1.printStackTrace();
+				if(comboBox_Pertenece.getSelectedItem()!=null) {
+					try {
+						gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Pertenece.getSelectedItem().toString());
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 			comboBox_Pertenece.removeAllItems();
