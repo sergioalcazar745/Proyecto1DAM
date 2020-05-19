@@ -525,7 +525,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		return tfFecha_Nacimiento;
 	}
 	protected JTextField getTfTelefono() {
-		return tfTelefono;
+		return tfTelefono;//
 	}
 	protected JTextField getTfCorreo() {
 		return tfCorreo;
