@@ -381,6 +381,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		btnShop.setFocusPainted(false);
 		
 		btnSignOut = new JButton("Iniciar Sesion");
+		btnSignOut.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSignOut.addActionListener(this);
 		btnSignOut.setBackground(color_sing);
 		btnSignOut.setForeground(new Color(255, 255, 255));

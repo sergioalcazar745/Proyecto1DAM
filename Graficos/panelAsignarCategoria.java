@@ -54,7 +54,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 		setBounds(232, 11, 853, 544);
 		
 		tfInsertar = new JTextField();
-		tfInsertar.setBounds(118, 101, 498, 22);
+		tfInsertar.setBounds(118, 98, 498, 25);
 		tfInsertar.setFont(new Font("Arial", Font.PLAIN, 16));
 		add(tfInsertar);
 		tfInsertar.setColumns(10);

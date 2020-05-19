@@ -108,11 +108,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		for (int i=0; i<array_paneles.length; i++) {
 			if(array_paneles[i]!=null) {
 				if(evento.equals(array_paneles[i].getName())) {
-					//setVisible(false);
-					System.out.println("ancho: "+array_paneles[i].getWidth());
-					System.out.println("alto: "+array_paneles[i].getHeight());
 					panel.removeAll();
-					//panel.setVisible(false);
 					panel.setBounds(0, 48, 853, 496);
 					panel.setPreferredSize(new Dimension(853, 496));
 					panel.setLayout(new BorderLayout(0, 0));
@@ -243,14 +239,11 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("hitler: "+numero_filas);
 			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
 		}else if(!palabra_buscar.equals("")) {
 				if(nombre_fotos.size()%3 == 0) {
-					System.out.println("laura");
 					numero_filas=nombre_fotos.size()/3;
 				}else {
-					System.out.println("laura2");
 					numero_filas=((int)nombre_fotos.size()/3)+1;
 				}
 				panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
