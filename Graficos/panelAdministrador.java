@@ -60,6 +60,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	private JLabel lblFalloCompra = new JLabel("");
 	private double precio = 0;
 	private JButton btnStock;
+	private JButton btnCancelar;
 	
 	public panelAdministrador(Gestion gdb, conexion cx) throws SQLException {
 		this.gdb = gdb;
@@ -154,7 +155,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		add(tfDinero);
 		tfDinero.setColumns(10);
 		
-		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar = new JButton("CANCELAR");
+		btnCancelar.addActionListener(this);
 		btnCancelar.setIcon(new ImageIcon(panelAdministrador.class.getResource("/Imagenes/CANCELAR.PNG")));
 		btnCancelar.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCancelar.setBounds(449, 322, 170, 40);
@@ -274,6 +276,13 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		}else if(evento.equals(btnStock)) {
 			Stock st = new Stock(gdb);
 			st.setModal(true);
+		}else if(evento.equals(btnCancelar)) {
+			comboBox_Nombres.setSelectedIndex(0);
+			comboBox_proveedor.setSelectedIndex(0);
+			comboBox_Tallas.setSelectedIndex(0);
+			tfPrecioFinal.setText("");
+			spinner.setValue(0);
+			
 		}
 	}
 	protected JSpinner getSpinner() {
@@ -284,5 +293,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 	}
 	protected JButton getBtnStock() {
 		return btnStock;
+	}
+	public JButton getBtnCancelar() {
+		return btnCancelar;
 	}
 }
