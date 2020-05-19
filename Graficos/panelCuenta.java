@@ -361,11 +361,15 @@ public class panelCuenta extends JPanel implements ActionListener{
 	public static boolean validarFecha(String fecha) {
 		boolean correcto = true;
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-            formatoFecha.setLenient(false);
-            formatoFecha.parse(fecha);
+        	if(fecha.length()>10) {
+        		correcto = false;
+        	}else {
+	            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+	            formatoFecha.setLenient(false);
+	            formatoFecha.parse(fecha);
+        	}
         } catch (ParseException e) {
-            return correcto = false;
+            correcto = false;
         }
         return correcto;
     }
