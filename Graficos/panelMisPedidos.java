@@ -36,7 +36,6 @@ public class panelMisPedidos extends JPanel {
 		setLayout(null);
 		
 		if(gdb.getCliente()) {
-			System.out.println("cliente");
 			table = new JTable() {;
 				//esto desactiva que podamos editar la tabla
 		        public boolean editCellAt(int row, int column, java.util.EventObject e) {
@@ -61,7 +60,6 @@ public class panelMisPedidos extends JPanel {
 			scrollPane.setColumnHeaderView(table);
 			scrollPane.setViewportView(table);
 		}else {
-			System.out.println("administrador");
 			table2 = new JTable() {;
 			//esto desactiva que podamos editar la tabla
 	        public boolean editCellAt(int row, int column, java.util.EventObject e) {

@@ -73,6 +73,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		add(lblNewLabel);
+		tfNombre.setEditable(false);
 		
 		tfNombre.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfNombre.setBounds(305, 46, 379, 34);
@@ -96,6 +97,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnGuardar.setContentAreaFilled(false);
 		btnGuardar.setFocusPainted(false);
 		add(btnGuardar);
+		tfApellidos.setEditable(false);
 		
 		
 		tfApellidos.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -108,6 +110,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblFechaDeNacimiento.setFont(new Font("Arial", Font.BOLD, 16));
 		lblFechaDeNacimiento.setBounds(12, 175, 197, 34);
 		add(lblFechaDeNacimiento);
+		tfFecha_Nacimiento.setEditable(false);
 		
 		
 		tfFecha_Nacimiento.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -120,6 +123,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblTelefono.setFont(new Font("Arial", Font.BOLD, 16));
 		lblTelefono.setBounds(52, 239, 157, 34);
 		add(lblTelefono);
+		tfTelefono.setEditable(false);
 		
 		
 		tfTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -132,6 +136,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		lblCorreoElectronico.setFont(new Font("Arial", Font.BOLD, 16));
 		lblCorreoElectronico.setBounds(12, 302, 197, 34);
 		add(lblCorreoElectronico);
+		tfCorreo.setEditable(false);
 		
 		
 		tfCorreo.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -216,6 +221,7 @@ public class panelCuenta extends JPanel implements ActionListener{
 		btnEditContraseña.setContentAreaFilled(false);
 		btnEditContraseña.setFocusPainted(false);
 		add(btnEditContraseña);
+		tfContraseña.setEditable(false);
 		
 		tfContraseña.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		tfContraseña.setBounds(305, 370, 379, 33);

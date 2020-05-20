@@ -1106,7 +1106,6 @@ public class Gestion  {
 
         sql = "SELECT * FROM suministra WHERE id_admin_aux='"+getId_admin()+"'";
        // String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico  inner join suministra on articulos.id_articulo=suministra.id_articulogenerico_aux WHERE id_admin_aux='"+getId_admin()+"'"; 
-        System.out.println(getId_admin());
         try {
             st=(Statement) con.createStatement();
             resultado = st.executeQuery(sql); 
