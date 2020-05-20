@@ -51,8 +51,8 @@ public class Stock extends JDialog implements ActionListener{
 		table.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		table.setBackground(Color.WHITE);
 		modelo.addColumn("Articulo");
-		modelo.addColumn("Talla");
 		modelo.addColumn("Cantidad");
+		modelo.addColumn("Talla");
 		table.setModel(modelo);	    
 		table.setRowHeight(25);
 		
