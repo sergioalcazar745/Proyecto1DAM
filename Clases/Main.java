@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.print.DocFlavor.URL;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import Graficos.VentanaPrincipal;
@@ -17,7 +18,8 @@ public class Main {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					VentanaPrincipal frame = new VentanaPrincipal();
 				} catch (Exception e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se ha encontrado una conexión con la base de datos");
 				}
 			}
 		});
