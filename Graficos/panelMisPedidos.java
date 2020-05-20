@@ -21,6 +21,8 @@ import java.awt.event.ActionEvent;
 
 public class panelMisPedidos extends JPanel {
 	private JTable table;
+	private JTable table2;
+	JScrollPane scrollPane = new JScrollPane();
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private String [] Datos = new String [5];
 	private String [] Datos2 = new String [4];
@@ -34,6 +36,7 @@ public class panelMisPedidos extends JPanel {
 		setLayout(null);
 		
 		if(gdb.getCliente()) {
+			System.out.println("cliente");
 			table = new JTable() {;
 				//esto desactiva que podamos editar la tabla
 		        public boolean editCellAt(int row, int column, java.util.EventObject e) {
@@ -52,46 +55,45 @@ public class panelMisPedidos extends JPanel {
 			
 			TableColumnModel columnModel = table.getColumnModel();
 		    columnModel.getColumn(0).setPreferredWidth(125);
+		    
+		    scrollPane.setBounds(74, 111, 712, 372);
+			add(scrollPane);
+			scrollPane.setColumnHeaderView(table);
+			scrollPane.setViewportView(table);
 		}else {
-			table = new JTable() {;
+			System.out.println("administrador");
+			table2 = new JTable() {;
 			//esto desactiva que podamos editar la tabla
 	        public boolean editCellAt(int row, int column, java.util.EventObject e) {
 	            return false;
 	         }
 	      };
-	      	table.setShowGrid(false);
-			table.setFont(new Font("Tahoma", Font.PLAIN, 13));
+	      	table2.setShowGrid(false);
+			table2.setFont(new Font("Tahoma", Font.PLAIN, 13));
 			modelo.addColumn("Articulo");
 			modelo.addColumn("Talla");
-			modelo.addColumn("Fecha");
+			modelo.addColumn("Fecha");			
 			modelo.addColumn("Precio");
-			table.setModel(modelo);
-			table.setRowHeight(25);
+			table2.setModel(modelo);
+			table2.setRowHeight(25);
 			
-			TableColumnModel columnModel = table.getColumnModel();
+			TableColumnModel columnModel = table2.getColumnModel();
 		    columnModel.getColumn(0).setPreferredWidth(125);
+		    
+		    scrollPane.setBounds(74, 111, 712, 372);
+			add(scrollPane);
+			scrollPane.setColumnHeaderView(table2);
+			scrollPane.setViewportView(table2);
 		}
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(74, 111, 712, 372);
-		add(scrollPane);
-		scrollPane.setColumnHeaderView(table);
-		scrollPane.setViewportView(table);
+		
+		
 		
 		JLabel lblNewLabel = new JLabel("Aqu\u00ED podr\u00E1s encontrar todos las compras que has realizado con tu cuenta.");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
 		lblNewLabel.setBounds(0, 38, 853, 49);
 		add(lblNewLabel);
-		
-		JButton btnHome = new JButton("Refrescar");
-		btnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				insertarPedidos();
-			}
-		});
-		btnHome.setBounds(10, 80, 79, 25);
-		add(btnHome);
 		
 		insertarPedidos();
 		//System.out.println("HOla");

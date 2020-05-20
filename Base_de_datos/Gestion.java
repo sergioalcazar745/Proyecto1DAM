@@ -724,7 +724,7 @@ public class Gestion  {
 		año=String.valueOf(fecha.get(Calendar.YEAR));
 		String fecha_final=dia+"-"+mes+"-"+año;
 		//System.out.println("id: "+id_articulo);
-		sql = "INSERT INTO suministra (id_articulogenerico_aux, id_admin_aux, id_proveedor_aux, precio_total,talla, cantidad, fecha) VALUES ('"+id_articulo+"',  '"+getId_admin()+"', '"+id_proveedor+"', '"+precio_total+"', '"+talla+"','"+cantidad+"', '"+fecha_final+"')";
+		sql = "INSERT INTO suministra (id_articulogenerico_aux, id_admin_aux, id_proveedor_aux, precio_total, talla, cantidad, fecha) VALUES ('"+id_articulo+"',  '"+getId_admin()+"', '"+id_proveedor+"', '"+precio_total+"', '"+talla+"','"+cantidad+"', '"+fecha_final+"')";
 
 		try {
 			st=(Statement) con.createStatement();

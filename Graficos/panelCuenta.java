@@ -228,69 +228,75 @@ public class panelCuenta extends JPanel implements ActionListener{
 		
 		if(boton.equals(btnEditNombre)) {
 			String nombre = JOptionPane.showInputDialog("Introduzca el nuevo nombre: ");
+			if(nombre != null) {
 			
-			StringTokenizer tokens=new StringTokenizer(nombre);
-			boolean control=true;
+				StringTokenizer tokens=new StringTokenizer(nombre);
+				boolean control=true;
+				
+				while(tokens.hasMoreTokens() && control){
+					
+					String cadena=tokens.nextToken();
+					
+					if (comprobarCaracter(cadena)==true) {
+						control=true;
 			
-			while(tokens.hasMoreTokens() && control){
+					}else {					
+						control=false;
+					}
+			    }
 				
-				String cadena=tokens.nextToken();
-				
-				if (comprobarCaracter(cadena)==true) {
-					control=true;
-		
-				}else {					
-					control=false;
+				if(control == false) {
+					JOptionPane.showMessageDialog(null, "El nombre debe ser una cadena de caracteres");
+				}else {
+					tfNombre.setText(nombre);
 				}
-		    }
-			
-			if(control == false) {
-				JOptionPane.showMessageDialog(null, "El nombre debe ser una cadena de caracteres");
-			}else {
-				tfNombre.setText(nombre);
 			}
 			
 		}else if(boton.equals(btnEditApellidos)) {
 			String apellidos = JOptionPane.showInputDialog("Introduzca los apellidos nuevos: ");
 			
-			StringTokenizer tokens=new StringTokenizer(apellidos);
-			boolean control=true;
+			if(apellidos != null) {
+				StringTokenizer tokens=new StringTokenizer(apellidos);
+				boolean control=true;
+				
+				while(tokens.hasMoreTokens() && control){
+					
+					String cadena=tokens.nextToken();
+					
+					if (comprobarCaracter(cadena)==true) {
+						control=true;
 			
-			while(tokens.hasMoreTokens() && control){
+					}else {					
+						control=false;
+					}
+			    }
 				
-				String cadena=tokens.nextToken();
-				
-				if (comprobarCaracter(cadena)==true) {
-					control=true;
-		
-				}else {					
-					control=false;
+				if(control == false) {
+					JOptionPane.showMessageDialog(null, "Los apellidos debe ser una cadena de caracteres");
+				}else{
+					tfApellidos.setText(apellidos);
 				}
-		    }
-			
-			if(control == false) {
-				JOptionPane.showMessageDialog(null, "Los apellidos debe ser una cadena de caracteres");
-			}else{
-				tfApellidos.setText(apellidos);
 			}
 			
 		}else if(boton.equals(btnEditFechaNacimiento)) {
 			String fecha = JOptionPane.showInputDialog("Introduzca la nueva fecha de nacimiento: (dd-mm-yyyy)");
-			if(validarFecha(fecha)) {
-				if(mayoriaEdad(fecha)>=18) {
-					tfFecha_Nacimiento.setText(fecha);
+			
+			if(fecha !=null) {
+				if(validarFecha(fecha)) {
+					if(mayoriaEdad(fecha)>=18) {
+						tfFecha_Nacimiento.setText(fecha);
+					}else {
+						JOptionPane.showMessageDialog(null, "Debe ser mayor de edad");
+					}
 				}else {
-					JOptionPane.showMessageDialog(null, "Debe ser mayor de edad");
+					JOptionPane.showMessageDialog(null, "El formato es incorrecto");
 				}
-			}else {
-				JOptionPane.showMessageDialog(null, "El formato es incorrecto");
 			}
 		}else if(boton.equals(btnEditTelefono)) {
 			String telefono = (JOptionPane.showInputDialog("Introduzca el nuevo telefono: "));
 			
-			if(telefono == null) {
+			if(telefono != null) {
 				
-			}else {
 				if(comprobarTelefono(telefono)) {
 					tfTelefono.setText(telefono);
 				}else {
