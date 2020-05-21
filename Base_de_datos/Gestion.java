@@ -75,7 +75,7 @@ public class Gestion  {
 			resultado = st.executeQuery(sql);			
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		return resultado;
@@ -95,8 +95,8 @@ public class Gestion  {
 				setCliente(false);
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al comprobar persona");
+			//e.printStackTrace();
 		}
 		return cliente;
 	}
@@ -163,12 +163,12 @@ public class Gestion  {
 						
 					} catch (SQLException e) {
 						System.out.println("Fallo al buscar");
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 				
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar");
-				e.printStackTrace();
+				System.out.println("Fallo al guardar datos");
+				//e.printStackTrace();
 			}	
 		}
 				
@@ -188,8 +188,8 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);			
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al comprobar cliente");
+			//e.printStackTrace();
 		}
 		
 		return resultado;
@@ -208,8 +208,8 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);			
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al recorrer categorias");
+			//e.printStackTrace();
 		}
 		
 		return resultado;
@@ -228,8 +228,8 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}						
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar la categoria");
+			//e.printStackTrace();
 		}
 		
 		String sql2 = "DELETE FROM categoria WHERE id_categoria='"+id_categoria+"'";
@@ -239,8 +239,8 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			int confirmar = st.executeUpdate(sql2);
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al eliminar categoria");
+			//e.printStackTrace();
 		}
 		
 		String sql3 = "DELETE FROM pertenece WHERE id_categoria_aux='"+id_categoria+"'";
@@ -253,8 +253,8 @@ public class Gestion  {
 				JOptionPane.showMessageDialog(null, "Categoria eliminada");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al eliminar tabla pertenece");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -268,8 +268,8 @@ public class Gestion  {
 			st=(Statement) con.createStatement();
 			resultado = st.executeQuery(sql);			
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al recorrer articulogenerico");
+			//e.printStackTrace();
 		}
 		
 		return resultado;
@@ -288,8 +288,8 @@ public class Gestion  {
 				nombres.add(resultado.getString("nombre"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al recorrer articulogenerico");
+			//e.printStackTrace();
 		}
 		
 		return nombres;
@@ -306,8 +306,8 @@ public class Gestion  {
 				insertado=true;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			//System.out.println("no creado");
+			//e.printStackTrace();
+			System.out.println("Fallo al insertar categoria");
 		}
 		return insertado;
 	}
@@ -327,8 +327,8 @@ public class Gestion  {
 			}
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
-			//System.out.println("no creado");
+			//e.printStackTrace();
+			System.out.println("Fallo al asociar categoria");
 		}
 		
 		String sql2="SELECT id_categoria_aux FROM pertenece where id_articulogenerico_aux='"+id_generico+"'";
@@ -351,15 +351,15 @@ public class Gestion  {
 					}
 					
 				}catch (SQLException e) {
-					e.printStackTrace();
-					//System.out.println("no creado");
+					//e.printStackTrace();
+					System.out.println("Fallo al buscar nombre");
 				}
 			}
 			
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
-			//System.out.println("no creado");
+			//e.printStackTrace();
+			System.out.println("Fallo al buscar categoria");
 		}	
 		return nombres;
 	}
@@ -378,8 +378,8 @@ public class Gestion  {
 				id_generico = resultado.getString("id_generico");
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			//System.out.println("No creado");
+			//e.printStackTrace();
+			System.out.println("Fallo al busca articulogenerico");
 		}
 		
 		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
@@ -392,7 +392,8 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al buscar categoria");
 		}
 		
 		String buscar = "SELECT * FROM pertenece WHERE id_articulogenerico_aux='"+id_generico+"' and id_categoria_aux='"+id_categoria+"'";
@@ -411,12 +412,13 @@ public class Gestion  {
 					st2.executeUpdate(sql3);
 					JOptionPane.showMessageDialog(null, "Insertado");
 				}catch (SQLException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					System.out.println("Fallo al insertar en pertenece");
 				}
 			}
 				
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			//System.out.println("no creado");
 		}
 	}
@@ -434,8 +436,8 @@ public class Gestion  {
 				id_generico = resultado.getString("id_generico");
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
-			//System.out.println("No creado");
+			//e.printStackTrace();
+			System.out.println("Fallo al eliminar articulo con categoria");
 		}
 		
 		String sql2 = "SELECT id_categoria FROM categoria WHERE nombre = '"+nombre_categoria+"'";
@@ -448,7 +450,8 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al buscar categoria");
 		}		
 		String sql3 = "DELETE FROM pertenece WHERE id_articulogenerico_aux = '"+id_generico+"' and id_categoria_aux = '"+id_categoria+"'";
 		try {
@@ -456,7 +459,8 @@ public class Gestion  {
 			st.executeUpdate(sql3);
 			JOptionPane.showMessageDialog(null, "Eliminado");
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al eliminar pertenece");
 		}			
 	}
 	
@@ -477,7 +481,8 @@ public class Gestion  {
 //				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al buscar persona");
 		}
 		
 		String sql2 = "UPDATE persona SET correo = '"+correo+"', contraseña = '"+contraseña+"', telefono = '"+Integer.parseInt(telefono)+"' WHERE id_persona = '"+id+"'";
@@ -490,7 +495,8 @@ public class Gestion  {
 				actualizado=true;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al actualizar persona");
 		}
 		String sql3 = "UPDATE cliente SET nombre = '"+nombre+"', apellidos = '"+apellidos+"', fecha_nacimiento = '"+fecha_nacimiento+"' WHERE id_persona_aux = '"+id+"'";
 		
@@ -499,7 +505,8 @@ public class Gestion  {
 			st= (Statement) con.createStatement();
 			st.executeUpdate(sql3);	
 		}catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al actualizar cliente");
 		}
 		guardarDatos(correo);
 		return actualizado;
@@ -520,8 +527,8 @@ public class Gestion  {
 				id_categoria = resultado.getString("id_categoria");
 			}
 		} catch (SQLException e) {
-			//System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Fallo al seleccionar persona");
 		}
 		
 	sql = "SELECT id_articulogenerico_aux FROM pertenece WHERE id_categoria_aux = '"+id_categoria+"'";
@@ -540,13 +547,13 @@ public class Gestion  {
 						nombres.add(resultado2.getString("nombre"));
 					}
 				} catch (SQLException e) {
-					System.out.println("Fallo al buscar");
-					e.printStackTrace();
+					System.out.println("Fallo al seleccionar articulogenerico");
+					//e.printStackTrace();
 				}
 			}
 		} catch (SQLException e) {
 			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		return nombres;
@@ -566,8 +573,8 @@ public class Gestion  {
 				precio = resultado.getString("precio_venta");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar precio_venta");
+			//e.printStackTrace();
 		}
 		
 		return precio;
@@ -587,8 +594,8 @@ public class Gestion  {
 				precio = resultado.getString("precio_compra");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar precio_compra");
+			//e.printStackTrace();
 		}
 		
 		return precio;
@@ -607,8 +614,8 @@ public class Gestion  {
 				nombres.add(resultado.getString("nombre"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al recorrer proveedores");
+			//e.printStackTrace();
 		}
 		
 		return nombres;
@@ -627,8 +634,8 @@ public class Gestion  {
 				descripcion = resultado.getString("descripcion");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar descripcion");
+			//e.printStackTrace();
 		}
 		String descripcion_aux="";
 		int salto_linea=0;
@@ -657,8 +664,8 @@ public class Gestion  {
 				numero = resultado.getRow();
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar talla");
+			//e.printStackTrace();
 		}
 		return numero;
 	}
@@ -687,8 +694,8 @@ public class Gestion  {
 				id_articulo = resultado.getString("id_generico");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar articulogenerico");
+			//e.printStackTrace();
 		}
 		
 		sql = "SELECT id_proveedor FROM proveedor WHERE nombre = '"+proveedor+"'";
@@ -700,8 +707,8 @@ public class Gestion  {
 				id_proveedor = resultado.getString("id_proveedor");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar proovedor");
+			//e.printStackTrace();
 		}
 		
 		sql = "SELECT id_proveedor FROM proveedor WHERE nombre = '"+proveedor+"'";
@@ -713,8 +720,8 @@ public class Gestion  {
 				id_proveedor = resultado.getString("id_proveedor");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar proveedor");
+			//e.printStackTrace();
 		}
 		
 		Calendar fecha = Calendar.getInstance();
@@ -731,8 +738,8 @@ public class Gestion  {
 			st.executeUpdate(sql);
 			crearArticulos(nombre, talla, cantidad);
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al insertar suministro");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -764,8 +771,8 @@ public class Gestion  {
 						num ++;
 					}
 				} catch (SQLException e) {
-					System.out.println("Fallo al buscar1");
-					e.printStackTrace();
+					System.out.println("Fallo al insertar oferta");
+					//e.printStackTrace();
 				}
 			}
 			
@@ -784,8 +791,8 @@ public class Gestion  {
 					id_categoria = resultado.getString("id_categoria");
 				}
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar3");
-				e.printStackTrace();
+				System.out.println("Fallo al buscar categoria");
+				//e.printStackTrace();
 			}
 			
 			String sql3 = "SELECT id_articulogenerico_aux FROM pertenece WHERE id_categoria_aux = '"+id_categoria+"'";
@@ -799,14 +806,14 @@ public class Gestion  {
 							st2=(Statement) con.createStatement();
 							st2.executeUpdate(sql2);
 						} catch (SQLException e) {
-							System.out.println("Fallo al buscar4");
-							e.printStackTrace();
+							System.out.println("Fallo al actualizar articulogenerico");
+							//e.printStackTrace();
 						}									
 				 }
 			
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar5");
-				e.printStackTrace();
+				System.out.println("Fallo al buscar articulogenerico");
+				//e.printStackTrace();
 			}
 		}else {
 			
@@ -815,8 +822,8 @@ public class Gestion  {
 				st=(Statement) con.createStatement();
 				st.executeUpdate(sql3);
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar6");
-				e.printStackTrace();
+				System.out.println("Fallo al actualizar articulogenerico");
+				//e.printStackTrace();
 			}
 		}
 	
@@ -847,11 +854,11 @@ public class Gestion  {
 						}						
 					}
 				} catch (SQLException e) {
-					System.out.println("Fallo al buscar");
+					System.out.println("Fallo al buscar nombre");
 				}
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
+			System.out.println("Fallo al buscar oferta");
 		}
 		return ofertas;
 	}
@@ -876,12 +883,12 @@ public class Gestion  {
 					}
 				}
 			} catch (SQLException e) {
-				System.out.println("Fallo al buscar");
-				e.printStackTrace();
+				System.out.println("Fallo al buscar descuento");
+				//e.printStackTrace();
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar oferta");
+			//e.printStackTrace();
 		}
 		return descuento;
 	}
@@ -897,8 +904,8 @@ public class Gestion  {
 				id_oferta = resultado.getString("id_oferta_aux");
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar oferta");
+			//e.printStackTrace();
 		}
 		return id_oferta;
 	}
@@ -967,10 +974,7 @@ public class Gestion  {
 					descuento=(100-descuento)/100;
 					precio=String.valueOf( descuento*Double.parseDouble(precio) );
 				}
-			}
-			
-			
-			
+			}			
 			
 			sql = "SELECT id_articulo FROM articulos WHERE id_articulogenerico_aux='"+id_generico+"' and talla='"+talla+"' and Disponible=1";
 			st=(Statement) con.createStatement();
@@ -987,8 +991,8 @@ public class Gestion  {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar articulo");
+			//e.printStackTrace();
 		}	
 	}
 	
@@ -999,8 +1003,8 @@ public class Gestion  {
 				comprarArticulos(art.getNombre(), art.getTalla(), art.getCantidad());
 				correcto=true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.out.println("Fallo al finalizar compra");
 			}
 		}
 		return correcto;
@@ -1025,8 +1029,8 @@ public class Gestion  {
 				dinero=Double.parseDouble(resultado.getString("cantidad"));
 			}
 		} catch (SQLException e) {
-			System.out.println("Fallo al buscar");
-			e.printStackTrace();
+			System.out.println("Fallo al buscar capital");
+			//e.printStackTrace();
 		}
 		return dinero;
 	}
@@ -1050,8 +1054,8 @@ public class Gestion  {
                 st.executeUpdate(insertar);
             }
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
+            System.out.println("Fallo al insertar articulos");
+            //e.printStackTrace();
         }
 	}
 	
@@ -1068,8 +1072,8 @@ public class Gestion  {
             	id_cliente = resultado.getString("id_cliente");
             }
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
+            System.out.println("Fallo al buscar cliente");
+            //e.printStackTrace();
         }
         sql = "SELECT * FROM compra WHERE id_cliente_aux='"+id_cliente+"'";
         String sql2 = "SELECT articulogenerico.nombre, articulos.talla FROM articulogenerico INNER JOIN articulos on articulogenerico.id_generico=articulos.id_articulogenerico_aux inner join compra on articulos.id_articulo=compra.id_articulo_aux WHERE id_cliente_aux='"+id_cliente+"'"; 
@@ -1089,13 +1093,13 @@ public class Gestion  {
                      	compra.add(resultado.getString("precio"));
                      }
                  } catch (SQLException e) {
-                     System.out.println("Fallo al buscar");
-                     e.printStackTrace();
+                     System.out.println("Fallo al buscar articulogenerico y articulo");
+                     //e.printStackTrace();
                  }
             }            
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
+            System.out.println("Fallo al buscar compra");
+            //e.printStackTrace();
         }
 		return compra;
  	}
@@ -1125,13 +1129,13 @@ public class Gestion  {
                     	 suministro.add(resultado.getString("precio_total"));
                      //}
                  } catch (SQLException e) {
-                     System.out.println("Fallo al buscar");
-                     e.printStackTrace();
+                     System.out.println("Fallo al buscar nombre");
+                     //e.printStackTrace();
                  }
             }            
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
+            System.out.println("Fallo al buscar suministro");
+            //e.printStackTrace();
         }
 		return suministro;
 	}
@@ -1150,8 +1154,8 @@ public class Gestion  {
 	            	}
 	            }
 	        } catch (SQLException e) {
-	            System.out.println("Fallo al buscar");
-	            e.printStackTrace();
+	            System.out.println("Fallo al buscar correo");
+	            //e.printStackTrace();
 	        }	        
 		return resultadoFinal;
 	}
@@ -1178,8 +1182,8 @@ public class Gestion  {
             	datos_articulos.add(resultado.getString("id_generico"));
             }
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar");
-            e.printStackTrace();
+            System.out.println("Fallo al buscar articulogenerico");
+            //e.printStackTrace();
         }
 		
         
@@ -1193,7 +1197,7 @@ public class Gestion  {
 	                resultado.last();
 	                cantidad=String.valueOf(resultado.getRow());
 	            } catch (SQLException e) {
-	                System.out.println("Fallo al buscar");
+	                System.out.println("Fallo al buscar articulo");
 	            }
 	            
 	            sql = "SELECT nombre from articulogenerico WHERE id_generico='"+id+"'";
@@ -1203,7 +1207,7 @@ public class Gestion  {
 	                resultado.next();
 	                nombre=resultado.getString("nombre");
 	            } catch (SQLException e) {
-	                System.out.println("Fallo al buscar");
+	                System.out.println("Fallo al buscar nombre");
 	            }
 	            
 	            stock.add(nombre);
@@ -1233,7 +1237,7 @@ public class Gestion  {
             	ids.add(resultado.getString("id_generico"));
             }
         } catch (SQLException e) {
-            System.out.println("Fallo al buscar1234");
+            System.out.println("Fallo al buscar articulogenerico");
         }
         
         for (String t : tallas) {
@@ -1243,7 +1247,7 @@ public class Gestion  {
                     st=(Statement) con.createStatement();
                     st.executeUpdate(sql);
                 } catch (SQLException e) {
-                    System.out.println("Fallo al buscarStocks");
+                    System.out.println("Fallo al buscar Stocks");
                 }
 			}        	
 		}      

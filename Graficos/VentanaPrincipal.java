@@ -268,7 +268,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 				try {
 					panelOferta = new panelOferta();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					System.out.println("Fallo al generar panelOferta");
 					e.printStackTrace();
 				}
 				tabbedPane.addTab("Oferta", null, panelOferta, null);
@@ -326,8 +326,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 					try {
 						((Graficos.panelAdministrador) panelAdministrador).insertarDinero();
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						System.out.println("Fallo al conectar con el metodo de panelAdministrador");
+						//e1.printStackTrace();
 					}
 				}
 			}
@@ -489,7 +489,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			try {
 				gdb.guardarDatos(gdb.getDatos().get(0).toString());
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+				System.out.println("Fallo al guardar datos");
+				//e1.printStackTrace();
 			}
 			
 			JPanel panelCuenta=new panelCuenta(gdb, cnx);
@@ -526,7 +527,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //			try {
 //				numero_articulos=gdb.devolverArticulosDeCategoria(comboBox_Filtro.getSelectedItem().toString());
 //			} catch (SQLException e1) {
-//				e1.printStackTrace();
+//				//e1.printStackTrace();
 //			}
 			//remove(panel_articulos_filtros);
 			
@@ -653,7 +654,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		try {
 			panelOferta = new panelOferta();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Fallo al crear panelOferta");
 			e.printStackTrace();
 		}
 		tabbedPane.addTab("Oferta", null, panelOferta, null);

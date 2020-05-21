@@ -188,12 +188,15 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 			    try {
 			        Desktop.getDesktop().browse(url.toURI());
 			    } catch (IOException e1) {
-			        e1.printStackTrace();
+			    	System.out.println("Fallo con la URL");
+			        //e1.printStackTrace();
 			    } catch (URISyntaxException e1) {
-			        e1.printStackTrace();
+			    	System.out.println("Fallo con la sintaxis de la URL");
+			        //e1.printStackTrace();
 			    }
 			} catch (MalformedURLException e1) {
-			    e1.printStackTrace();
+				System.out.println("Fallo de URL");
+			    //e1.printStackTrace();
 			}
 			
 		}else if (boton.equals(btnEntrar)) {			
@@ -234,7 +237,8 @@ public class panelInicioSesion extends JPanel implements ActionListener{
 				}
 				
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+				System.out.println("Fallo al comprobar inicio de sesion");
+				//e1.printStackTrace();
 			}			
 		}
 	}

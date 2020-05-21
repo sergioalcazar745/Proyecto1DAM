@@ -354,7 +354,8 @@ public class panelCuenta extends JPanel implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Alguno de los valores nuevos son incorrectos");
 				}
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+				System.out.println("Fallo al actualizar campos");
+				//e1.printStackTrace();
 			}
 		}else if(boton.equals(btnCancelar)) {
 			setVisible(false);

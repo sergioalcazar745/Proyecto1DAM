@@ -167,8 +167,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 					gdb.asignarCategoriaArticulo(comboBox_Nombres.getSelectedItem().toString(), comboBox_Categoria.getSelectedItem().toString());
 				}
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Fallo al asignar categoria");
+				//e1.printStackTrace();
 			}
 			comboBox_Pertenece.removeAllItems();
 			updateComboBoxPertenece();			
@@ -183,7 +183,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 					try {
 						gdb.eliminarArticuloCategoria(comboBox_Nombres.getSelectedItem().toString(), comboBox_Pertenece.getSelectedItem().toString());
 					} catch (SQLException e1) {
-						e1.printStackTrace();
+						System.out.println("Fallo al eliminar");
+						//e1.printStackTrace();
 					}
 				}
 			}
@@ -203,7 +204,8 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			comboBox_Categoria.removeAllItems();
 			insertarCategoria();
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			System.out.println("Fallo al eliminar categoria");
+			//e1.printStackTrace();
 		}
 	}
 	
@@ -252,7 +254,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 	
@@ -278,7 +280,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}		
 	}
 	
@@ -296,7 +298,7 @@ public class panelAsignarCategoria extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 	protected JButton getBtnAñadir() {

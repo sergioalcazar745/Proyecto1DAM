@@ -169,7 +169,7 @@ public class panelOferta extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}		
 	}
 	
@@ -186,7 +186,7 @@ public class panelOferta extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
 	}
 	
@@ -226,7 +226,7 @@ public class panelOferta extends JPanel implements ActionListener{
 							insertarOfertas();
 							JOptionPane.showMessageDialog(null, "Oferta creada");
 						}catch (SQLException a){
-							System.out.println("Falla al buscar");
+							System.out.println("Fallo al deolver ofertas");
 						}
 					}
 				}else {

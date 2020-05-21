@@ -70,7 +70,7 @@ public class panelCesta extends JPanel {
 							try {
 								((JLabel) componentes[i]).setText(String.valueOf(nombre_articulo.getPrecio()));
 							} catch (NumberFormatException e) {
-								// TODO Auto-generated catch block
+								System.out.println("Fallo al introducir el precio del articulo");
 								e.printStackTrace();
 							}						
 						}

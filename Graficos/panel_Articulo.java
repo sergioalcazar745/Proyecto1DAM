@@ -79,6 +79,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		try {
 			descripcion=gdb.devolverDescripcion(nombre_articulo);
 		} catch (SQLException e) {
+			System.out.println("Fallo al devolver descripcion");
 			e.printStackTrace();
 		}
 		textArea.setText(descripcion);
@@ -223,8 +224,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				lblValorDescuento.setText(gdb.buscarOfertaArticulo(nombre_articulo)+"%");
 			}
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("Fallo al devolver oferta");
+			//e1.printStackTrace();
 		}
 		
 		
@@ -252,8 +253,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				try {
 					numero_stock=gdb.stock(nombre_articulo, comboBox_Tallas.getSelectedItem().toString());
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Fallo al devolver stock");
+					//e1.printStackTrace();
 				}
 				if((gdb.devolverCantidadArticuloCesta(lblNewLabel_1.getText(), comboBox_Tallas.getSelectedItem().toString())+(int)spinner.getValue()) > numero_stock) {
 					lblNewLabel_2.setText("*No hay suficientes articulos");
@@ -300,8 +301,8 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 						actualizarTallas();
 					}
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Fallo con las propiedades del articulo");
+					//e1.printStackTrace();
 				}
 			}else {
 				lblNewLabel_2.setText("*Solo los clientes pueden comprar");
@@ -324,7 +325,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 				}
 				lblNumeroStock.setText(String.valueOf(numero_cesta));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Fallo con el numero de articulos en cesta");
 				e.printStackTrace();
 			}
 		}
@@ -336,13 +337,14 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		try {
 			entero_descuento = Double.parseDouble(gdb.buscarOfertaArticulo(nombre_articulo));
 		}catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("Fallo al devolver descuento");
+			//e1.printStackTrace();
 		}
 		Double precio_articulo=0.0;
 		try {
 			precio_articulo = Double.parseDouble(gdb.devolverPrecioVentaDeCategoria(nombre_articulo));
 		} catch (SQLException e) {
+			System.out.println("Fallo al devolver precio");
 			e.printStackTrace();
 		}
 		DecimalFormat df = new DecimalFormat("#.00");

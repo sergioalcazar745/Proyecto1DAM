@@ -104,7 +104,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 					}
 					//System.out.println("Id_admin por dios: "+gdb.getId_admin());
 				} catch (NumberFormatException | SQLException e1) {
-					e1.printStackTrace();
+					System.out.println("Fallo al devolver precio");
+					//e1.printStackTrace();
 				}
 			}			
 		});
@@ -217,7 +218,7 @@ public class panelAdministrador extends JPanel implements ActionListener{
 			
 		}catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Fallo al conectar");
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}		
 	}
 	
@@ -266,8 +267,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 					}
 					
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					System.out.println("Fallo al deolver la compra de suminstro");
+					//e1.printStackTrace();
 				}
 			}
 		}else if(evento.equals(comboBox_Nombres) || evento.equals(comboBox_Nombres) || evento.equals(comboBox_proveedor) ) {

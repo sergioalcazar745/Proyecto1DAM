@@ -86,8 +86,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			}
 			setNombre_fotos(nombre_fotos);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println("Fallo con el nombre de los articulos");
+			//e1.printStackTrace();
 		}
 		setLayout(null);
 		
@@ -166,6 +166,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 			try {
 				precio = gdb.devolverPrecioVentaDeCategoria(nombre_fotos.get(i));
 			} catch (SQLException e) {
+				System.out.println("Fallo al devolver precio");
 				e.printStackTrace();
 			}
 			array_paneles[i] = new JPanel();
@@ -238,7 +239,7 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 					numero_filas=((int)gdb.devolverArticulosDeCategoria(filtro).size()/3)+1;
 				}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				System.out.println("Fallo al devolver articulo de categoria");
 				e.printStackTrace();
 			}
 			panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
