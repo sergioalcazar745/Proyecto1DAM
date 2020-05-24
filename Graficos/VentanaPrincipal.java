@@ -101,6 +101,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JScrollPane scrollPane_Cesta;
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
+	private JPanel panelAltaGenerico = new panelAltaGenerico();
 	private JButton btnVaciar;
 	private JLabel lblNewLabel_3 = new JLabel("");
 	private JButton btnFinalizarComprar = new JButton("");
@@ -287,6 +288,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelOferta = new panelOferta();
 		panelOferta.setName("panelOferta");
 		tabbedPane.addTab("Oferta", null, panelOferta, null);
+		
+		panelAltaGenerico = new panelAltaGenerico();
+		tabbedPane.addTab("Alta", null, panelAltaGenerico, null);
 		
 		resultado=gdb.recorrerCategorias();
 		while(resultado.next()) {

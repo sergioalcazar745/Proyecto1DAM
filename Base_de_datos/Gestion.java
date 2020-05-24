@@ -68,10 +68,11 @@ public class Gestion  {
 			
 			
 			
-			File img = new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png");
-			InputStream is=new FileInputStream(new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png"));
-			BufferedImage img2=ImageIO.read(img);
-			ImageIO.write(img2,"png",new File("boton.png"));
+//			File img = new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png");
+			InputStream is=null;
+//			InputStream is=new FileInputStream(new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png"));
+//			BufferedImage img2=ImageIO.read(img);
+//			ImageIO.write(img2,"png",new File("boton.png"));
 			String mysqlUrl="jdbc:mysql://localhost:3306/tienda_ropa";
 			Connection con = (Connection) DriverManager.getConnection(mysqlUrl, "root", "");
 			
