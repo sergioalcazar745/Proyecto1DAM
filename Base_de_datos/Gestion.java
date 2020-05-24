@@ -1,6 +1,14 @@
 package Base_de_datos;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -10,12 +18,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 
 import Clases.Articulos;
+import Clases.articuloGenerico;
 
 
 
@@ -27,12 +38,86 @@ public class Gestion  {
 	private String id, id_admin;
 	ArrayList<String> array_datos=new ArrayList<String>();
 	ArrayList<Articulos> array_articulosCesta=new ArrayList<Articulos>();
+	ArrayList<articuloGenerico> array_articuloGenerico=new ArrayList<articuloGenerico>();
 	boolean sesionIniciada=false;
 	boolean cliente = false;
 	String dinero_disponible;
+	//guardar en un arraylist todas las imagenes y nombre de los articulos.
+
 
 	public String getDinero_disponible() {
 		return dinero_disponible;
+	}
+	public ArrayList<articuloGenerico> getArray_articuloGenerico() {
+		return array_articuloGenerico;
+	}
+	
+	public Image guardarImagenes() throws SQLException {
+		Image image =null;
+		String nombre="";
+		try {
+//			File img = new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png");
+//			BufferedImage img2=ImageIO.read(img);
+//			ImageIO.write(img2,"png",new File("boton.png"));
+//			
+//			
+//			con = cx.getConexion();		
+//			String sql = "INSERT INTO `imagenes` (`id`, `imagen`) VALUES (NULL,"+img+")";
+//				st=(Statement) con.createStatement();
+//				resultado = st.executeQuery(sql);
+			
+			
+			
+			File img = new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png");
+			InputStream is=new FileInputStream(new File("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png"));
+			BufferedImage img2=ImageIO.read(img);
+			ImageIO.write(img2,"png",new File("boton.png"));
+			String mysqlUrl="jdbc:mysql://localhost:3306/tienda_ropa";
+			Connection con = (Connection) DriverManager.getConnection(mysqlUrl, "root", "");
+			
+			//subimos la imagen con este codigo
+//			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO imagenes VALUES(?, ?)");
+//			pstmt.setString(1, "555");
+//			InputStream in = new FileInputStream("C:\\Users\\Jorge\\eclipse-workspace\\PROYECTO 3EVALUACION\\src\\Imagenes\\btnFinalizar.png");
+//			pstmt.setBlob(2, in);
+//			pstmt.execute();
+			
+			
+			st=(Statement) con.createStatement();
+			String sql="select * from articulogenerico";
+			resultado =st.executeQuery(sql);
+			
+			while(resultado.next()) {
+				//System.out.println("hola");
+				is = resultado.getBinaryStream("imagenes");
+				image = ImageIO.read(is);
+				nombre=resultado.getString("nombre");
+				array_articuloGenerico.add(new articuloGenerico(image, nombre));
+				for (articuloGenerico art : array_articuloGenerico) {
+					System.out.println("nombre: "+art.getNombre());
+				}
+				//ImageIO.write((RenderedImage) image,"png",new File("boton2.png"));
+			}
+			con.close();
+			//falta descargar la imagen u obtenerla de la base de datos y convertirla to png.
+		} catch (IOException e) {
+
+			//System.out.println("gola");
+			e.printStackTrace();
+		}
+		return image;
+
+	}
+	public Image insertarImagen(String nombre) {
+		Image image =null;
+		for (articuloGenerico art : array_articuloGenerico) {
+			System.out.println("nombre: "+art.getNombre());
+			if(art.getNombre().equals(nombre)) {
+				image=art.getImagen();
+			}
+		}
+		return image;
+
 	}
 	public void setDinero_disponible(String dinero_disponible) {
 		this.dinero_disponible = dinero_disponible;

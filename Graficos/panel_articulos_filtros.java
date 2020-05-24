@@ -63,6 +63,14 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		this.filtro=filtro;
 		this.palabra_buscar=palabra_buscar;
 		this.gdb=gdb;
+		if(gdb.getArray_articuloGenerico().size()==0) {
+			try {
+				gdb.guardarImagenes();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
 		try {
 			if(!filtro.equals("")) {
@@ -179,7 +187,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 		panel.add(array_paneles[i]);
 		
 		array_labels[posicion_label] = new JLabel("");
-		array_labels[posicion_label].setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/"+nombre_fotos.get(i)+".jpg")));
+		System.out.println("hitler: "+nombre_fotos.get(i));
+		array_labels[posicion_label].setIcon(new ImageIcon(gdb.insertarImagen(nombre_fotos.get(i))));
 		array_labels[posicion_label].setBounds(35, 1, 175, 271);
 		array_paneles[i].add(array_labels[posicion_label]);
 		posicion_label++;

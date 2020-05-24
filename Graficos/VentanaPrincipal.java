@@ -26,6 +26,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
@@ -110,6 +111,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 	JPanel panelAsignarCategoria = new panelAsignarCategoria();
 	public VentanaPrincipal() throws Exception{
+		//gdb.borrar();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Imagenes/minilogo.png")));
 		setTitle("Model Fashion");
 		gdb.devolverStock();

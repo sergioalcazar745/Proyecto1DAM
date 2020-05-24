@@ -64,7 +64,7 @@ public class panel_Articulo extends JPanel  implements ActionListener{
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");//imagen
-		lblNewLabel.setIcon(new ImageIcon(panel_articulos_filtros.class.getResource("/fotos_articulos/"+nombre_articulo+".jpg")));
+		lblNewLabel.setIcon(new ImageIcon(gdb.insertarImagen(nombre_articulo)));
 		lblNewLabel.setBounds(185, 111, 175, 271);
 		add(lblNewLabel);
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
