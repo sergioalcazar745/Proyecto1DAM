@@ -121,7 +121,7 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 				}
 			}
 		}else if(evento.equals(crearGenerico)) {
-			if(selectedFile!=null) {
+			if(selectedFile!=null && textField_Nombre.getText()!=null && textField_precioCompra.getText()!=null && textField_precioVenta.getText()!=null) {
 				//aqui haremos las comprobaciones antes de entrar de si el nombre ya existe en la base de datos
 				if(getFileExtension(selectedFile).equalsIgnoreCase("png") || getFileExtension(selectedFile).equalsIgnoreCase("jpg")) {
 					BufferedImage bimg;
@@ -129,9 +129,10 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 						bimg = ImageIO.read(selectedFile);
 						int width= bimg.getWidth();
 						int height= bimg.getHeight();
-						if(width==176 && height==270) {
+						if(width==176 && height==270 ) {
 							//insertamos el articulogenerico
 							//System.out.println("hola");
+							if(gdb.devolverNombreGenerico(textField_Nombre.getText())==false) {
 							try {
 								gdb.insertarArticuloGenerico(selectedFile, textField_Nombre.getText(),"descripion",  textField_precioCompra.getText(),textField_precioVenta.getText());
 								if(gdb.getArray_articuloGenerico().size()!=0) {
@@ -141,7 +142,9 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-							
+							}else {
+								JOptionPane.showMessageDialog(null, "El nombre del articulo ya existe");
+							}
 						}else {
 							//System.out.println("adios");
 							JOptionPane.showMessageDialog(null, "La imagen deberá de tener una imagen de 176x270 obligatoriamente");
