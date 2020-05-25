@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
@@ -32,6 +34,7 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 	File selectedFile=null;
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
+	private JLabel lblNewLabel_2;
 	public panelAltaGenerico(Gestion gdb, conexion cnx) {
 		this.gdb=gdb;
 		this.cnx=cnx;
@@ -89,7 +92,7 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 		lblNewLabel_1.setBounds(72, 185, 344, 37);
 		add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBounds(190, 250, 176, 270);
 		add(lblNewLabel_2);
 	}
@@ -106,6 +109,16 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 			int result = file.showSaveDialog(null);
 			if(result == JFileChooser.APPROVE_OPTION) {
 				selectedFile = file.getSelectedFile();
+				if(selectedFile!=null) {
+					BufferedImage bimg=null;
+					try {
+						bimg = ImageIO.read(selectedFile);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					lblNewLabel_2.setIcon(new ImageIcon(bimg));
+				}
 			}
 		}else if(evento.equals(crearGenerico)) {
 			if(selectedFile!=null) {
@@ -131,6 +144,7 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 							
 						}else {
 							//System.out.println("adios");
+							JOptionPane.showMessageDialog(null, "La imagen deberá de tener una imagen de 176x270 obligatoriamente");
 						}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -163,5 +177,8 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 	}
 	public JTextField getTextField_precioVenta() {
 		return textField_precioVenta;
+	}
+	public JLabel getLblNewLabel_2() {
+		return lblNewLabel_2;
 	}
 }

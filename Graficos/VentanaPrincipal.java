@@ -535,7 +535,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //				//e1.printStackTrace();
 //			}
 			//remove(panel_articulos_filtros);
-			System.out.println("numeroooo:"+gdb.getArray_articuloGenerico().size());
+			//System.out.println("numeroooo:"+gdb.getArray_articuloGenerico().size());
 			if(comboBox_Filtro.getSelectedItem()==null) {
 				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", "");
 			}else{
