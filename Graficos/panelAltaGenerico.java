@@ -35,6 +35,7 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 	conexion cnx=new conexion();
 	Gestion gdb=new Gestion();
 	private JLabel lblNewLabel_2;
+	private JLabel lblDimensiones;
 	public panelAltaGenerico(Gestion gdb, conexion cnx) {
 		this.gdb=gdb;
 		this.cnx=cnx;
@@ -82,7 +83,6 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 		add(lblPrecioDeVenta);
 		
 		crearGenerico = new JButton("Crear articulo");
-		crearGenerico.addActionListener(this);
 		crearGenerico.setFont(new Font("Arial", Font.PLAIN, 16));
 		crearGenerico.setBounds(618, 413, 163, 37);
 		add(crearGenerico);
@@ -93,8 +93,14 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 		add(lblNewLabel_1);
 		
 		lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setBounds(190, 250, 176, 270);
+		lblNewLabel_2.setBounds(172, 233, 176, 270);
 		add(lblNewLabel_2);
+		
+		lblDimensiones = new JLabel("");
+		lblDimensiones.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDimensiones.setHorizontalAlignment(SwingConstants.LEFT);
+		lblDimensiones.setBounds(366, 233, 188, 25);
+		add(lblDimensiones);
 	}
 
 	@Override
@@ -117,41 +123,12 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					lblNewLabel_2.setIcon(new ImageIcon(bimg));
-				}
-			}
-		}else if(evento.equals(crearGenerico)) {
-			if(selectedFile!=null && textField_Nombre.getText()!=null && textField_precioCompra.getText()!=null && textField_precioVenta.getText()!=null) {
-				//aqui haremos las comprobaciones antes de entrar de si el nombre ya existe en la base de datos
-				if(getFileExtension(selectedFile).equalsIgnoreCase("png") || getFileExtension(selectedFile).equalsIgnoreCase("jpg")) {
-					BufferedImage bimg;
-					try {
-						bimg = ImageIO.read(selectedFile);
-						int width= bimg.getWidth();
-						int height= bimg.getHeight();
-						if(width==176 && height==270 ) {
-							//insertamos el articulogenerico
-							//System.out.println("hola");
-							if(gdb.devolverNombreGenerico(textField_Nombre.getText())==false) {
-							try {
-								gdb.insertarArticuloGenerico(selectedFile, textField_Nombre.getText(),"descripion",  textField_precioCompra.getText(),textField_precioVenta.getText());
-								if(gdb.getArray_articuloGenerico().size()!=0) {
-									gdb.añadirImagenes(bimg, textField_Nombre.getText());	
-								}
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							}else {
-								JOptionPane.showMessageDialog(null, "El nombre del articulo ya existe");
-							}
-						}else {
-							//System.out.println("adios");
-							JOptionPane.showMessageDialog(null, "La imagen deberá de tener una imagen de 176x270 obligatoriamente");
-						}
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					if(bimg!=null) {
+						lblNewLabel_2.setIcon(new ImageIcon(bimg));
+						lblDimensiones.setText("Tamaño: "+bimg.getWidth()+"x"+bimg.getHeight());
+					}else {
+						JOptionPane.showMessageDialog(null, "El formato de la imagen no es válido");
+						lblDimensiones.setText("");
 					}
 				}
 			}
@@ -163,8 +140,75 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 	        return fileName.substring(fileName.lastIndexOf(".")+1);
 	        else return "";
 	    }
+	 public boolean comprobarDouble(){
+		boolean correcto=false;
+		String numero, numero2;
+		 try {
+			 numero=textField_precioCompra.getText().replace(',', '.');
+			 numero2=textField_precioVenta.getText().replace(',', '.');
+			 textField_precioCompra.setText(numero);
+			 textField_precioVenta.setText(numero2);
+			 Double.parseDouble(numero);
+			 Double.parseDouble(numero2);
+			 correcto=true;
+		 }catch(Exception e) {
+			// e.printStackTrace();
+			 correcto=false;
+		 }
+		return correcto;
+	 }
 	public JButton getBtnSeleccionar() {
 		return btnSeleccionar;
+	}
+	public boolean crearArticulo() {
+		boolean creado=false;
+		if(selectedFile!=null && textField_Nombre.getText()!=null && textField_precioCompra.getText()!=null && textField_precioVenta.getText()!=null) {
+			//aqui haremos las comprobaciones antes de entrar de si el nombre ya existe en la base de datos
+			if(!textField_Nombre.getText().equals("")) {
+			if(getFileExtension(selectedFile).equalsIgnoreCase("png") || getFileExtension(selectedFile).equalsIgnoreCase("jpg")) {
+				BufferedImage bimg;
+				try {
+					bimg = ImageIO.read(selectedFile);
+					int width= bimg.getWidth();
+					int height= bimg.getHeight();
+					if(width==176 && height==270 ) {
+						//insertamos el articulogenerico
+						//System.out.println("hola");
+						if(gdb.devolverNombreGenerico(textField_Nombre.getText())==false) {
+							if(comprobarDouble()) {
+						try {
+							gdb.insertarArticuloGenerico(selectedFile, textField_Nombre.getText(),"descripion",  textField_precioCompra.getText(),textField_precioVenta.getText());
+							if(gdb.getArray_articuloGenerico().size()!=0) {
+								gdb.añadirImagenes(bimg, textField_Nombre.getText());	
+							}
+							JOptionPane.showMessageDialog(null, "Articulo Genérico Creado");
+							creado=true;
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+							}else {
+								JOptionPane.showMessageDialog(null, "Los precios no son validos");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "El nombre del articulo ya existe");
+						}
+					}else {
+						//System.out.println("adios");
+						JOptionPane.showMessageDialog(null, "La imagen deberá de tener un tamaño de 176x270 obligatoriamente");
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "El formato de la imagen no es válido");
+			}
+			}else {
+				JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio");
+			}
+		}
+		return creado;
 	}
 	public JFileChooser getFileChooser() {
 		return fileChooser;
@@ -178,10 +222,16 @@ public class panelAltaGenerico extends JPanel implements ActionListener{
 	public JTextField getTextField_precioCompra() {
 		return textField_precioCompra;
 	}
+	public File getSelectedFile() {
+		return selectedFile;
+	}
 	public JTextField getTextField_precioVenta() {
 		return textField_precioVenta;
 	}
 	public JLabel getLblNewLabel_2() {
 		return lblNewLabel_2;
+	}
+	public JLabel getLblDimensiones() {
+		return lblDimensiones;
 	}
 }

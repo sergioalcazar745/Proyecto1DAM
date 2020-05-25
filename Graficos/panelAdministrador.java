@@ -206,7 +206,8 @@ public class panelAdministrador extends JPanel implements ActionListener{
 		insertarDinero();
 	}
 	public void insertarArticulos(){
-		
+		//System.out.println("putaverga");
+		comboBox_Nombres.removeAllItems();
 		try {
 			con = (Connection) cx.getConexion();
 			resultado = gdb.recorrerArticuloGenerico();

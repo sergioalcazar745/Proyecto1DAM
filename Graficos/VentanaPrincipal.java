@@ -470,6 +470,20 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 			}
 		});
 
+		((Graficos.panelAltaGenerico) panelAltaGenerico).getCrearGenerico().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(((Graficos.panelAltaGenerico) panelAltaGenerico).getSelectedFile()==null) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un archivo válido");
+				}else{
+					if(((Graficos.panelAltaGenerico) panelAltaGenerico).crearArticulo()) {
+						repintarPanelFiltros();
+					}
+					((Graficos.panelAdministrador) panelAdministrador).insertarArticulos();
+				}
+			}
+		});
+
 
 
 				//((Graficos.panelMisPedidos) panelMisPedidos).insertarPedidos();
@@ -536,16 +550,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //			}
 			//remove(panel_articulos_filtros);
 			//System.out.println("numeroooo:"+gdb.getArray_articuloGenerico().size());
-			if(comboBox_Filtro.getSelectedItem()==null) {
-				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", "");
-			}else{
-				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString(), "");
-			}
-
-			scrollPane.setViewportView(panel_articulos_filtros);
-			panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
-			panel_2.revalidate();
-			panel_2.repaint();
+			repintarPanelFiltros();
 
 		}else if(evento.equals(btnCesta)) {
 			desactivarPaneles();
@@ -584,6 +589,18 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	
 	protected JButton getBtnSalir() {
 		return btnSalir;
+	}
+	public void repintarPanelFiltros() {
+		if(comboBox_Filtro.getSelectedItem()==null) {
+			panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", "");
+		}else{
+			panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, comboBox_Filtro.getSelectedItem().toString(), "");
+		}
+
+		scrollPane.setViewportView(panel_articulos_filtros);
+		panel_articulos_filtros.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_2.revalidate();
+		panel_2.repaint();
 	}
 	public void crearPanelCesta() {
 		panelCesta=new panelCesta(gdb, cnx);
