@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -51,7 +52,42 @@ public class Gestion  {
 	public ArrayList<articuloGenerico> getArray_articuloGenerico() {
 		return array_articuloGenerico;
 	}
-	
+	public void insertarArticuloGenerico(File img, String nombre,String descripcion, String precio_compra, String precio_venta) throws SQLException {
+		int numero=0;
+		descripcion="";
+		try {
+			InputStream in = new FileInputStream(img);
+			
+			String mysqlUrl="jdbc:mysql://localhost:3306/tienda_ropa";
+			Connection con = (Connection) DriverManager.getConnection(mysqlUrl, "root", "");
+			
+			String sql="select * from articulogenerico";
+					st=(Statement) con.createStatement();
+					resultado=st.executeQuery(sql);
+					if(resultado.last()) {
+						numero=Integer.parseInt(resultado.getString("id_generico"))+1;
+					}
+					
+			//subimos la imagen con este codigo
+			PreparedStatement pstmt = (PreparedStatement) con.prepareStatement("INSERT INTO articulogenerico VALUES(?, ?,?,?,?,?,?)");
+			pstmt.setString(1, String.valueOf(numero) );
+			pstmt.setString(2, nombre );
+			pstmt.setString(3, descripcion );
+			pstmt.setString(4, precio_compra );
+			pstmt.setString(5, precio_venta );
+			pstmt.setString(6, "33" );
+			pstmt.setBlob(7, in);
+			pstmt.execute();
+			//System.out.println("insertado");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public void añadirImagenes(Image img, String nombre) {
+		array_articuloGenerico.add(new articuloGenerico(img, nombre));
+	}
 	public Image guardarImagenes() throws SQLException {
 		Image image =null;
 		String nombre="";
@@ -94,9 +130,6 @@ public class Gestion  {
 				image = ImageIO.read(is);
 				nombre=resultado.getString("nombre");
 				array_articuloGenerico.add(new articuloGenerico(image, nombre));
-				for (articuloGenerico art : array_articuloGenerico) {
-					System.out.println("nombre: "+art.getNombre());
-				}
 				//ImageIO.write((RenderedImage) image,"png",new File("boton2.png"));
 			}
 			con.close();
@@ -112,7 +145,6 @@ public class Gestion  {
 	public Image insertarImagen(String nombre) {
 		Image image =null;
 		for (articuloGenerico art : array_articuloGenerico) {
-			System.out.println("nombre: "+art.getNombre());
 			if(art.getNombre().equals(nombre)) {
 				image=art.getImagen();
 			}

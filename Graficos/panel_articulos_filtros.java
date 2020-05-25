@@ -49,8 +49,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	JPanel panel_Articulo;
 	ArrayList<String> nombre_fotos = new ArrayList<String>();
 	Gestion gdb;
-	JPanel [] array_paneles = new JPanel[20];//el numero maximo de objetos que tenemso
-	JLabel [] array_labels = new JLabel[80];//3 label por aticulo
+	JPanel [] array_paneles;//= new JPanel[20];//el numero maximo de objetos que tenemso
+	JLabel [] array_labels;//= new JLabel[60];//3 label por aticulo
 	int posicion_label=0;
 	String precio = null;
 	float numero_filas=0;
@@ -60,6 +60,8 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 	 ** Create the panel.
 	 */
 	public panel_articulos_filtros(Gestion gdb, conexion conx, String filtro, String palabra_buscar) {
+		int numero=0;
+		
 		this.filtro=filtro;
 		this.palabra_buscar=palabra_buscar;
 		this.gdb=gdb;
@@ -71,11 +73,16 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				e.printStackTrace();
 			}
 		}
+		numero=gdb.getArray_articuloGenerico().size();
+		//System.out.println("numero: "+numero);
+		array_paneles=new JPanel[numero];
+		array_labels=new JLabel[numero*3];
 		ArrayList<String> nombre_fotos_aux = new ArrayList<String>();
 		try {
 			if(!filtro.equals("")) {
 				nombre_fotos=gdb.devolverArticulosDeCategoria(filtro);
 			}else {
+				
 				nombre_fotos=gdb.recorrerArticuloGenericoString();
 				// cuando pulsa enter hacemos una limpiza.
 				if(!palabra_buscar.equals("")) {//si palabra buscar esta rellena es que busca por la palabra y no por la categoria
@@ -260,7 +267,13 @@ public class panel_articulos_filtros extends JPanel implements MouseListener{
 				}
 				panel.setPreferredSize(new Dimension(825, 433*(int)numero_filas));
 		}else{
-			panel.setPreferredSize(new Dimension(825, 3031));
+			int filas=gdb.getArray_articuloGenerico().size();
+			if(filas%3 == 0) {
+				filas=filas/3;
+			}else {
+				filas=(filas/3)+1;
+			}
+			panel.setPreferredSize(new Dimension(825, 433*filas));//3031
 		}
 		panel.setBackground(Color.WHITE);
 		add(panel);

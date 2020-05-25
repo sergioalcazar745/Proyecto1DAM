@@ -101,7 +101,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JScrollPane scrollPane_Cesta;
 	private panelCesta panelCesta_1;
 	private JPanel panelOferta = new panelOferta();
-	private JPanel panelAltaGenerico = new panelAltaGenerico();
+	private JPanel panelAltaGenerico = new panelAltaGenerico(gdb, cnx);
 	private JButton btnVaciar;
 	private JLabel lblNewLabel_3 = new JLabel("");
 	private JButton btnFinalizarComprar = new JButton("");
@@ -289,7 +289,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		panelOferta.setName("panelOferta");
 		tabbedPane.addTab("Oferta", null, panelOferta, null);
 		
-		panelAltaGenerico = new panelAltaGenerico();
+		panelAltaGenerico = new panelAltaGenerico(gdb, cnx);
 		tabbedPane.addTab("Alta", null, panelAltaGenerico, null);
 		
 		resultado=gdb.recorrerCategorias();
@@ -535,7 +535,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //				//e1.printStackTrace();
 //			}
 			//remove(panel_articulos_filtros);
-			
+			System.out.println("numeroooo:"+gdb.getArray_articuloGenerico().size());
 			if(comboBox_Filtro.getSelectedItem()==null) {
 				panel_articulos_filtros=new panel_articulos_filtros(gdb, cnx, "", "");
 			}else{
