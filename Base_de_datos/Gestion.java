@@ -1370,4 +1370,25 @@ public class Gestion  {
 			}        	
 		}      
 	}
+	
+	public boolean devolverNombreGenerico(String nombre) {
+		boolean existe = false;
+		
+		String sql = "SELECT nombre FROM articulogenerico";
+
+        try {
+            st=(Statement) con.createStatement();
+            resultado = st.executeQuery(sql);            
+            while(resultado.next()) {
+            	if(nombre.equalsIgnoreCase(resultado.getString("nombre"))) {
+            		existe = true;
+            	}
+            }
+        } catch (SQLException e) {
+            System.out.println("Fallo al buscar articulogenerico");
+            //e.printStackTrace();
+        }
+		
+		return existe;
+	}
 }
