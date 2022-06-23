@@ -1,2 +1,3 @@
 # PROYECTO-3-EVALUACION
-VAMOS COÑO
+
+Tienda de ropa en JAVA con Windows Builder y MySQL
